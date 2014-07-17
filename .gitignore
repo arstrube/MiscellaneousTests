@@ -1,0 +1,10 @@
+*.stackdump
+*.depend
+*.layout
+*.7z
+*.exe
+/out
+/OrderedRepeatedTests
+/OutParamTests
+/SeparateProcessTests
+/CountedTestTests
