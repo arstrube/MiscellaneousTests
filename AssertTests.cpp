@@ -28,15 +28,14 @@ X_DEFINE_THIS_MODULE("AssertTests")
 void X_onAssert(char const * const file, int line)
 {
     mock().actualCall("X_onAssert").withParameter("file", file).withParameter("line", line);
-    fprintf(stderr, "Assertion failed in %s, line %d", file, line);
+    fprintf(stderr, "\nAssertion failed in %s, id %d\n", file, line);
     fflush(stdout);
-    FAIL("");
 }
 
 void functionToTest(char * ptr)
 {
     X_ASSERT_ID(1, 0 != ptr);
-    ptr[1] = 0;
+    *ptr = 0;
 }
 
 TEST_GROUP(Group)
