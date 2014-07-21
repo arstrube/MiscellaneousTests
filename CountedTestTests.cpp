@@ -11,11 +11,6 @@ extern "C"
 
 static int testsRun = 0;
 
-static void preTestrunAction(void)
-{
-    testsRun = 0;
-}
-
 TEST_GROUP(Group1)
 {
     void setup()
@@ -71,12 +66,13 @@ TEST_GROUP(VerifyNumberOfTests)
 TEST_ORDERED(VerifyNumberOfTests, VerifyNumber_Order9999, 9999)
 {
     testsRun++;
+    int repeats = TestRegistry::getCurrentRegistry()->getCurrentRepetition();
+    if(repeats) testsRun/=(++repeats);
     LONGS_EQUAL(TOTAL_NUMBER_OF_TESTS, testsRun)
 }
 
 int main(int ac, char** av)
 {
-    UT_PRETESTRUNACTION_SET(preTestrunAction);
 	return CommandLineTestRunner::RunAllTests(ac, av);
 }
 
