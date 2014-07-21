@@ -1,0 +1,1 @@
+int private (int new);
