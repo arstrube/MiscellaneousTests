@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="FloatTests.cbp" />
+		<Project filename="PureCTests.cbp" />
+		<Project filename="../../05_CppUTest/CppUTest.cbp" active="1" />
+	</Workspace>
+</CodeBlocks_workspace_file>
