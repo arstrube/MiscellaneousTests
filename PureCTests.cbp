@@ -11,6 +11,7 @@
 				<Option object_output="out\Debug\" />
 				<Option type="1" />
 				<Option compiler="cygwin" />
+				<Option parameters="-v" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
