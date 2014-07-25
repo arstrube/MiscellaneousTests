@@ -3,31 +3,31 @@
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTest/PlatformSpecificFunctions.h"
 
-extern "C" 
+extern "C"
 {
 }
 
-struct Data 
+struct Data
 {
     Data(int value) : value_(value) {}
     int value_;
 };
 
-void Callee_setData(Data* data, size_t size) 
+void Callee_setData(Data* data, size_t size)
 {
 	mock().actualCall("Callee_setData")
 	      .withOutputParameter("data", data)
           .withParameter("size", size);
 }
 
-int Caller_getData(void) 
+int Caller_getData(void)
 {
     Data data(0);
     Callee_setData(&data, sizeof(Data));
     return data.value_;
 }
 
-class Data_Comparator : public MockNamedValueComparator 
+class Data_Comparator : public MockNamedValueComparator
 {
 public:
 	virtual bool isEqual(const void* object1, const void* object2)
@@ -42,7 +42,7 @@ public:
 
 static Data_Comparator cmp;
 
-SimpleString StringFrom(const Data d) 
+SimpleString StringFrom(const Data d)
 {
 	SimpleString result;
 	result = SimpleString("\n value_: ") + StringFrom(d.value_);
@@ -53,7 +53,7 @@ TEST_GROUP(Caller_getData)
 {
 };
 
-TEST(Caller_getData, withOutputParameter_noSize) 
+TEST(Caller_getData, withOutputParameter_noSize)
 {
 	const int expected = 17;
 	int actual;
@@ -61,7 +61,7 @@ TEST(Caller_getData, withOutputParameter_noSize)
 	mock().installComparator("Data*", cmp);
 	mock().expectOneCall("Callee_setData")
           .withOutputParameterReturning("data", (void*)&data, sizeof(data))
-	      .withParameter("size", sizeof(Data));	
+	      .withParameter("size", sizeof(Data));
 	actual = Caller_getData();
 	LONGS_EQUAL(expected, actual);
 	mock().checkExpectations();
@@ -69,8 +69,34 @@ TEST(Caller_getData, withOutputParameter_noSize)
 	mock().clear();
 }
 
+TEST_GROUP(IOParameter)
+{
+    void teardown()
+    {
+        mock().checkExpectations();
+        mock().clear();
+    }
+};
+TEST(IOParameter, ChangeCharInPlace)
+{
+    char before[] = "abcde";
+    const char after[]  = "edcga";
+    mock().expectOneCall("foo").withOutputParameterReturning("bar", after, sizeof(char)*5);
+    mock().actualCall("foo").withOutputParameter("bar", before);
+    STRCMP_EQUAL(before, "edcga");
+    STRCMP_EQUAL(after, "edcga");
+}
+TEST(IOParameter, ChangeIntInPlace)
+{
+    int before[] = {1,2,3,4,5};
+    const int after[]  = {5,4,3,2,1};
+    mock().expectOneCall("foo").withOutputParameterReturning("bar", after, sizeof(int)*5);
+    mock().actualCall("foo").withOutputParameter("bar", before);
+    for(int i=0; i<5; i++) LONGS_EQUAL(after[i], before[i]);
+}
+
 int main(int ac, char** av)
 {
-	return CommandLineTestRunner::RunAllTests(ac, av);
+	return RUN_ALL_TESTS(ac, av);
 }
 
