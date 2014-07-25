@@ -69,7 +69,7 @@ TEST(Caller_getData, withOutputParameter_noSize)
 	mock().clear();
 }
 
-TEST_GROUP(IOParameter)
+TEST_GROUP(OutputParameter)
 {
     void teardown()
     {
@@ -77,22 +77,21 @@ TEST_GROUP(IOParameter)
         mock().clear();
     }
 };
-TEST(IOParameter, ChangeCharInPlace)
+TEST(OutputParameter, ChangeCharArrayInPlace)
 {
     char before[] = "abcde";
-    const char after[]  = "edcga";
+    const char after[] = "edcga";
     mock().expectOneCall("foo").withOutputParameterReturning("bar", after, sizeof(char)*5);
     mock().actualCall("foo").withOutputParameter("bar", before);
     STRCMP_EQUAL(before, "edcga");
-    STRCMP_EQUAL(after, "edcga");
 }
-TEST(IOParameter, ChangeIntInPlace)
+TEST(OutputParameter, ChangeIntArrayInPlace)
 {
-    int before[] = {1,2,3,4,5};
-    const int after[]  = {5,4,3,2,1};
+    int before[] = {5,4,3,2,1};
+    const int after[] = {1,2,3,4,5};
     mock().expectOneCall("foo").withOutputParameterReturning("bar", after, sizeof(int)*5);
     mock().actualCall("foo").withOutputParameter("bar", before);
-    for(int i=0; i<5; i++) LONGS_EQUAL(after[i], before[i]);
+    for(int i=0; i<5; i++) LONGS_EQUAL(i+1, before[i]);
 }
 
 int main(int ac, char** av)
