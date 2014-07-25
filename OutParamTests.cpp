@@ -93,6 +93,18 @@ TEST(OutputParameter, ChangeIntArrayInPlace)
     mock().actualCall("foo").withOutputParameter("bar", before);
     for(int i=0; i<5; i++) LONGS_EQUAL(i+1, before[i]);
 }
+TEST(OutputParameter, IntIOParameter)
+{
+    int before = 783;
+    const int after = -5809;
+    mock().expectOneCall("foo")
+          .withParameter("bar", (int)before)
+          .withOutputParameterReturning("bar", &after, sizeof(int));
+    mock().actualCall("foo")
+         .withParameter("bar", before)
+         .withOutputParameter("bar", &before);
+    LONGS_EQUAL(after, before);
+}
 
 int main(int ac, char** av)
 {
