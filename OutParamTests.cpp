@@ -106,6 +106,33 @@ TEST(OutputParameter, IntIOParameter)
     LONGS_EQUAL(after, before);
 }
 
+/** Gavin Lambert's example (@uecasm) */
+
+#include <stdint.h>
+
+uint16_t my_function(uint8_t x, uint16_t *y)
+{
+    MockActualCall& call = mock().actualCall("my_function")
+        .withParameter("x", x)
+        .withParameter("y", *y);
+    if (y) { call.withOutputParameter("y", y); }
+    return call.returnUnsignedIntValue();
+}
+TEST(OutputParameter, test_my_function)
+{
+    uint16_t result;
+    uint16_t before = 33;
+    const uint16_t after = 777;
+    mock().expectOneCall("my_function")
+          .withParameter("x", 3)
+          .withParameter("y", before)
+          .withOutputParameterReturning("y", &after, sizeof(before))
+          .andReturnValue(0u);
+    result = my_function(3, &before);
+    LONGS_EQUAL(after, before);
+    LONGS_EQUAL(0, result);
+}
+
 int main(int ac, char** av)
 {
 	return RUN_ALL_TESTS(ac, av);
