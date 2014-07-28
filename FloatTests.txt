@@ -1,0 +1,9 @@
+Float value  Integer         Sign  Exponent  Mantissa
+             representation        field     field
+
+Positive     0x7f800000      0     255       0
+infinity
+ 
+NaN          0x????????      0     255       1 (non-zero)      
+ 
+e.g. NaN     0x7FFFFFFF

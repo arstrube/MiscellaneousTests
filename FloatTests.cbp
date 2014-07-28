@@ -30,6 +30,7 @@
 			<Add directory="E:\CppUTest\lib" />
 		</Linker>
 		<Unit filename="FloatTests.cpp" />
+		<Unit filename="FloatTests.txt" />
 		<Unit filename="README" />
 		<Extensions>
 			<code_completion />
