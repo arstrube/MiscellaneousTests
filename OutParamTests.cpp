@@ -113,9 +113,11 @@ TEST(OutputParameter, IntIOParameter)
 uint16_t my_function(uint8_t x, uint16_t *y)
 {
     MockActualCall& call = mock().actualCall("my_function")
-        .withParameter("x", x)
-        .withParameter("y", *y);
-    if (y) { call.withOutputParameter("y", y); }
+        .withParameter("x", x);
+    if (y) { 
+        call.withParameter("y", *y);
+        call.withOutputParameter("y", y);
+    }
     return call.returnUnsignedIntValue();
 }
 TEST(OutputParameter, test_my_function)
@@ -130,6 +132,15 @@ TEST(OutputParameter, test_my_function)
           .andReturnValue(0u);
     result = my_function(3, &before);
     LONGS_EQUAL(after, before);
+    LONGS_EQUAL(0, result);
+}
+TEST(OutputParameter, test_my_function_with_NULL)
+{
+    uint16_t result;
+    mock().expectOneCall("my_function")
+          .withParameter("x", 3)
+          .andReturnValue(0u);
+    result = my_function(3, NULL);
     LONGS_EQUAL(0, result);
 }
 
