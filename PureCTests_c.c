@@ -2,11 +2,11 @@
 #include "CppUTest/TestHarness_c.h"
 #include "CppUtestExt/MockSupport_c.h"
 
-/** Mock for internal function */
+/** Mock for function internal() */
 int internal(int new) 
 {
     mock_c()->actualCall("internal")
-        ->withIntParameters("new", new);
+            ->withIntParameters("new", new);
     return mock_c()->returnValue().value.intValue;
 }
 
@@ -16,7 +16,7 @@ int private (int new)
     return internal(new);
 }
 
-/** Setup and Teardown per test group */
+/** Setup and Teardown per test group (optional) */
 TEST_GROUP_C_SETUP(mygroup)
 {
 }
@@ -45,4 +45,3 @@ TEST_C(mygroup, test_equalfailure)
     int actual = private(5);
     CHECK_EQUAL_C_INT(5, actual);
 }
-
