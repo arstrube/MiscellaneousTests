@@ -1,4 +1,4 @@
-#include "PureCTests_c.h"
+#include "PureCTests_c.h" /** the offending C header */
 #include "CppUTest/TestHarness_c.h"
 #include "CppUtestExt/MockSupport_c.h"
 
@@ -10,7 +10,7 @@ int internal(int new)
     return mock_c()->returnValue().value.intValue;
 }
 
-/** Function to test */
+/** Implementation of function to test */
 int private (int new)
 {
     return internal(new);
