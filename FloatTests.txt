@@ -7,3 +7,60 @@ infinity
 NaN          0x????????      0     255       1 (non-zero)      
  
 e.g. NaN     0x7FFFFFFF
+
+
+Other code...
+
+#if 0
+void TestFunction()
+{
+    Float_t num(1.0f);
+    num.i -= 1;
+    printf("Float value, representation, sign, exponent, mantissa\n");
+    for (;;)
+    {
+        // Breakpoint here.
+        printf("%1.8e, 0x%08X, %d, %d, 0x%06X\n";,
+            num.f, num.i,
+            num.parts.sign, num.parts.exponent, num.parts.mantissa);
+    }
+}
+#endif
+#if 0
+bool AlmostEqualRelative(float A, float B, float maxRelDiff)
+{
+    // Calculate the difference.
+    float diff = fabs(A - B);
+    A = fabs(A);
+    B = fabs(B);
+    // Find the largest
+    float largest = (B &gt; A) ? B : A;
+
+    if (diff &lt;= largest * maxRelDiff)
+        return true;
+    return false;
+}
+
+bool AlmostEqualUlps(float A, float B, int maxUlpsDiff)
+{
+    Float_t uA(A);
+    Float_t uB(B);
+
+    // Different signs means they do not match.
+    if (uA.Negative() != uB.Negative())
+    {
+        // Check for equality to make sure +0==-0
+        if (A == B)
+            return true;
+        return false;
+    }
+
+    // Find the difference in ULPs.
+    int ulpsDiff = abs(uA.i - uB.i);
+    if (ulpsDiff &lt;= maxUlpsDiff)
+        return true;
+
+    return false;
+}
+
+#endif
