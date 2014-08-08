@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="../../05_CppUTest/CppUTest.cbp" active="1" />
+		<Project filename="../../05_CppUTest/CppUTest.cbp" />
 		<Project filename="AssertTests.cbp" />
 		<Project filename="CountedTestTests.cbp" />
 		<Project filename="FloatTests.cbp" />
@@ -11,5 +11,6 @@
 		<Project filename="SeparateProcessTests.cbp" />
 		<Project filename="SimpleTypesTests.cbp" />
 		<Project filename="StrStrTests.cbp" />
+		<Project filename="FabsTests.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>

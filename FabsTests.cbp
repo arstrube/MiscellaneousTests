@@ -2,13 +2,14 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="StrStrTests" />
+		<Option title="FabsTests" />
 		<Option pch_mode="2" />
 		<Option compiler="cygwin" />
 		<Build>
 			<Target title="Debug">
 				<Option output="$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
 				<Option object_output="out\Debug\" />
+				<Option external_deps="..\..\05_CppUTest\cpputest\lib\libCppUTest.a;..\..\05_CppUTest\cpputest\lib\libCppUTestExt.a;" />
 				<Option type="1" />
 				<Option compiler="cygwin" />
 				<Compiler>
@@ -29,11 +30,13 @@
 		<Linker>
 			<Add directory="E:\CppUTest\lib" />
 		</Linker>
+		<Unit filename="FabsTests.cpp" />
 		<Unit filename="README" />
-		<Unit filename="StrStrTests.cpp" />
 		<Extensions>
 			<code_completion />
-			<debugger />
+			<debugger>
+				<search_path add="C:\_dev\06_Faking\MiscellaneousTests\" />
+			</debugger>
 			<envvars />
 		</Extensions>
 	</Project>
