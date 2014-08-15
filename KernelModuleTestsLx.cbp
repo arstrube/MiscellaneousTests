@@ -22,13 +22,19 @@
 				<Linker>
 					<Add library="CppUTest" />
 					<Add library="CppUTestExt" />
-					<Add directory="E:/CppUTest/lib" />
+					<Add library="KernelModule/KernelModule.o" />
 				</Linker>
+				<ExtraCommands>
+					<Add before="cd KernelModule &amp;&amp; make &amp;&amp; cd .." />
+					<Add after="./$(PROJECT_NAME)" />
+					<Mode after="always" />
+				</ExtraCommands>
 			</Target>
 		</Build>
 		<Unit filename="KernelModule/KernelModule.c">
 			<Option compilerVar="CC" />
 			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
 		<Unit filename="KernelModule/KernelModule.h" />
 		<Unit filename="KernelModule/Makefile" />
