@@ -1,3 +1,5 @@
+/** KernelModuleTests.cpp */
+
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
 #include "KernelModule.h"
