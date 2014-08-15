@@ -30,11 +30,13 @@
 		<Linker>
 			<Add directory="E:\CppUTest\lib" />
 		</Linker>
-		<Unit filename="KernelModule.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="KernelModule.h" />
 		<Unit filename="KernelModuleTests.cpp" />
+		<Unit filename="KernelModule\KernelModule.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+		</Unit>
+		<Unit filename="KernelModule\KernelModule.h" />
+		<Unit filename="KernelModule\Makefile" />
 		<Unit filename="README" />
 		<Extensions>
 			<code_completion />
