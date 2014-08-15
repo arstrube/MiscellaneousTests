@@ -7,6 +7,9 @@
 extern "C" {
 }
 
+
+
+
 TEST_GROUP(KernelModule) {};
 
 TEST(KernelModule, Init)
