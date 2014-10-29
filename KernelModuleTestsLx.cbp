@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="KernelTestsLx" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option object_output="out/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-Werror" />
+					<Add directory="/usr/local/include" />
+					<Add directory="/usr/src/linux/include" />
+				</Compiler>
+				<Linker>
+					<Add library="CppUTest" />
+					<Add library="CppUTestExt" />
+					<Add library="KernelModule/KernelModule.o" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="cd KernelModule &amp;&amp; make &amp;&amp; cd .." />
+					<Add after="./$(PROJECT_NAME)" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Unit filename="KernelModule/KernelModule.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="KernelModule/KernelModule.h" />
+		<Unit filename="KernelModule/Makefile" />
+		<Unit filename="KernelModuleTests.cpp" />
+		<Unit filename="README" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
