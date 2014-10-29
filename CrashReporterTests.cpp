@@ -1,8 +1,16 @@
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
-#include <signal.h>
 #include <cstdio>
-
+#if 0
+ #include <signal.h>
+ #define RAISE(a) raise(a)
+ #define DIVISION_BY_ZERO { int a = 10; int b = 0; a = a/b; }
+ #define ACCESS_VIOLATION { *(int*)NULL = 0; }
+#else
+ #define RAISE(a) {}
+ #define DIVISION_BY_ZERO {}
+ #define ACCESS_VIOLATION {}
+#endif
 static auto runCount = 1u;
 
 TEST_GROUP(CrashReporter)
@@ -12,32 +20,32 @@ TEST_GROUP(CrashReporter)
   * so only exectute one of these tests for each run.
   * Will not work with -p.
   */
-TEST(CrashReporter, SIGABRT) {
-    if(1 == runCount) raise(SIGABRT);
+TEST(CrashReporter, canCatchSIGABRT) {
+    if(1 == runCount) RAISE(SIGABRT);
 }
-TEST(CrashReporter, SIGFPE) {
-    if(2 == runCount) raise(SIGFPE);
+TEST(CrashReporter, canCatchSIGFPE) {
+    if(2 == runCount) RAISE(SIGFPE);
 }
-TEST(CrashReporter, SIGILL) {
-    if(3 == runCount) raise(SIGILL);
+TEST(CrashReporter, canCatchSIGILL) {
+    if(3 == runCount) RAISE(SIGILL);
 }
-TEST(CrashReporter, SIGINT) {
-    if(4 == runCount) raise(SIGINT);
+TEST(CrashReporter, canCatchSIGINT) {
+    if(4 == runCount) RAISE(SIGINT);
 }
-TEST(CrashReporter, SIGSEGV) {
-    if(5 == runCount) raise(SIGSEGV);
+TEST(CrashReporter, canCatchSIGSEGV) {
+    if(5 == runCount) RAISE(SIGSEGV);
 }
-TEST(CrashReporter, SIGTERM) {
-    if(6 == runCount) raise(SIGTERM);
+TEST(CrashReporter, canCatchSIGTERM) {
+    if(6 == runCount) RAISE(SIGTERM);
 }
-TEST(CrashReporter, DIVISION_BY_ZERO) {
-    if(7 == runCount) { int a = 10; int b = 0; a = a/b; }
+TEST(CrashReporter, canCatchDIVISION_BY_ZERO) {
+    if(7 == runCount) DIVISION_BY_ZERO;
 }
-TEST(CrashReporter, ACCESS_VIOLATION) {
-    if(1 == runCount) { *(int*)NULL = 0; }
+TEST(CrashReporter, canCatchACCESS_VIOLATION) {
+    if(8 == runCount) ACCESS_VIOLATION
 }
 #define MAX_TESTS 9u
-TEST(CrashReporter, TOO_MAN_TEST_RUNS) {
+TEST(CrashReporter, TOO_MANY_TEST_RUNS) {
     if(MAX_TESTS < runCount) FAIL("Too many test runs");;
 }
 
