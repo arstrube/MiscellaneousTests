@@ -11,23 +11,22 @@
 				<Option object_output="out\Debug\" />
 				<Option type="1" />
 				<Option compiler="cygwin" />
-				<Option parameters="-p" />
+				<Option parameters=" -v -p" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
-				<Linker>
-					<Add library="CppUTest" />
-					<Add library="CppUTestExt" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-Werror" />
 			<Add directory="E:\CppUTest\include" />
 		</Compiler>
 		<Linker>
+			<Add library="CppUTest" />
+			<Add library="CppUTestExt" />
 			<Add directory="E:\CppUTest\lib" />
 		</Linker>
 		<Unit filename="CrashReporterTests.cpp" />
