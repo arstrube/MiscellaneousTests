@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <signal.h>
 
 int
 main(int argc, char *argv[])
@@ -20,9 +21,15 @@ main(int argc, char *argv[])
         if (argc == 1)
             pause();                  /* Wait for signals */
         int arg = atoi(argv[1]);
-        switch(arg) {
-            case -1 : { int a=10, b=0; a=a/b; break; }
-            case -2 : { *(int*)0=0; break; }
+        switch(arg) {            /* Raise specific signal */
+            case -1: { raise(SIGABRT); break; }
+            case -2: { raise(SIGFPE);  break; }
+            case -3: { raise(SIGILL);  break; } 
+            case -4: { raise(SIGINT);  break; }
+            case -5: { raise(SIGSEGV); break; }
+            case -6: { raise(SIGTERM); break; }
+            case -7: { *(int*)0=0;     break; }
+            case -8: { int a=0;a=a/a; break; }
         }
         _exit(arg);
 
@@ -39,7 +46,7 @@ main(int argc, char *argv[])
             } else if (WIFSIGNALED(status)) {
                 #ifdef WCOREDUMP
                 if (WCOREDUMP(status))
-                    printf("killed with coredump by signal %d\n", WTERMSIG(status));
+                    printf("coredump, killed by signal %d\n", WTERMSIG(status));
                 else
                 #endif
                     printf("killed by signal %d\n", WTERMSIG(status));
@@ -49,6 +56,7 @@ main(int argc, char *argv[])
                 printf("continued\n");
             }
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+        
         exit(EXIT_SUCCESS);
     }
 }

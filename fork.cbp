@@ -14,8 +14,6 @@
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
-				<Linker>
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
@@ -23,10 +21,10 @@
 			<Add option="-Wall" />
 			<Add option="-Werror" />
 		</Compiler>
-		<Linker>
-		</Linker>
-		<Unit filename="fork.c" />
 		<Unit filename="README" />
+		<Unit filename="fork.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />
