@@ -5,9 +5,7 @@
 #define DOUBLES_LT(a, b) { doubles_should( a< b , make_text(a, "LT", b)); }
 //... etc.
 
-SimpleString make_text(double a, SimpleString op, double b) {
-    return StringFrom(a) + " not " + op + " " + StringFrom(b);
-}
+#define make_text(a, op, b) StringFrom(a) + " not " + op + " " + StringFrom(b)
 
 void doubles_should (bool t, SimpleString text) {
     if(!t) FAIL(text.asCharString());
