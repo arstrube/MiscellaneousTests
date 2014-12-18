@@ -8,11 +8,22 @@
 #define make_text(a, operator, b) SimpleString(StringFrom(a) + " is not " + operator + " " + StringFrom(b))
 #define doubles_should(cond, text) if(!(cond)) FAIL(text.asCharString());
 
-TEST_GROUP(DOUBLE_LT) {};
+TEST_GROUP(DoubleComparisons) {};
 
-TEST(DOUBLE_LT, test_0p6_lt_0p5) {
-    DOUBLES_GE(0.5, 0.0f);
-    DOUBLES_LT(0.6, 0.5f);
+TEST(DoubleComparisons, test_0p5_lt_05) {
+    DOUBLES_GE(0.5, 0.0); DOUBLES_LT(0.5, 0.5);
+}
+
+TEST(DoubleComparisons, test_0p3_lt_0p5) {
+    DOUBLES_GE(0.3, 0.0); DOUBLES_LT(0.3, 0.5);
+}
+
+TEST(DoubleComparisons, test_negative) {
+    DOUBLES_GE(-0.0001, 0.0); DOUBLES_LT(-0.0001, 0.5);
+}
+
+TEST(DoubleComparisons, test_zero) {
+    DOUBLES_GE(-0.0, 0.0); DOUBLES_LT(-0.0, 0.5);
 }
 
 int main(int ac, char** av)
