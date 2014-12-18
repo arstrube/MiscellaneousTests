@@ -1,15 +1,12 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
-#define DOUBLES_GE(a, b) { doubles_should( a>=b , make_text(a, "GE", b)); }
-#define DOUBLES_LT(a, b) { doubles_should( a< b , make_text(a, "LT", b)); }
+#define DOUBLES_GE(a, b) doubles_should( a>=b , make_text(a, "GE", b));
+#define DOUBLES_LT(a, b) doubles_should( a< b , make_text(a, "LT", b));
 //... etc.
 
-#define make_text(a, op, b) StringFrom(a) + " not " + op + " " + StringFrom(b)
-
-void doubles_should (bool t, SimpleString text) {
-    if(!t) FAIL(text.asCharString());
-}
+#define make_text(a, operator, b) SimpleString(StringFrom(a) + " is not " + operator + " " + StringFrom(b))
+#define doubles_should(cond, text) if(!(cond)) FAIL(text.asCharString());
 
 TEST_GROUP(DOUBLE_LT) {};
 
