@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="DoubleLTTests" />
+		<Option title="DoublesCmpTests" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -43,7 +43,7 @@
 			<Add option="-Wall" />
 			<Add option="-Werror" />
 		</Compiler>
-		<Unit filename="DoubleLTTests.cpp" />
+		<Unit filename="DoublesCmpTests.cpp" />
 		<Unit filename="README" />
 		<Extensions>
 			<code_completion />
