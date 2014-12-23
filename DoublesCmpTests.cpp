@@ -10,7 +10,7 @@
 
 TEST_GROUP(DoubleComparisons) {};
 
-TEST(DoubleComparisons, test_0p5_lt_05) {
+TEST(DoubleComparisons, test_0p5_lt_0p5) {
     DOUBLES_GE(0.5, 0.0); DOUBLES_LT(0.5, 0.5);
 }
 
