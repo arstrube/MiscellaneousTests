@@ -4,9 +4,10 @@
 *.layout
 *.7z
 *.exe
+/CountedTestTests
+/LinkTimeSubstTests
 /out
 /OrderedRepeatedTests
 /OutParamTests
 /SeparateProcessTests
-/CountedTestTests
 /SimpleTypesTests
