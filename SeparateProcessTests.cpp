@@ -28,6 +28,7 @@ TEST(Separate_Process, thisTestCrashesAlso)
 {
 	Data* data = NULL;
 	data->value_ = 15;
+	LONGS_EQUAL(15, data->value_);
 }
 
 TEST(Separate_Process, STRCMP_EQUAL_CrashesWithNULL)
