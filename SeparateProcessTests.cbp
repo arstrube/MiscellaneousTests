@@ -10,7 +10,8 @@
 				<Option output="$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
 				<Option object_output="out/Debug/" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="cygwin" />
+				<Option parameters="-v -p" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="E:/CppUTest/include" />
@@ -18,6 +19,7 @@
 				<Linker>
 					<Add library="CppUTest" />
 					<Add library="CppUTestExt" />
+					<Add library="pthread" />
 					<Add directory="E:/CppUTest/lib" />
 				</Linker>
 			</Target>
