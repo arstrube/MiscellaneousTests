@@ -4,19 +4,37 @@
 	<Project>
 		<Option title="SeparateProcess" />
 		<Option pch_mode="2" />
-		<Option compiler="cygwin" />
+		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
 				<Option output="$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
-				<Option object_output="out\Debug\" />
+				<Option object_output="out/Debug/" />
 				<Option type="1" />
-				<Option compiler="cygwin" />
+				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="E:/CppUTest/include" />
 				</Compiler>
 				<Linker>
 					<Add library="CppUTest" />
 					<Add library="CppUTestExt" />
+					<Add directory="E:/CppUTest/lib" />
+				</Linker>
+			</Target>
+			<Target title="Debug.Mac">
+				<Option output="$(PROJECT_NAME).app" prefix_auto="1" extension_auto="0" />
+				<Option object_output="out/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="-v -p ;exit" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="/Users/arnd/d/dev/05_CppUTest/cpputest/include" />
+				</Compiler>
+				<Linker>
+					<Add library="CppUTest" />
+					<Add library="CppUTestExt" />
+					<Add directory="/Users/arnd/d/dev/05_CppUTest/cpputest/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -24,16 +42,13 @@
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-Werror" />
-			<Add directory="E:\CppUTest\include" />
 		</Compiler>
-		<Linker>
-			<Add directory="E:\CppUTest\lib" />
-		</Linker>
 		<Unit filename="README" />
 		<Unit filename="SeparateProcessTests.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
