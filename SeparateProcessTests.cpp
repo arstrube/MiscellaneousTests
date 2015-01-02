@@ -19,6 +19,7 @@ TEST(Separate_Process, thisTestIsStillRunAndSucceeds)
 {
     LONGS_EQUAL(1, 1);
 }
+
 TEST(Separate_Process, thisTestIsStillRunAndFails)
 {
     LONGS_EQUAL(3, 1);
