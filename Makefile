@@ -1,8 +1,15 @@
+LIBDIRS = -LE:/CppUTest/lib
+LIBS = -lCppUTest -lCppUTestExt
+CC = g++
+CFLAGS = -Wextra -Wall -Werror -g
+
+.PHONY: all clean
+
 MockReturningStructTests: MockReturningStructTests.o
-	g++ -LE:/CppUTest/lib -o MockReturningStructTests.exe MockReturningStructTests.o -lCppUTest -lCppUTestExt
+	$(CC) $(LIBDIRS) -o MockReturningStructTests.exe MockReturningStructTests.o $(LIBS)
 
 MockReturningStructTests.o:	MockReturningStructTests.cpp
-	g++ -Wextra -Wall -Werror -g -IE:/CppUTest/include -c MockReturningStructTests.cpp
+	$(CC) $(CFLAGS) -IE:/CppUTest/include -c MockReturningStructTests.cpp
 
 clean:
 	rm -f *.exe; rm -f *.o;
