@@ -2,6 +2,7 @@
 *.stackdump
 *.depend
 *.layout
+*.o
 *.7z
 *.exe
 /CountedTestTests
