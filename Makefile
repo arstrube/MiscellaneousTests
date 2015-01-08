@@ -1,4 +1,5 @@
-LIBDIRS = -LE:/CppUTest/lib
+CPPUTEST_HOME = E:/CppUTest
+
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
 CFLAGS = -Wextra -Wall -Werror -g
@@ -6,10 +7,10 @@ CFLAGS = -Wextra -Wall -Werror -g
 .PHONY: all clean
 
 MockReturningStructTests: MockReturningStructTests.o
-	$(CC) $(LIBDIRS) -o MockReturningStructTests.exe MockReturningStructTests.o $(LIBS)
+	$(CC) -L$(CPPUTEST_HOME)/lib -o MockReturningStructTests.exe MockReturningStructTests.o $(LIBS)
 
-MockReturningStructTests.o:	MockReturningStructTests.cpp
-	$(CC) $(CFLAGS) -IE:/CppUTest/include -c MockReturningStructTests.cpp
+%.o: %.cpp
+	$(CC) $(CFLAGS) -I$(CPPUTEST_HOME)/include -c $<
 
 clean:
 	rm -f *.exe; rm -f *.o;
