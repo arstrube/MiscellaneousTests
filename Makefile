@@ -4,10 +4,14 @@ LIBS = -lCppUTest -lCppUTestExt
 CC = g++
 CFLAGS = -Wextra -Wall -Werror -g
 
-.PHONY: all clean
+.PHONY: all clean MockReturningStructTests
+.PRECIOUS: %.o
 
-MockReturningStructTests: MockReturningStructTests.o
-	$(CC) -L$(CPPUTEST_HOME)/lib -o MockReturningStructTests.exe MockReturningStructTests.o $(LIBS)
+
+MockReturningStructTests: MockReturningStructTests.exe
+
+%.exe: %.o
+	$(CC) -L$(CPPUTEST_HOME)/lib $< $(LIBS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -I$(CPPUTEST_HOME)/include -c $<
