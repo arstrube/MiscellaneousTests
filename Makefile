@@ -1,4 +1,5 @@
-CPPUTEST_HOME = E:/CppUTest
+#CPPUTEST_HOME = E:/CppUTest
+CPPUTEST_HOME = /usr/local
 
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
@@ -15,8 +16,8 @@ FabsTests: FabsTests.exe
 OutParamTests: OutParamTests.exe
 
 %.exe: %.cpp
-	$(CC) $(CFLAGS) -I$(CPPUTEST_HOME)/include -L$(CPPUTEST_HOME)/lib $< $(LIBS) $< -o $@
+	$(CC) $(CFLAGS) -I$(CPPUTEST_HOME)/include -L$(CPPUTEST_HOME)/lib $(LIBS) $< -o $@
 	./$@
 
 clean:
-	rm -f *.exe; rm -f *.o;
+	rm -f *.exe;
