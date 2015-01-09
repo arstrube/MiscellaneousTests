@@ -7,13 +7,14 @@ CFLAGS = -Wextra -Wall -Werror -g
 .PHONY: all clean MockReturningStructTests AutoPtrTests CountedTestTests FabsTests OutParamTests
 .PRECIOUS: %.o
 
-all: MockReturningStructTests AutoPtrTests CountedTestTests FabsTests OutParamTests
+all: $(patsubst %.cpp, %.exe, $(wildcard *.cpp))
+
 
 MockReturningStructTests: MockReturningStructTests.exe
 AutoPtrTests: AutoPtrTests.exe
 CountedTestTests: CountedTestTests.exe
 FabsTests: FabsTests.exe
-OutParamTests: OutParamTests.exe
+#OutParamTests: OutParamTests.exe
 
 %.exe: %.o
 	$(CC) -L$(CPPUTEST_HOME)/lib $< $(LIBS) -o $@
