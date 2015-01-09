@@ -9,7 +9,7 @@
 		<Project filename="OutParamTests.cbp" />
 		<Project filename="PureCTests.cbp" />
 		<Project filename="SeparateProcessTests.cbp" />
-		<Project filename="SimpleTypesTests.cbp" />
-		<Project filename="KernelModuleTests.cbp" active="1" />
+		<Project filename="KernelModuleTests.cbp" />
+		<Project filename="MockReturningStructTests.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
