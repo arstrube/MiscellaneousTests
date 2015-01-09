@@ -29,6 +29,7 @@
 		<Linker>
 			<Add directory="E:/CppUTest/lib" />
 		</Linker>
+		<Unit filename="Makefile" />
 		<Unit filename="MockReturningStructTests.cpp" />
 		<Unit filename="README" />
 		<Extensions>
