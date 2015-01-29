@@ -13,4 +13,5 @@ int MCDC_100_percent_AorB_andC(char, char, char);
 int MCDC_100_percent_AandBandC(char, char, char);
 int Multi_100_percent_AorB_andC(char, char, char);
 int Multi_100_percent_AandBandC(char, char, char);
+
 #endif // _coveragetests_h_
