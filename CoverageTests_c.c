@@ -1,25 +1,17 @@
 #include "CoverageTests.h"
 
 #define MACRO_FUNCTION_AorB_andC(a,b,c) { \
-    int x;                                \
-    if ((a || b) && c) {                  \
-        x = 1;                            \
-    }                                     \
-    else {                                \
-        x = 2;                            \
-    }                                     \
-    return x;                             \
+    if ((a || b) && c)                    \
+        return 1;                         \
+    else                                  \
+        return 2;                         \
 }
 
 #define MACRO_FUNCTION_AandBandC(a,b,c) { \
-    int x;                                \
-    if (a && b && c) {                    \
-        x = 1;                            \
-    }                                     \
-    else {                                \
-        x = 2;                            \
-    }                                     \
-    return x;                             \
+    if (a && b && c)                      \
+        return 1;                         \
+    else                                  \
+        return 2;                         \
 }
 
 /** Statement Coverage (C0) ****************************************/
