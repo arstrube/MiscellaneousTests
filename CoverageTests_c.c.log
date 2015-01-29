@@ -1,0 +1,79 @@
+Function 'Multi_100_percent_AorB_andC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+No calls
+
+Function 'Multi_100_percent_AandBandC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+No calls
+
+Function 'MCDC_100_percent_AorB_andC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+No calls
+
+Function 'MCDC_100_percent_AandBandC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+No calls
+
+Function 'Condition_100_percent_AorB_andC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+No calls
+
+Function 'Condition_100_percent_AandBandC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:100.00% of 6
+No calls
+
+Function 'Branch_100_percent_AandBandC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:66.67% of 6
+No calls
+
+Function 'Branch_100_percent_AorB_andC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:66.67% of 6
+No calls
+
+Function 'GcovBranch_100_percent_AandBandC'
+Lines executed:80.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:50.00% of 6
+No calls
+
+Function 'GcovBranch_100_percent_AorB_andC'
+Lines executed:80.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:50.00% of 6
+No calls
+
+Function 'Statement_100_percent_AandBandC'
+Lines executed:100.00% of 5
+Branches executed:100.00% of 6
+Taken at least once:66.67% of 6
+No calls
+
+Function 'Statement_100_percent_AorB_andC'
+Lines executed:100.00% of 5
+Branches executed:66.67% of 6
+Taken at least once:50.00% of 6
+No calls
+
+File 'C:/data/00_Dev/06_Faking/MiscellanousTests/CoverageTests_c.c'
+Lines executed:96.67% of 60
+Branches executed:97.22% of 72
+Taken at least once:79.17% of 72
+No calls
+Creating 'CoverageTests_c.c.gcov'
+
