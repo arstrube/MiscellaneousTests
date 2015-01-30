@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CoverageTests" />
+		<Option pch_mode="2" />
+		<Option compiler="cygwin" />
+		<Build>
+			<Target title="Debug">
+				<Option output="$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option object_output="out/Debug/" />
+				<Option type="1" />
+				<Option compiler="cygwin" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="E:/CppUTest/include" />
+				</Compiler>
+				<Linker>
+					<Add library="CppUTest" />
+					<Add library="CppUTestExt" />
+					<Add directory="E:/CppUTest/lib" />
+				</Linker>
+			</Target>
+			<Target title="Debug.Mac">
+				<Option output="$(PROJECT_NAME).app" prefix_auto="1" extension_auto="0" />
+				<Option object_output="out/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="/usr/local/include" />
+				</Compiler>
+				<Linker>
+					<Add library="CppUTest" />
+					<Add library="CppUTestExt" />
+					<Add directory="/usr/local/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-Werror" />
+		</Compiler>
+		<Linker>
+			<Add library="gcov" />
+			<Add directory="E:/cpputest/lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add before="rm -f ./out/Debug/CoverageTests_c.gcda" />
+			<Add before="rm -f ./out/Debug/CoverageTests_c.gcno" />
+			<Add after='sh -c &quot;./CoverageTests.exe -v &amp;&amp; pushd out/Debug/ &amp;&amp; gcov -b -f CoverageTests_c.c | tee CoverageTests_c.c.log || popd&quot;' />
+		</ExtraCommands>
+		<Unit filename="CoverageTests.cpp" />
+		<Unit filename="CoverageTests.h" />
+		<Unit filename="CoverageTests_c.c">
+			<Option compilerVar="CC" />
+			<Option compiler="cygwin" use="1" buildCommand="$compiler $options -fprofile-arcs -ftest-coverage $includes -c $file -o $object" />
+		</Unit>
+		<Unit filename="README" />
+		<Unit filename="out/Debug/CoverageTests_c.c.gcov" />
+		<Unit filename="out/Debug/CoverageTests_c.c.log" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

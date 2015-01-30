@@ -1,0 +1,294 @@
+        -:    0:Source:C:/data/00_Dev/06_Faking/MiscellanousTests/CoverageTests_c.c
+        -:    0:Graph:CoverageTests_c.gcno
+        -:    0:Data:CoverageTests_c.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "CoverageTests.h"
+        -:    2:
+        -:    3:/** Statement Coverage (C0) ****************************************/
+        -:    4:
+function Statement_100_percent_AorB_andC called 2 returned 100% blocks executed 86%
+        2:    5:int Statement_100_percent_AorB_andC (char a, char b, char c)
+        -:    6:{
+        -:    7:    int x;
+        -:    8:    
+        2:    9:    if ((a || b) && c)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+branch  2 never executed
+branch  3 never executed
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:   10:    {
+        1:   11:        x = 1;
+        -:   12:    }
+        -:   13:    else
+        -:   14:    {
+        1:   15:        x = 2;
+        -:   16:    }
+        -:   17:    
+        2:   18:    return x;
+        -:   19:}
+        -:   20:
+function Statement_100_percent_AandBandC called 2 returned 100% blocks executed 100%
+        2:   21:int Statement_100_percent_AandBandC (char a, char b, char c)
+        -:   22:{
+        -:   23:    int x;
+        -:   24:    
+        2:   25:    if (a && b && c)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0%
+        -:   26:    {
+        1:   27:        x = 1;
+        -:   28:    }
+        -:   29:    else
+        -:   30:    {
+        1:   31:        x = 2;
+        -:   32:    }
+        -:   33:    
+        2:   34:    return x;
+        -:   35:}
+        -:   36:
+        -:   37:/** Gcov "Branches executed" (n/a) *********************************/
+        -:   38:
+function GcovBranch_100_percent_AorB_andC called 1 returned 100% blocks executed 86%
+        1:   39:int GcovBranch_100_percent_AorB_andC(char a, char b, char c)
+        -:   40:{
+        -:   41:    int x;
+        -:   42:    
+        1:   43:    if ((a || b) && c)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0%
+        -:   44:    {
+        1:   45:        x = 1;
+        -:   46:    }
+        -:   47:    else
+        -:   48:    {
+    #####:   49:        x = 2;
+        -:   50:    }
+        -:   51:    
+        1:   52:    return x;
+        -:   53:}
+        -:   54:
+function GcovBranch_100_percent_AandBandC called 1 returned 100% blocks executed 86%
+        1:   55:int GcovBranch_100_percent_AandBandC(char a, char b, char c)
+        -:   56:{
+        -:   57:    int x;
+        -:   58:    
+        1:   59:    if (a && b && c)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0%
+        -:   60:    {
+        1:   61:        x = 1;
+        -:   62:    }
+        -:   63:    else
+        -:   64:    {
+    #####:   65:        x = 2;
+        -:   66:    }
+        -:   67:    
+        1:   68:    return x;
+        -:   69:}
+        -:   70:
+        -:   71:/** Branch Coverage ************************************************/
+        -:   72:
+function Branch_100_percent_AorB_andC called 2 returned 100% blocks executed 100%
+        2:   73:int Branch_100_percent_AorB_andC(char a, char b, char c)
+        -:   74:{
+        -:   75:    int x;
+        -:   76:    
+        2:   77:    if ((a || b) && c)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:   78:    {
+        1:   79:        x = 1;
+        -:   80:    }
+        -:   81:    else
+        -:   82:    {
+        1:   83:        x = 2;
+        -:   84:    }
+        -:   85:    
+        2:   86:    return x;
+        -:   87:}
+        -:   88:
+function Branch_100_percent_AandBandC called 2 returned 100% blocks executed 100%
+        2:   89:int Branch_100_percent_AandBandC(char a, char b, char c)
+        -:   90:{
+        -:   91:    int x;
+        -:   92:    
+        2:   93:    if (a && b && c)
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:   94:    {
+        1:   95:        x = 1;
+        -:   96:    }
+        -:   97:    else
+        -:   98:    {
+        1:   99:        x = 2;
+        -:  100:    }
+        -:  101:    
+        2:  102:    return x;
+        -:  103:}
+        -:  104:
+        -:  105:/** Condition Coverage *********************************************/
+        -:  106:
+function Condition_100_percent_AandBandC called 4 returned 100% blocks executed 100%
+        4:  107:int Condition_100_percent_AandBandC(char a, char b, char c)
+        -:  108:{
+        -:  109:    int x;
+        -:  110:    
+        4:  111:    if (a && b && c)
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+branch  2 taken 67% (fallthrough)
+branch  3 taken 33%
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:  112:    {
+        1:  113:        x = 1;
+        -:  114:    }
+        -:  115:    else
+        -:  116:    {
+        3:  117:        x = 2;
+        -:  118:    }
+        -:  119:    
+        4:  120:    return x;
+        -:  121:}
+        -:  122:
+function Condition_100_percent_AorB_andC called 3 returned 100% blocks executed 100%
+        3:  123:int Condition_100_percent_AorB_andC(char a, char b, char c)
+        -:  124:{
+        -:  125:    int x;
+        -:  126:    
+        3:  127:    if ((a || b) && c)
+branch  0 taken 67% (fallthrough)
+branch  1 taken 33%
+branch  2 taken 50% (fallthrough)
+branch  3 taken 50%
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:  128:    {
+        1:  129:        x = 1;
+        -:  130:    }
+        -:  131:    else
+        -:  132:    {
+        2:  133:        x = 2;
+        -:  134:    }
+        -:  135:    
+        3:  136:    return x;
+        -:  137:}
+        -:  138:
+        -:  139:/** MC/DC **********************************************************/
+        -:  140:
+function MCDC_100_percent_AandBandC called 4 returned 100% blocks executed 100%
+        4:  141:int MCDC_100_percent_AandBandC(char a, char b, char c)
+        -:  142:{
+        -:  143:    int x;
+        -:  144:    
+        4:  145:    if (a && b && c)
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+branch  2 taken 67% (fallthrough)
+branch  3 taken 33%
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:  146:    {
+        1:  147:        x = 1;
+        -:  148:    }
+        -:  149:    else
+        -:  150:    {
+        3:  151:        x = 2;
+        -:  152:    }
+        -:  153:    
+        4:  154:    return x;
+        -:  155:}
+        -:  156:
+function MCDC_100_percent_AorB_andC called 4 returned 100% blocks executed 100%
+        4:  157:int MCDC_100_percent_AorB_andC(char a, char b, char c)
+        -:  158:{
+        -:  159:    int x;
+        -:  160:    
+        4:  161:    if ((a || b) && c)
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+branch  2 taken 67% (fallthrough)
+branch  3 taken 33%
+branch  4 taken 67% (fallthrough)
+branch  5 taken 33%
+        -:  162:    {
+        2:  163:        x = 1;
+        -:  164:    }
+        -:  165:    else
+        -:  166:    {
+        2:  167:        x = 2;
+        -:  168:    }
+        -:  169:    
+        4:  170:    return x;
+        -:  171:}
+        -:  172:
+        -:  173:/** Multi-Decision Coverage ****************************************/
+        -:  174:
+function Multi_100_percent_AandBandC called 4 returned 100% blocks executed 100%
+        4:  175:int Multi_100_percent_AandBandC(char a, char b, char c)
+        -:  176:{
+        -:  177:    int x;
+        -:  178:    
+        4:  179:    if (a && b && c)
+branch  0 taken 75% (fallthrough)
+branch  1 taken 25%
+branch  2 taken 67% (fallthrough)
+branch  3 taken 33%
+branch  4 taken 50% (fallthrough)
+branch  5 taken 50%
+        -:  180:    {
+        1:  181:        x = 1;
+        -:  182:    }
+        -:  183:    else
+        -:  184:    {
+        3:  185:        x = 2;
+        -:  186:    }
+        -:  187:    
+        4:  188:    return x;
+        -:  189:}
+        -:  190:
+function Multi_100_percent_AorB_andC called 8 returned 100% blocks executed 100%
+        8:  191:int Multi_100_percent_AorB_andC(char a, char b, char c)
+        -:  192:{
+        -:  193:    int x;
+        -:  194:    
+        8:  195:    if ((a || b) && c)
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+branch  2 taken 50% (fallthrough)
+branch  3 taken 50%
+branch  4 taken 67% (fallthrough)
+branch  5 taken 33%
+        -:  196:    {
+        4:  197:        x = 1;
+        -:  198:    }
+        -:  199:    else
+        -:  200:    {
+        4:  201:        x = 2;
+        -:  202:    }
+        -:  203:    
+        8:  204:    return x;
+        -:  205:}
