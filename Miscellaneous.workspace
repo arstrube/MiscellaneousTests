@@ -11,5 +11,7 @@
 		<Project filename="SeparateProcessTests.cbp" />
 		<Project filename="KernelModuleTests.cbp" />
 		<Project filename="MockReturningStructTests.cbp" />
+		<Project filename="../../04_Hella/TimeManagment_class_Test/40_SW/30_Module_Test/20_CppUTest/DirectionIndicatorControl/TimeManagment_class/40_IDE/TimeManagement_class_Test.cbp" />
+		<Project filename="RangeTests.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
