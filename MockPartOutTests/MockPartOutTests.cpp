@@ -13,10 +13,11 @@ extern "C"
     #include "MockPartOut.h"
 }
 
-void Mpo_partialCopy(Mpo_t* const to, const Mpo_t* const from)
+void Mpo_copy(Mpo_t* const to, const Mpo_t* const from)
 {
     to->f = from->f;
     for(int i=0; i<3; i++ ) to->other_stuff[i] = from->other_stuff[i];
+    /// Don't copy the field(s) to be modified (tp->to_modify[])
 	to->l = from->l;
 }
 
@@ -29,9 +30,13 @@ void Otr_func(Mpo_t* p)
 void Otr_func(Mpo_t* p)
 {
     Mpo_t save;
-    Mpo_partialCopy(&save, p);
-	mock().actualCall("Otr_func").withOutputParameter("p", (void*) p);
-	Mpo_partialCopy(p, &save);
+    
+    Mpo_copy(&save, p); /// Save the fields not to be written
+    
+	mock().actualCall("Otr_func")
+	      .withOutputParameter("p", (void*) p); /// Writes all fields
+	      
+	Mpo_copy(p, &save); /// Restore the fields not to be written
 }
 #endif
 
@@ -60,15 +65,15 @@ TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
 
 	/// check
     mock().checkExpectations();
-    DOUBLES_EQUAL(17.95, result->f, 0.0001);
-	LONGS_EQUAL(1, result->other_stuff[0]);
-	LONGS_EQUAL(2, result->other_stuff[1]);
-	LONGS_EQUAL(3, result->other_stuff[2]);
+    DOUBLES_EQUAL(17.95, result->f, 0.0001); /// should be unchanged
+	LONGS_EQUAL(1, result->other_stuff[0]);  /// should be unchanged
+	LONGS_EQUAL(2, result->other_stuff[1]);  /// should be unchanged
+	LONGS_EQUAL(3, result->other_stuff[2]);  /// should be unchanged
 	LONGS_EQUAL(expected.to_modify[0], result->to_modify[0]);
 	LONGS_EQUAL(expected.to_modify[1], result->to_modify[1]);
 	LONGS_EQUAL(expected.to_modify[2], result->to_modify[2]);
 	LONGS_EQUAL(expected.to_modify[3], result->to_modify[3]);
-	LONGS_EQUAL(999999, result->l);
+	LONGS_EQUAL(999999, result->l);           /// should be unchanged
 
     /// cleanup
     mock().clear();
