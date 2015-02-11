@@ -1,13 +1,11 @@
 #ifndef _MOCKPARTOUT_
 
-typedef signed char sint8;
-
 typedef struct Mpo {
     float f;
-	sint8 other_stuff_ar[3];
+	unsigned char other_stuff_ar[3];
 	long l;
-	sint8 my_ar[4];
-	sint8 more_stuff_ar[2];
+	unsigned char my_ar[4];
+	unsigned char more_stuff_ar[2];
 } Mpo_t;
 
 void Mpo_init(void);

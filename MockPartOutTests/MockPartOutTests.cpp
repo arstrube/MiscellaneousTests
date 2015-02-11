@@ -21,7 +21,7 @@ TEST_GROUP(Rsp_Sample_Test) {};
 TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
 {
 	// setup
-    sint8 mock_array[4];
+    unsigned char mock_array[4];
     Mpo_init();
     Mpo_t* result = Mpo_get(); 
     for (int i=0; i<4; i++) mock_array[i]=i;
