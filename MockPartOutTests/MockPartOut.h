@@ -2,8 +2,8 @@
 
 typedef struct Mpo {
     float f;
-	unsigned char other_stuff_ar[3];
-	unsigned char my_ar[4];
+	char other_stuff[3];
+	char to_modify[4];
 	long l;
 } Mpo_t;
 

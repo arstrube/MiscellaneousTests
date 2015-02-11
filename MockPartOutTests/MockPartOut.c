@@ -6,8 +6,8 @@ void Mpo_init(void)
 {
 	int i, start = 1;
 	inaccessible_st.f = 17.95;
-    for (i=0; i<3; i++) inaccessible_st.other_stuff_ar[i]=start++;
-    for (i=0; i<4; i++) inaccessible_st.my_ar[i]=start++;
+    for (i=0; i<3; i++) inaccessible_st.other_stuff[i]=start++;
+    for (i=0; i<4; i++) inaccessible_st.to_modify[i]=start++;
     inaccessible_st.l = 999999;
 }
 
