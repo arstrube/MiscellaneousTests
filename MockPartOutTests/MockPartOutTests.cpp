@@ -32,12 +32,17 @@ TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
 
 	// check
     mock().checkExpectations();
-    
-    int i, start = 1;
-    
-	for (i=0; i<3; i++) { LONGS_EQUAL(start++, result->other_stuff_ar[i]); }
-    for (i=0; i<4; i++) { LONGS_EQUAL(mock_array[i], result->my_ar[i]); start++; }
-    for (i=0; i<2; i++) { LONGS_EQUAL(start++, result->more_stuff_ar[i]); }
+    DOUBLES_EQUAL(17.95, result->f, 0.0001);
+	LONGS_EQUAL(1, result->other_stuff_ar[0]);
+	LONGS_EQUAL(2, result->other_stuff_ar[1]);
+	LONGS_EQUAL(3, result->other_stuff_ar[2]);
+	LONGS_EQUAL(999999, result->l);
+	LONGS_EQUAL(mock_array[0], result->my_ar[0]);
+	LONGS_EQUAL(mock_array[1], result->my_ar[1]);
+	LONGS_EQUAL(mock_array[2], result->my_ar[2]);
+	LONGS_EQUAL(mock_array[3], result->my_ar[3]);
+    LONGS_EQUAL(8, result->more_stuff_ar[0]);
+    LONGS_EQUAL(9, result->more_stuff_ar[1]);
 
     // cleanup
     mock().clear();
