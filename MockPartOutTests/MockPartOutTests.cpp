@@ -11,9 +11,9 @@ extern "C"
     #include "MockPartOut.h"
 }
 
-void test_mock_func(Mpo_t* p)
+void Otr_func(Mpo_t* p)
 {
-	mock().actualCall("test_mock_func").withOutputParameter("p", (void*) &p->my_ar);
+	mock().actualCall("Otr_func").withOutputParameter("p", (void*) &p->my_ar);
 }
 
 TEST_GROUP(Rsp_Sample_Test) {};
@@ -25,7 +25,7 @@ TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
     Mpo_init();
     Mpo_t* result = Mpo_get(); 
     for (int i=0; i<4; i++) mock_array[i]=i;
-	mock().expectNCalls(1, "test_mock_func").withOutputParameterReturning("p", mock_array, sizeof(mock_array));
+	mock().expectNCalls(1, "Otr_func").withOutputParameterReturning("p", mock_array, sizeof(mock_array));
 
 	// execute
 	Mpo_doit();
@@ -36,13 +36,11 @@ TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
 	LONGS_EQUAL(1, result->other_stuff_ar[0]);
 	LONGS_EQUAL(2, result->other_stuff_ar[1]);
 	LONGS_EQUAL(3, result->other_stuff_ar[2]);
-	LONGS_EQUAL(999999, result->l);
 	LONGS_EQUAL(mock_array[0], result->my_ar[0]);
 	LONGS_EQUAL(mock_array[1], result->my_ar[1]);
 	LONGS_EQUAL(mock_array[2], result->my_ar[2]);
 	LONGS_EQUAL(mock_array[3], result->my_ar[3]);
-    LONGS_EQUAL(8, result->more_stuff_ar[0]);
-    LONGS_EQUAL(9, result->more_stuff_ar[1]);
+	LONGS_EQUAL(999999, result->l);
 
     // cleanup
     mock().clear();
