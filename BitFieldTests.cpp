@@ -27,13 +27,9 @@ public:
     
     TestFixture(uint8 f1, uint8 f2, uint8 f3, uint8 f4) : data_st {f1, f2,f3,f4} {}
         
-    void check_set(uint8 idx)
+    void check_field(uint8 idx, boolean t)
     {
-        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == expected[idx-1][i]);
-    }
-    void check_clear(uint8 idx)
-    {
-        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == !expected[idx-1][i]);
+        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == (t == expected[idx-1][i]));
     }
 };
 
@@ -55,30 +51,30 @@ TEST_GROUP(BitFieldSet)
 TEST(BitFieldSet, Field1_Set)
 {
     f.data_st.field1_u16 = 1;
-    f.check_set(1);
+    f.check_field(1, TRUE);
 }
 
 TEST(BitFieldSet, Field2_Set)
 {
     f.data_st.field2_u16 = 2;
-    f.check_set(2);
+    f.check_field(2, TRUE);
 }
 
 TEST(BitFieldSet, Field3_Set)
 {
     f.data_st.field3_u16 = 1;
-    f.check_set(3);
+    f.check_field(3, TRUE);
 }
 
 TEST(BitFieldSet, Field4_Set)
 {
     f.data_st.field4_u16 = 1;
-    f.check_set(4);
+    f.check_field(4, TRUE);
 }
 
 TEST_GROUP(BitFieldClear)
 {
-    TestFixture f {1,3,1,1};;
+    TestFixture f {1,3,1,1};
     
     void setup() override
     {
@@ -94,25 +90,25 @@ TEST_GROUP(BitFieldClear)
 TEST(BitFieldClear, Field1_Clear)
 {
     f.data_st.field1_u16 = 0;
-    f.check_clear(1);
+    f.check_field(1, FALSE);
 }
 
 TEST(BitFieldClear, Field2_Clear)
 {
     f.data_st.field2_u16 = 0;
-    f.check_clear(2);
+    f.check_field(2, FALSE);
 }
 
 TEST(BitFieldClear, Field3_Clear)
 {
     f.data_st.field3_u16 = 0;
-    f.check_clear(3);
+    f.check_field(3, FALSE);
 }
 
 TEST(BitFieldClear, Field4_Clear)
 {
     f.data_st.field4_u16 = 0;
-    f.check_clear(4);
+    f.check_field(4, FALSE);
 }
 
 int main(int ac, char** av)
