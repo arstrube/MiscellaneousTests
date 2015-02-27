@@ -13,11 +13,15 @@ Data_t * Bf_GetData()
     return (Data_t*) mock().returnPointerValueOrDefault(0);
 }
 
-static const boolean expected[4][4] { 
+static const boolean values[8][4] { 
     { TRUE, FALSE, FALSE, FALSE },
     { FALSE, TRUE, FALSE, FALSE },
     { FALSE, FALSE, TRUE, FALSE },
     { FALSE, FALSE, FALSE, TRUE },
+    { FALSE, TRUE, TRUE, TRUE },
+    { TRUE, FALSE, TRUE, TRUE },
+    { TRUE, TRUE, FALSE, TRUE },
+    { TRUE, TRUE, TRUE, FALSE },
 };
     
 
@@ -25,16 +29,25 @@ class TestFixture {
 public:
     Data_t data_st;
     Data_t* data_pst {&data_st};
+    static uint8 idx;
     
-    TestFixture(uint8 f1, uint8 f2, uint8 f3, uint8 f4) : data_st {f1, f2, f3, f4}
+    TestFixture()
     {
+        data_st.field1_u16 = values[idx][0];
+        data_st.field2_u16 = values[idx][1];
+        data_st.field3_u16 = values[idx][2];
+        data_st.field4_u16 = values[idx][3];
+        
         mock().expectNCalls(4, "Bf_GetData").andReturnValue(data_pst);
-    }        
-    void check_field(uint8 idx, boolean t)
+    }
+    
+    void check_fields(void)
     {
-        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == (t == expected[idx-1][i]));
+        for (auto i : values[idx]) CHECK(Bf_IsFieldSet(i+1) == values[idx][i]);
     }
 };
+
+uint8 TestFixture::idx{0};
 
 TEST_GROUP(BitField)
 {
@@ -46,43 +59,43 @@ TEST_GROUP(BitField)
 };
 TEST(BitField, Field1_Set)
 {
-    TestFixture f{1, 0, 0, 0};
-    f.check_field(1, TRUE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field2_Set)
 {
-    TestFixture f{0, 2, 0, 0};
-    f.check_field(2, TRUE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field3_Set)
 {
-    TestFixture f{0, 0, 1, 0};
-    f.check_field(3, TRUE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field4_Set)
 {
-    TestFixture f{0, 0, 0, 1};
-    f.check_field(4, TRUE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field1_Clear)
 {
-    TestFixture f {0,3,1,1};
-    f.check_field(1, FALSE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field2_Clear)
 {
-    TestFixture f {1,0,1,1};
-    f.check_field(2, FALSE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field3_Clear)
 {
-    TestFixture f {1,1,0,1};
-    f.check_field(3, FALSE);
+    TestFixture f;
+    f.check_fields();
 }
 TEST(BitField, Field4_Clear)
 {
-    TestFixture f {1,1,1,0};
-    f.check_field(4, FALSE);
+    TestFixture f;
+    f.check_fields();
 }
 
 int main(int ac, char** av)
