@@ -13,101 +13,75 @@ Data_t * Bf_GetData()
     return (Data_t*) mock().returnPointerValueOrDefault(0);
 }
 
+static const boolean expected[4][4] { 
+    { TRUE, FALSE, FALSE, FALSE },
+    { FALSE, TRUE, FALSE, FALSE },
+    { FALSE, FALSE, TRUE, FALSE },
+    { FALSE, FALSE, FALSE, TRUE },
+};
+    
+
 class TestFixture {
 public:
     Data_t data_st;
     Data_t* data_pst {&data_st};
     
-    boolean expected[4][4] { 
-        { TRUE, FALSE, FALSE, FALSE },
-        { FALSE, TRUE, FALSE, FALSE },
-        { FALSE, FALSE, TRUE, FALSE },
-        { FALSE, FALSE, FALSE, TRUE },
-    };
-    
-    TestFixture(uint8 f1, uint8 f2, uint8 f3, uint8 f4) : data_st {f1, f2,f3,f4} {}
-        
+    TestFixture(uint8 f1, uint8 f2, uint8 f3, uint8 f4) : data_st {f1, f2, f3, f4}
+    {
+        mock().expectNCalls(4, "Bf_GetData").andReturnValue(data_pst);
+    }        
     void check_field(uint8 idx, boolean t)
     {
         for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == (t == expected[idx-1][i]));
     }
 };
 
-TEST_GROUP(BitFieldSet)
+TEST_GROUP(BitField)
 {
-    TestFixture f{0,0,0,0};
-    
-    void setup() override
-    {
-        mock().expectNCalls(4, "Bf_GetData").andReturnValue(f.data_pst);
-    }
     void teardown() override
     {
 	    mock().checkExpectations();
 	    mock().clear();
     }
 };
-
-TEST(BitFieldSet, Field1_Set)
+TEST(BitField, Field1_Set)
 {
-    f.data_st.field1_u16 = 1;
+    TestFixture f{1, 0, 0, 0};
     f.check_field(1, TRUE);
 }
-
-TEST(BitFieldSet, Field2_Set)
+TEST(BitField, Field2_Set)
 {
-    f.data_st.field2_u16 = 2;
+    TestFixture f{0, 2, 0, 0};
     f.check_field(2, TRUE);
 }
-
-TEST(BitFieldSet, Field3_Set)
+TEST(BitField, Field3_Set)
 {
-    f.data_st.field3_u16 = 1;
+    TestFixture f{0, 0, 1, 0};
     f.check_field(3, TRUE);
 }
-
-TEST(BitFieldSet, Field4_Set)
+TEST(BitField, Field4_Set)
 {
-    f.data_st.field4_u16 = 1;
+    TestFixture f{0, 0, 0, 1};
     f.check_field(4, TRUE);
 }
-
-TEST_GROUP(BitFieldClear)
+TEST(BitField, Field1_Clear)
 {
-    TestFixture f {1,3,1,1};
-    
-    void setup() override
-    {
-        mock().expectNCalls(4, "Bf_GetData").andReturnValue(f.data_pst);
-    }
-    void teardown() override
-    {
-	    mock().checkExpectations();
-	    mock().clear();
-    }
-};
-
-TEST(BitFieldClear, Field1_Clear)
-{
-    f.data_st.field1_u16 = 0;
+    TestFixture f {0,3,1,1};
     f.check_field(1, FALSE);
 }
-
-TEST(BitFieldClear, Field2_Clear)
+TEST(BitField, Field2_Clear)
 {
-    f.data_st.field2_u16 = 0;
+    TestFixture f {1,0,1,1};
     f.check_field(2, FALSE);
 }
-
-TEST(BitFieldClear, Field3_Clear)
+TEST(BitField, Field3_Clear)
 {
-    f.data_st.field3_u16 = 0;
+    TestFixture f {1,1,0,1};
     f.check_field(3, FALSE);
 }
-
-TEST(BitFieldClear, Field4_Clear)
+TEST(BitField, Field4_Clear)
 {
-    f.data_st.field4_u16 = 0;
+    TestFixture f {1,1,1,0};
     f.check_field(4, FALSE);
 }
 
