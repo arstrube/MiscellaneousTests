@@ -29,13 +29,11 @@ public:
         
     void check_set(uint8 idx)
     {
-        data_st.field1_u16 = idx;
-        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == expected[idx][i]);
+        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == expected[idx-1][i]);
     }
     void check_clear(uint8 idx)
     {
-        data_st.field1_u16 = idx;
-        for (auto i : expected[idx-1]) CHECK(!Bf_IsFieldSet(i+1) == expected[idx][i]);
+        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == !expected[idx-1][i]);
     }
 };
 
@@ -56,21 +54,25 @@ TEST_GROUP(BitFieldSet)
 
 TEST(BitFieldSet, Field1_Set)
 {
+    f.data_st.field1_u16 = 1;
     f.check_set(1);
 }
 
 TEST(BitFieldSet, Field2_Set)
 {
+    f.data_st.field2_u16 = 2;
     f.check_set(2);
 }
 
 TEST(BitFieldSet, Field3_Set)
 {
+    f.data_st.field3_u16 = 1;
     f.check_set(3);
 }
 
 TEST(BitFieldSet, Field4_Set)
 {
+    f.data_st.field4_u16 = 1;
     f.check_set(4);
 }
 
@@ -91,21 +93,25 @@ TEST_GROUP(BitFieldClear)
 
 TEST(BitFieldClear, Field1_Clear)
 {
+    f.data_st.field1_u16 = 0;
     f.check_clear(1);
 }
 
 TEST(BitFieldClear, Field2_Clear)
 {
+    f.data_st.field2_u16 = 0;
     f.check_clear(2);
 }
 
 TEST(BitFieldClear, Field3_Clear)
 {
+    f.data_st.field3_u16 = 0;
     f.check_clear(3);
 }
 
 TEST(BitFieldClear, Field4_Clear)
 {
+    f.data_st.field4_u16 = 0;
     f.check_clear(4);
 }
 
