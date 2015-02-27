@@ -18,16 +18,24 @@ public:
     Data_t data_st;
     Data_t* data_pst {&data_st};
     
-    TestFixture(uint8 f1, uint8 f2, uint8 f3, uint8 f4) :
-        data_st {f1, f2,f3,f4}
-        {}
+    boolean expected[4][4] { 
+        { TRUE, FALSE, FALSE, FALSE },
+        { FALSE, TRUE, FALSE, FALSE },
+        { FALSE, FALSE, TRUE, FALSE },
+        { FALSE, FALSE, FALSE, TRUE },
+    };
+    
+    TestFixture(uint8 f1, uint8 f2, uint8 f3, uint8 f4) : data_st {f1, f2,f3,f4} {}
         
-    void check_all_fields(boolean f1, boolean f2, boolean f3, boolean f4)
+    void check_set(uint8 idx)
     {
-        CHECK(f1 == Bf_IsFieldSet(1));
-        CHECK(f2 == Bf_IsFieldSet(2));
-        CHECK(f3 == Bf_IsFieldSet(3));
-        CHECK(f4 == Bf_IsFieldSet(4));
+        data_st.field1_u16 = idx;
+        for (auto i : expected[idx-1]) CHECK(Bf_IsFieldSet(i+1) == expected[idx][i]);
+    }
+    void check_clear(uint8 idx)
+    {
+        data_st.field1_u16 = idx;
+        for (auto i : expected[idx-1]) CHECK(!Bf_IsFieldSet(i+1) == expected[idx][i]);
     }
 };
 
@@ -48,26 +56,22 @@ TEST_GROUP(BitFieldSet)
 
 TEST(BitFieldSet, Field1_Set)
 {
-    f.data_st.field1_u16 = 1;
-    f.check_all_fields(TRUE, FALSE, FALSE, FALSE);
+    f.check_set(1);
 }
 
 TEST(BitFieldSet, Field2_Set)
 {
-    f.data_st.field2_u16 = 2;
-    f.check_all_fields(FALSE, TRUE, FALSE, FALSE);
+    f.check_set(2);
 }
 
 TEST(BitFieldSet, Field3_Set)
 {
-    f.data_st.field3_u16 = 1;
-    f.check_all_fields(FALSE, FALSE, TRUE, FALSE);
+    f.check_set(3);
 }
 
 TEST(BitFieldSet, Field4_Set)
 {
-    f.data_st.field4_u16 = 1;
-    f.check_all_fields(FALSE, FALSE, FALSE, TRUE);
+    f.check_set(4);
 }
 
 TEST_GROUP(BitFieldClear)
@@ -87,26 +91,22 @@ TEST_GROUP(BitFieldClear)
 
 TEST(BitFieldClear, Field1_Clear)
 {
-    f.data_st.field1_u16 = 0;
-    f.check_all_fields(FALSE, TRUE, TRUE, TRUE);
+    f.check_clear(1);
 }
 
 TEST(BitFieldClear, Field2_Clear)
 {
-    f.data_st.field2_u16 = 0;
-    f.check_all_fields(TRUE, FALSE, TRUE, TRUE);
+    f.check_clear(2);
 }
 
 TEST(BitFieldClear, Field3_Clear)
 {
-    f.data_st.field3_u16 = 0;
-    f.check_all_fields(TRUE, TRUE, FALSE, TRUE);
+    f.check_clear(3);
 }
 
 TEST(BitFieldClear, Field4_Clear)
 {
-    f.data_st.field4_u16 = 0;
-    f.check_all_fields(TRUE, TRUE, TRUE, FALSE);
+    f.check_clear(4);
 }
 
 int main(int ac, char** av)
