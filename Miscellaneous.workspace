@@ -2,6 +2,7 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="AssertTests.cbp" />
+		<Project filename="BitFieldTests.cbp" />
 		<Project filename="CountedTestTests.cbp" />
 		<Project filename="CoverageTests.cbp" />
 		<Project filename="FloatTests.cbp" />
