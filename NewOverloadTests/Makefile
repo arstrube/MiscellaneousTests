@@ -1,17 +1,15 @@
-LIBS =
-CC = g++
-LD = g++
-CFLAGS = -Wextra -Wall -Werror -O2
+CXX = g++
+CXXFLAGS = -Wextra -Wall -Werror -O2 -ffreestanding
 
 .PHONY: all clean
 
 all: NewOverloadTests.exe
 
 %.o: %.cpp
-	$(CC) -c $(CFLAGS) -ffreestanding $< -o $@
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 NewOverloadTests.exe: NewOverloads.o NewOverloadTests.o
-	$(LD) $(CFLAGS) $(LIBS) $? -o $@
+	$(CXX) $(CXXFLAGS) $(LIBS) $? -o $@
 	./$@
 
 NewOverloads.o NewOverloadTests.o: Makefile
