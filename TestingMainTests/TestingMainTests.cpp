@@ -4,7 +4,7 @@
 #include "Control_class_wrapper.h"
 
 void Task1_run() {}
-void Task2_run() {}make
+void Task2_run() {}
 void sleep(int) {}
 
 TEST_GROUP(Control_class) {};
