@@ -3,6 +3,6 @@
 
 void Task1_run(void);
 void Task2_run(void);
-void sleep(int);
+void Sys_sleep(int);
 
 #endif

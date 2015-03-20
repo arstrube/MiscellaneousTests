@@ -1,18 +1,21 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 
-#include "Control_class_wrapper.h"
-
 #define MAX_ITERATIONS 10
+
+namespace Control_class {
+    void main (void);
+}
 
 void Task1_run() {
     mock().actualCall("Task1_run");
 }
+
 void Task2_run() {
     mock().actualCall("Task2_run");
 }
 
-void sleep(int) {
+void Sys_sleep(int) {
     static int count = 1;
     count++;
     if(count > MAX_ITERATIONS) {
@@ -29,6 +32,5 @@ TEST(Control_class, main) {
         Control_class::main();
     }
     catch(char const* s) {
-        STRCMP_EQUAL("Bailing out", s);
     }
 }
