@@ -1,6 +1,6 @@
 CPPUTEST_HOME = /usr/local
 CXX = g++
-CXXFLAGS = -Wextra -Wall -Werror -O2 
+CXXFLAGS = -Wextra -Wall -Werror -O2
 LIBS = -lCppUTest -lCppUTestExt
 
 .PHONY: all clean
