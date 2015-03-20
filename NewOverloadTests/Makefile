@@ -8,7 +8,7 @@ CFLAGS = -Wextra -Wall -Werror -O2
 all: NewOverloadTests.exe
 
 %.o: %.cpp
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) -ffreestanding $< -o $@
 
 NewOverloadTests.exe: NewOverloads.o NewOverloadTests.o
 	$(LD) $(CFLAGS) $(LIBS) $? -o $@
