@@ -19,6 +19,7 @@ extern "C" {
         static int count = 1;
         count++;
         if(count > MAX_ITERATIONS) {
+            count = 1;
             throw "Bailing out";
         }
     }
@@ -26,9 +27,19 @@ extern "C" {
 
 TEST_GROUP(Control_class) {};
 
-TEST(Control_class, main) {
+TEST(Control_class, main_Task1_runs) {
     mock().expectNCalls(MAX_ITERATIONS, "Task1_run");
+    mock().ignoreOtherCalls();
+    try {
+        Control_class_main();
+    }
+    catch(char const* s) {
+    }
+}
+
+TEST(Control_class, main_Task2_runs) {
     mock().expectNCalls(MAX_ITERATIONS, "Task2_run");
+    mock().ignoreOtherCalls();
     try {
         Control_class_main();
     }

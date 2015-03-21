@@ -19,18 +19,30 @@ void Sys_sleep(int) {
     static int count = 1;
     count++;
     if(count > MAX_ITERATIONS) {
+        count = 1;
         throw "Bailing out";
     }
 }
 
 TEST_GROUP(Control_class) {};
 
-TEST(Control_class, main) {
+TEST(Control_class, main_Task1_runs) {
     mock().expectNCalls(MAX_ITERATIONS, "Task1_run");
-    mock().expectNCalls(MAX_ITERATIONS, "Task2_run");
+    mock().ignoreOtherCalls();
     try {
         Control_class::main();
     }
     catch(char const* s) {
     }
 }
+
+TEST(Control_class, main_Task2_runs) {
+    mock().expectNCalls(MAX_ITERATIONS, "Task2_run");
+    mock().ignoreOtherCalls();
+    try {
+        Control_class::main();
+    }
+    catch(char const* s) {
+    }
+}
+
