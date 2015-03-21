@@ -18,12 +18,12 @@ all: TestingMainWithNamespaceTests.exe \
 TestingMainWithNamespaceTests.exe: Control_class_wrapper.o \
     TestingMainWithNamespaceTests.o RunAllTests.o
 	$(CXX) $(CFLAGS) -L$(CPPUTEST_HOME)/lib $? $(LIBS) -o $@
-	./$@
+	./$@ -v
 
 TestingMainWithDefineTests.exe: Control_class_wrapper_c.o \
     TestingMainWithDefineTests.o RunAllTests.o
 	$(CXX) $(CFLAGS) -L$(CPPUTEST_HOME)/lib $? $(LIBS) -o $@
-	./$@
+	./$@ -v
 
 Control_class_wrapper.o Control_class_wrapper_c.o \
     TestingMainWithNamespaceTests.o \
