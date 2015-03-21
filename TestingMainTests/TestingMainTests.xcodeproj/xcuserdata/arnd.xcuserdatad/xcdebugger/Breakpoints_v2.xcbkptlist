@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
             endingLineNumber = "30"
-            landmarkName = "TEST(Control_class, main_Task1_runs)"
+            landmarkName = "TEST(Control_class, main_with_namespace_Task1_runs)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
             endingLineNumber = "37"
-            landmarkName = "TEST(Control_class, main_Task1_runs)"
+            landmarkName = "TEST(Control_class, main_with_define_Task1_runs)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

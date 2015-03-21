@@ -3,7 +3,7 @@
    LastUpgradeVersion = "0620"
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "YES"
+      parallelizeBuildables = "NO"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
@@ -61,6 +61,12 @@
             ReferencedContainer = "container:TestingMainTests.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-v"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
