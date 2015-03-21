@@ -5,6 +5,7 @@
 *.o
 *.7z
 *.exe
+*.xcuserstate
 /CountedTestTests
 /LinkTimeSubstTests
 /out
