@@ -26,7 +26,7 @@ void Sys_sleep(int) {
 
 TEST_GROUP(Control_class) {};
 
-TEST(Control_class, main_Task1_runs) {
+TEST(Control_class, main_with_namespace_Task1_runs) {
     mock().expectNCalls(MAX_ITERATIONS, "Task1_run");
     mock().ignoreOtherCalls();
     try {
@@ -36,7 +36,7 @@ TEST(Control_class, main_Task1_runs) {
     }
 }
 
-TEST(Control_class, main_Task2_runs) {
+TEST(Control_class, main_with_namespace_Task2_runs) {
     mock().expectNCalls(MAX_ITERATIONS, "Task2_run");
     mock().ignoreOtherCalls();
     try {
