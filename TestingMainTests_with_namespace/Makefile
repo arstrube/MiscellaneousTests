@@ -1,20 +1,33 @@
 CPPUTEST_HOME = /usr/local
+CC = gcc
 CXX = g++
-CXXFLAGS = -Wextra -Wall -Werror -O2
+CFLAGS = -Wextra -Wall -Werror -O2
 LIBS = -lCppUTest -lCppUTestExt
 
 .PHONY: all clean
 
-all: TestingMainTests.exe
+all: TestingMainWithNamespaceTests.exe \
+     TestingMainWithDefineTests.exe
+
+%.o: %.c
+	$(CC) -c $(CLAGS) $< -o $@
 
 %.o: %.cpp
-	$(CXX) -c $(CXXFLAGS) -I$(CPPUTEST_HOME)/include $< -o $@
+	$(CXX) -c $(CFLAGS) -I$(CPPUTEST_HOME)/include $< -o $@
 
-TestingMainTests.exe: Control_class_wrapper.o TestingMainTests.o AllTests.o
-	$(CXX) $(CXXFLAGS) -L$(CPPUTEST_HOME)/lib $? $(LIBS) -o $@
+TestingMainWithNamespaceTests.exe: Control_class_wrapper.o \
+    TestingMainWithNamespaceTests.o AllTests.o
+	$(CXX) $(CFLAGS) -L$(CPPUTEST_HOME)/lib $? $(LIBS) -o $@
 	./$@
 
-Control_class_wrapper.o TestingMainTests.o AllTests.o: Makefile
+TestingMainWithDefineTests.exe: Control_class_wrapper_c.o \
+    TestingMainWithDefineTests.o AllTests.o
+	$(CXX) $(CFLAGS) -L$(CPPUTEST_HOME)/lib $? $(LIBS) -o $@
+	./$@
+
+Control_class_wrapper.o Control_class_wrapper_c.o \
+    TestingMainWithNamespaceTests.o \
+    TestingMainWithDefineTests.o AllTests.o: Makefile
 
 clean:
-	rm -rf *.exe *.o *.dSYMcd
+	rm -rf *.exe *.o *.dSYM
