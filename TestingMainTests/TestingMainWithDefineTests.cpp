@@ -34,6 +34,7 @@ TEST(Control_class, main_Task1_runs) {
         Control_class_main();
     }
     catch(char const* s) {
+        STRCMP_EQUAL("Bailing out", s);
     }
 }
 
