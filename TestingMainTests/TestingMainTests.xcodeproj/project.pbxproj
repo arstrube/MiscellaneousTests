@@ -42,7 +42,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
+			buildWorkingDirectory = .;
 			dependencies = (
 			);
 			name = TestingMainWithNamespaceTests;
@@ -56,7 +56,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
+			buildWorkingDirectory = .;
 			dependencies = (
 			);
 			name = TestingMainWithDefineTests;
@@ -221,7 +221,7 @@
 				9716A2A41ABD51D000EABF22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		9716A2A51ABD51D000EABF22 /* Build configuration list for PBXLegacyTarget "TestingMainWithNamespaceTests" */ = {
 			isa = XCConfigurationList;
@@ -230,7 +230,7 @@
 				9716A2A71ABD51D000EABF22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		9716A2A91ABD521700EABF22 /* Build configuration list for PBXLegacyTarget "TestingMainWithDefineTests" */ = {
 			isa = XCConfigurationList;
@@ -239,7 +239,7 @@
 				9716A2AB1ABD521700EABF22 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
