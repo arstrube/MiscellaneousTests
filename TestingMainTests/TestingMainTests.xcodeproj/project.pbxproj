@@ -63,6 +63,20 @@
 			passBuildSettingsInEnvironment = 0;
 			productName = TestingMainTests;
 		};
+		97A50F321ABD5D9500FFA8F1 /* clean */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = clean;
+			buildConfigurationList = 97A50F331ABD5D9500FFA8F1 /* Build configuration list for PBXLegacyTarget "clean" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = .;
+			dependencies = (
+			);
+			name = clean;
+			passBuildSettingsInEnvironment = 0;
+			productName = TestingMainTests;
+		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
@@ -90,6 +104,7 @@
 			targets = (
 				9716A2A21ABD51D000EABF22 /* TestingMainWithNamespaceTests */,
 				9716A2A81ABD521700EABF22 /* TestingMainWithDefineTests */,
+				97A50F321ABD5D9500FFA8F1 /* clean */,
 			);
 		};
 /* End PBXProject section */
@@ -211,6 +226,27 @@
 			};
 			name = Release;
 		};
+		97A50F341ABD5D9500FFA8F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "TestingMainWithNamespaceTests copy";
+			};
+			name = Debug;
+		};
+		97A50F351ABD5D9500FFA8F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "TestingMainWithNamespaceTests copy";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -237,6 +273,15 @@
 			buildConfigurations = (
 				9716A2AA1ABD521700EABF22 /* Debug */,
 				9716A2AB1ABD521700EABF22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		97A50F331ABD5D9500FFA8F1 /* Build configuration list for PBXLegacyTarget "clean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97A50F341ABD5D9500FFA8F1 /* Debug */,
+				97A50F351ABD5D9500FFA8F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
