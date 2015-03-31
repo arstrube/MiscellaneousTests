@@ -1,11 +1,19 @@
 #ifndef FORCED_H
 #define FORCED_H
 
-#if 0 // This actually inlines the functions
+#define OPTION 1
+
+#if OPTION == 0 // This actually inlines the functions
 
 #define STATIC static
 #define INLINE inline
 #define ATTRIBUTE(a) __attribute__((a))
+
+#elif OPTION == 1 // Gcc funky solution
+
+#define STATIC extern
+#define INLINE inline
+#define ATTRIBUTE(a) __attribute__((gnu_inline))
 
 #else // This simply makes them static
 
@@ -15,6 +23,6 @@
 #define INLINE
 #define ATTRIBUTE(a)
 
-#endif // #if 0 or #if 1
+#endif // OPTION
 
 #endif // FORCED_H
