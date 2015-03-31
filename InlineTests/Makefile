@@ -4,16 +4,21 @@ CFLAGS = -Wextra -Wall -Werror -O0 -include forced.h
 LIBS=-lInlineLib -lCppUTest
 LIB_PATH=-L. -L/usr/local/lib
 
-.PHONY: all clean
+.PHONY: all clean i
 
-all: libInlineLib.a InlineTests.exe
+all: i libInlineLib.a InlineTests.exe
 
 %.o: %.cpp
 	$(CXX) -c $(CFLAGS) $< -o $@
 
-%.o: %.c
+%.o: %.i
 	$(CC) -c $(CFLAGS) $< -o $@
-
+    
+%.i: %.c
+	$(CC) -E $(CFLAGS) $< -o $@
+    
+i: InlineLib1.i InlineLib2.i
+    
 libInlineLib.a: InlineLib1.o InlineLib2.o
 	$(AR) -r -s $@ $?
 
@@ -24,4 +29,4 @@ InlineTests.exe: InlineTests.o
 InlineLib1.o InlineLib2.o InlineTests.o: Makefile
 
 clean:
-	rm -rf *.exe *.o *.dSYM
+	rm -rf *.a *.dSYM *.exe *.i *.o
