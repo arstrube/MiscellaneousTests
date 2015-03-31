@@ -2,6 +2,8 @@
 *.stackdump
 *.depend
 *.layout
+*.i
+*.a
 *.o
 *.7z
 *.exe
