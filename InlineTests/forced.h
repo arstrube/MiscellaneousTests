@@ -9,7 +9,6 @@
 
 #else // This simply makes them static
 
-#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-function"
 
 #define STATIC static
