@@ -1,4 +1,4 @@
-#define INLINE extern
+#define INLINE static
 
 #include "Lib1.c"
 
