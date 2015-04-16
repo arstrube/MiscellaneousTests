@@ -62,6 +62,15 @@ TEST(MockReturningStruct, mockIsCalledWithCorrectParameters)
 	   .withParameter("q", -7);
 }
 
+TEST(MockReturningStruct, weirdProblem)
+{
+    Complex_t* actual = (Complex_t*) 0x5;
+    mock().expectNCalls(1, "weird").andReturnValue((void*) &nil);
+    mock().actualCall("weird");
+    actual = (Complex_t*) mock().returnPointerValueOrDefault(NULL);
+    POINTERS_EQUAL(&nil, actual);
+}
+
 /// CppUTest main function
 
 int main(int ac, char** av)
