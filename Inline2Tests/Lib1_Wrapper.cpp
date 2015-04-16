@@ -1,4 +1,5 @@
-extern "C"
-{
-    #include "Lib1.c"
-}
+#define INLINE extern
+
+#include "Lib1.c"
+
+#undef INLINE
