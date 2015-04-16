@@ -1,12 +1,12 @@
 CXX = g++
 AR = ar
-CFLAGS = -Wextra -Wall -Werror -O0 -include forced.h
+CFLAGS = -Wextra -Wall -Werror -Wno-unused-function -O0
 LIBS=-lLib -lCppUTest
 LIB_PATH=-L. -L/usr/local/lib
 
-.PHONY: all clean i
+.PHONY: all clean
 
-all: i libLib.a InlineTests.exe
+all: libLib.a InlineTests.exe
 
 %.o: %.cpp
 	$(CXX) -c $(CFLAGS) $< -o $@
@@ -17,9 +17,7 @@ all: i libLib.a InlineTests.exe
 %.i: %.c
 	$(CC) -E $(CFLAGS) $< -o $@
     
-i: Lib1.i Lib2.i
-    
-libLib.a: Lib1.o Lib2.o
+libLib.a: Lib1_Wrapper.o Lib2_Wrapper.o
 	$(AR) -r -s $@ $?
 
 InlineTests.exe: InlineTests.o
