@@ -1,11 +1,12 @@
 CXX = g++
 AR = ar
-INCLUDE = -Iinclude_stub -Iinclude -I/usr/local/include
-CFLAGS = -Wextra -Wall -Werror -O0
+INCLUDE = -Iinclude_stub -I. -I/usr/local/include
+CFLAGS = -Wextra -Wall -Werror -Wno-unused-function -O0
 LIBS = -lLib -lCppUTest
 LIB_PATH = -L. -L/usr/local/lib
 
 .PHONY: all clean
+.SECONDARY: Lib1.i Lib2.i
 
 all: libLib.a InlineTests.exe
 
@@ -18,13 +19,13 @@ all: libLib.a InlineTests.exe
 	$(CC) -c $(CFLAGS) $< -o $@
 
 %.i: %.c
-	$(CC) -E $(CFLAGS) $(INCLUDE) $< -o $@
+	$(CC) -E $(INCLUDE) $< -o $@
 
 libLib.a: Lib1.o Lib2.o inline.o
 	$(AR) -r -s $@ $?
 
 InlineTests.exe: InlineTests.o
-	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
+	$(CXX) $(LIB_PATH) $? $(LIBS) -o $@
 	echo; ./$@ -v
 
 inline.o Lib1.o Lib2.o InlineTests.o: Makefile
