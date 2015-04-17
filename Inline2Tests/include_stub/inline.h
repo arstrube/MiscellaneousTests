@@ -3,12 +3,12 @@
 
 #pragma push_macro("INLINE")
 
-#define INLINE static
+#define INLINE static __attribute__((unused))
 
-#define inline_add inline_add_ignored
-#define inline_mul inline_mul_ignored
-#define inline_sub inline_sub_ignored
-#define inline_div inline_div_ignored
+#define inline_add  add
+#define inline_mul  mul
+#define inline_sub  sub
+#define inline_div  div
 
 #include "include/inline.h"
 

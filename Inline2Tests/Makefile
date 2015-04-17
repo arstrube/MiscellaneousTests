@@ -1,7 +1,7 @@
 CXX = g++
 AR = ar
 INCLUDE = -Iinclude_stub -I. -I/usr/local/include
-CFLAGS = -Wextra -Wall -Werror -Wno-unused-function -O0
+CFLAGS = -Wextra -Wall -Werror -O0
 LIBS = -lLib -lCppUTest
 LIB_PATH = -L. -L/usr/local/lib
 
