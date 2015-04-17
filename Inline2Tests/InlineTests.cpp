@@ -1,13 +1,23 @@
 #include "CppUTest/TestHarness.h"
+#include "CppUTestExt/MockSupport.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
 extern "C" {
     #include "Lib.h"
 }
 
-TEST_GROUP(inline) {};
+TEST_GROUP(inline) {
+    void teardown() {
+        mock().checkExpectations();
+        mock().clear();
+    }
+};
 
 TEST(inline, test_lib_add) {
+   mock().expectOneCall("inline_add").
+       withParameter("i", 1).
+       withParameter("j", 2).
+       andReturnValue(3);
    LONGS_EQUAL(3, lib_add(1, 2));
 }
 

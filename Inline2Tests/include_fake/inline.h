@@ -5,10 +5,10 @@
 
 #define INLINE static __attribute__((unused))
 
-#define inline_add  add
-#define inline_mul  mul
-#define inline_sub  sub
-#define inline_div  div
+#define inline_add  unused_add
+#define inline_mul  unused_mul
+#define inline_sub  unused_sub
+#define inline_div  unused_div
 
 #include "include/inline.h"
 
