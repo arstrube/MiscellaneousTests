@@ -7,10 +7,9 @@ int child_run(void) {
     return *(volatile int*) 0; /* should terminate with signal 11 */
 }
 
-void parent_run(void) {
-    pid_t cpid;
+int main(int ac, char** av) {
     int status;
-    cpid = fork();
+    pid_t cpid = fork();
     if(0 == cpid) {
         (void) child_run();
     } else {
@@ -18,14 +17,10 @@ void parent_run(void) {
             waitpid(cpid, &status, WUNTRACED);
             if(WIFSIGNALED(status)) {
                 printf("\nChild exited with signal 11\n\n");
-                return;
+                return 0;
             }
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
         printf("\nChild exited normally\n\n");
     }
-}
-
-int main(int ac, char** av) {
-	parent_run();
     return 0;
 }
