@@ -12,7 +12,7 @@ int main(int ac, char** av) {
         do {
             waitpid(cpid, &status, WUNTRACED);
             if(WIFSIGNALED(status)) {
-                printf("\nChild exited with signal 11\n\n");
+                printf("\nChild exited with signal %d\n\n", WTERMSIG(status));
                 return 0;
             }
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
