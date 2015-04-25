@@ -1,43 +1,39 @@
 #include "CppUTest/CommandLineTestRunner.h"
+#include "CppUTest/TestHarness.h"
 
-enum Colors { 
-   Black = 0, 
-   Blue = 1, 
-   White = 2, 
-   MaxColors = 3
+extern "C"
+{
+    #include "enum.h"
+}
+
+extern unsigned int c;
+
+TEST_GROUP(increment) {
+    void setup()
+    { 
+        c = 0;
+    }
 };
 
-Colors& operator++(Colors &c) 
+TEST(increment, increment1)
 {
-    c = static_cast<Colors>(static_cast<int>(c)+1);
-    if ( c == Colors::MaxColors )
-        c = Colors::Black;
-    return c;
+    increment();
+    BYTES_EQUAL(1, c);
 }
 
-Colors operator++(Colors& c, int)
+TEST(increment, increment2)
 {
-    Colors tmp(c);
-    ++c;
-    return tmp;
+    increment();
+    increment();
+    BYTES_EQUAL(2, c);
 }
 
-TEST_GROUP(Colors) {};
-
-TEST(Colors, increment)
+TEST(increment, overflow)
 {
-    Colors color = Black;
-    BYTES_EQUAL(Blue, ++color);
-    BYTES_EQUAL(Blue, color++);
-    BYTES_EQUAL(White, color);
-}
-
-TEST(Colors, overflow)
-{
-    Colors color = White;
-    BYTES_EQUAL(Black, ++color);
-    BYTES_EQUAL(Black, color++);
-    BYTES_EQUAL(Blue, color);
+    increment();
+    increment();
+    increment();
+    BYTES_EQUAL(0, c);
 }
 
 int main(int ac, char** av)

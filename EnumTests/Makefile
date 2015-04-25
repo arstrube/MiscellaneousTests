@@ -1,16 +1,19 @@
-CPPUTEST_HOME = /usr/local
-
-LIBS = -lCppUTest -lCppUTestExt -std=c++11
-CC = g++
-CFLAGS = -Wextra -Wall -Werror -g
+LIBS = -lCppUTest -lCppUTestExt 
+CXX = g++
+CC = gcc
+CFLAGS = -L/usr/local/lib -Wextra -Wall -Werror -g
+CXXFLAGS = $(CFLAGS) -std=c++11
 
 .PHONY: all clean
+.PRECIOUS: %.i
 
 all: EnumTests.exe
 
-%.exe: %.cpp
-	$(CC) $(CFLAGS) -I$(CPPUTEST_HOME)/include -L$(CPPUTEST_HOME)/lib $< $(LIBS) -o $@
-	./$@
+EnumTests.exe: EnumTests.o CppEnumTests.o Enum_real.o Enum_fake.o
+	$(CXX) $(CFLAGS) $? $(LIBS) -o $@
+	./$@ -v
+    
+%.o: Makefile
 
 clean:
-	rm -f *.exe;
+	rm -f *.o *.exe;
