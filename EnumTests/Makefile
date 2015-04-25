@@ -5,7 +5,6 @@ CFLAGS = -L/usr/local/lib -Wextra -Wall -Werror -g
 CXXFLAGS = $(CFLAGS) -std=c++11
 
 .PHONY: all clean
-.PRECIOUS: %.i
 
 all: EnumTests.exe
 
