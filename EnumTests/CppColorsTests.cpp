@@ -20,16 +20,16 @@ Colors operator++(Colors& c, int) {
     return tmp;
 }
 
-TEST_GROUP(Colors) {};
+TEST_GROUP(Colors_cpp) {};
 
-TEST(Colors, increment) {
+TEST(Colors_cpp, increment) {
     Colors color = Black;
     BYTES_EQUAL(Blue, ++color);
     BYTES_EQUAL(Blue, color++);
     BYTES_EQUAL(White, color);
 }
 
-TEST(Colors, overflow) {
+TEST(Colors_cpp, overflow) {
     Colors color = White;
     BYTES_EQUAL(Black, ++color);
     BYTES_EQUAL(Black, color++);
