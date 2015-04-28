@@ -2,40 +2,57 @@
 #include "CppUTest/TestHarness.h"
 
 extern "C" {
-    #include "Enum.h"
+    #include "Colors.h"
+    #include "LedState.h"
 }
 
-#include "Enum_fake.h"
+#include "Colors_fake.h"
 
 extern unsigned int c;
 
-TEST_GROUP(increment) {
+namespace Real {
+    extern unsigned int ledState;
+}
+
+TEST_GROUP(LedState_c) {};
+
+TEST(LedState_c, setFiveLedsOn) {
+    LedState_setFiveLedsOn();
+    BYTES_EQUAL(5U, Real::ledState);
+}
+
+TEST(LedState_c, setSixLedsOn) {
+    LedState_setSixLedsOn();
+    BYTES_EQUAL(6U, Real::ledState);
+}
+
+TEST_GROUP(Colors_c) {
     void setup() { 
         c = 0;
     }
 };
 
-TEST(increment, increment1) {
-    increment();
+TEST(Colors_c, increment1) {
+    Colors_increment();
     BYTES_EQUAL(1, c);
 }
 
-TEST(increment, increment2) {
-    increment();
-    increment();
+TEST(Colors_c, increment2) {
+    Colors_increment();
+    Colors_increment();
     BYTES_EQUAL(2, c);
 }
 
-TEST(increment, overflow) {
-    increment();
-    increment();
-    increment();
+TEST(Colors_c, overflow) {
+    Colors_increment();
+    Colors_increment();
+    Colors_increment();
     BYTES_EQUAL(0, c);
 }
 
-TEST(increment, stubbed) {
-    UT_PTR_SET(Enum_Fake::increment, Stub::increment);
-    increment();
+TEST(Colors_c, stubbed) {
+    UT_PTR_SET(Colors_Fake::Colors_increment, Stub::Colors_increment);
+    Colors_increment();
     BYTES_EQUAL(1, c);
 }
 

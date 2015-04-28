@@ -8,7 +8,7 @@ CXXFLAGS = $(CFLAGS) -std=c++11
 
 all: EnumTests.exe
 
-EnumTests.exe: EnumTests.o CppEnumTests.o Enum_real.o Enum_fake.o
+EnumTests.exe: EnumTests.o CppColorsTests.o Colors_real.o Colors_fake.o LedState_fake.o
 	$(CXX) $(CFLAGS) $? $(LIBS) -o $@
 	./$@ -v
     
