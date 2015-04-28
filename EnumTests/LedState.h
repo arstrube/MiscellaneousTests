@@ -1,6 +1,7 @@
-#ifndef ENUM_H__
-#define ENUM_H__
+#ifndef LEDSTATE_H__
+#define LEDSTATE_H__
 
-void increment(void);
+void LedState_setFiveLedsOn(void);
+void LedState_setSixLedsOn(void);
 
 #endif

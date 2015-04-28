@@ -3,11 +3,28 @@
 
 extern "C" {
     #include "Colors.h"
+    #include "LedState.h"
 }
 
 #include "Colors_fake.h"
 
 extern unsigned int c;
+
+namespace Real {
+    extern unsigned int ledState;
+}
+
+TEST_GROUP(LedState_c) {};
+
+TEST(LedState_c, setFiveLedsOn) {
+    LedState_setFiveLedsOn();
+    BYTES_EQUAL(5U, Real::ledState);
+}
+
+TEST(LedState_c, setSixLedsOn) {
+    LedState_setSixLedsOn();
+    BYTES_EQUAL(6U, Real::ledState);
+}
 
 TEST_GROUP(Colors_c) {
     void setup() { 
