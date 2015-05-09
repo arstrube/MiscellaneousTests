@@ -2,82 +2,80 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 
-extern "C" {
-   #include "NvDataHandler.h"
-}
-
-typedef enum ReturnType {OK, NOT_OK};
+/// Code to be tested
 
 #define BUFFER_SIZE 13
+typedef unsigned char uint8;
 
-ReturnType readArray(unsigned* data)
-{
-	mock().actualCall("readArray").withOutputParameter("data",data);
+bool readArray(uint8*);
+bool writeArray(const uint8*);
 
-	return (ReturnType) mock().returnUnsignedIntValueOrDefault(NOT_OK);
-}
-
-ReturnType writeArray(const uint8* data)
-{
-	mock().actualCall("writeArray").withParameterOfType("unsigned[13]", "data", (const void*)data);
-
-	return (ReturnType) mock().returnUnsignedIntValueOrDefault(NOT_OK);
-}
-
-TEST_GROUP(WeirdMock)
-{
-	Aac_Nv_RawData_st_Comparator rawDataComparator;
-
-	void setup()
-    {
-		mock().installComparator("uint8[47]", rawDataComparator);
-	}
-    void teardown()
-    {
-    	mock().checkExpectations();
-    	mock().clear();
-    }
+struct dummy {
+    dummy(int n = 0) : number(n) {}
+    int number;
 };
 
-class data_Comparator : public MockNamedValueComparator
-{
-    virtual bool isEqual(const void* object1, const void* object2)
-    {
-    	uint8* data1_stp = (uint8*)object1;
-    	uint8* data2_stp = (uint8*)object2;
+bool functionToBeTested(void) {
+    dummy localDummy;
+    const uint8 localArray[BUFFER_SIZE] = "Hello World!";
+    bool result = readArray((uint8*)&localDummy);
+    if(5 == localDummy.number) result = writeArray(localArray);
+    return result;
+}
+
+/// Mocks for other functions used by code to be tested
+
+bool readArray(uint8* data) {
+	mock().actualCall("readArray").withOutputParameter("data",data);
+	return mock().returnUnsignedIntValueOrDefault(false);
+}
+
+bool writeArray(const uint8* data) {
+	mock().actualCall("writeArray").withParameterOfType("uint8[13]", "data", (const void*)data);
+	return mock().returnUnsignedIntValueOrDefault(false);
+}
+
+/// An example comparator for the array [13] type
+
+class Array_Comparator : public MockNamedValueComparator {
+    virtual bool isEqual(const void* array1, const void* array2) {
     	bool isEqual = true;
     	for(int i=0; i<BUFFER_SIZE; i++) {
-    		if(data[i] !=daqta[i]) isEqual = false;
+    		if(((uint8*)array1)[i]!=((uint8*)array2)[i]) isEqual = false;
     	}
         return isEqual;
     }
-    virtual SimpleString valueToString(const void* object)
-    {
-        return StringFrom(object);
+    virtual SimpleString valueToString(const void* array) {
+        return StringFrom((char*)array);
     }
 };
 
-SimpleString StringFrom(uint8* data)
-{
-	SimpleString s("uint8[47]: ");
-	for(int i=0; i<BUFFER_SIZE; i++) s += StringFrom(data[i]);
-	return s;
-}
+/// The actual tests
+
+TEST_GROUP(WeirdMock) {
+    Array_Comparator comparator;
+    void setup() {
+        mock().installComparator("uint8[13]", comparator);
+    }
+    void teardown() {
+        mock().removeAllComparators();
+        mock().checkExpectations();
+        mock().clear();
+    }
+};
 
 TEST(WeirdMock, Weird) {
-
-	uint8 expected[BUFFER_SIZE]; // this is compared
-	uint8 actual[BUFFER_SIZE];   // this gets written to
+    const dummy someDummy(5);
+    uint8 expectedArray[BUFFER_SIZE] = "Hello World!";
 	mock().expectOneCall("readArray")
-          .withOutputParameterReturning("data",(void*)&dummy,sizeof(dummy))
-		  .andReturnValue(OK);
-	mock().expectOneCall("BlaBla").withParameterOfType("uint8[47]", "data",(void*)&actual)
-			                                .andReturnValue(OK);
-    readArray(data);
-    writeArray(data);
-	CHECK(expected==actual);
+          .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
+		  .andReturnValue(true);
+	mock().expectOneCall("writeArray")
+          .withParameterOfType("uint8[13]", "data", (void*)&expectedArray)
+          .andReturnValue(true);
+    
+    CHECK(functionToBeTested());
 }
-
 
 /// CppUTest main function
 
