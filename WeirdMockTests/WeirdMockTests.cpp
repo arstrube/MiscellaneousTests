@@ -1,6 +1,8 @@
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
+#include "CppUTest/TestRegistry.h"
 #include "CppUTestExt/MockSupport.h"
+#include "CppUTestExt/MockSupportPlugin.h"
 
 /// Code to be tested
 
@@ -35,7 +37,7 @@ bool writeArray(const byte* data) {
 	return mock().returnUnsignedIntValueOrDefault(false);
 }
 
-/// An example comparator for the array [13] type
+/// An example comparator for the byte*[13] type
 
 class Array_Comparator : public MockNamedValueComparator {
     virtual bool isEqual(const void* array1, const void* array2) {
@@ -64,7 +66,7 @@ TEST_GROUP(WeirdMock) {
 };
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
-    const dummy someDummy(5);
+    const dummy someDummy;
     byte expectedArray[BUFFER_SIZE] = "Hello World!";
 	mock().expectOneCall("readArray")
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
@@ -89,5 +91,7 @@ TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
 
 int main(int ac, char** av)
 {
-	return RUN_ALL_TESTS(ac, av);
+    MockSupportPlugin mockPlugin;
+    TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
+    return RUN_ALL_TESTS(ac, av);
 }
