@@ -5,10 +5,10 @@
 /// Code to be tested
 
 #define BUFFER_SIZE 13
-typedef unsigned char uint8;
+typedef unsigned char byte;
 
-bool readArray(uint8*);
-bool writeArray(const uint8*);
+bool readArray(byte*);
+bool writeArray(const byte*);
 
 struct dummy {
     dummy(int n = 0) : number(n) {}
@@ -17,21 +17,21 @@ struct dummy {
 
 bool functionToBeTested(void) {
     dummy localDummy;
-    const uint8 localArray[BUFFER_SIZE] = "Hello World!";
-    bool result = readArray((uint8*)&localDummy);
+    const byte localArray[BUFFER_SIZE] = "Hello World!";
+    bool result = readArray((byte*)&localDummy);
     if(5 == localDummy.number) result = writeArray(localArray);
     return result;
 }
 
 /// Mocks for other functions used by code to be tested
 
-bool readArray(uint8* data) {
+bool readArray(byte* data) {
 	mock().actualCall("readArray").withOutputParameter("data",data);
 	return mock().returnUnsignedIntValueOrDefault(false);
 }
 
-bool writeArray(const uint8* data) {
-	mock().actualCall("writeArray").withParameterOfType("uint8[13]", "data", (const void*)data);
+bool writeArray(const byte* data) {
+	mock().actualCall("writeArray").withParameterOfType("byte[13]", "data", (const void*)data);
 	return mock().returnUnsignedIntValueOrDefault(false);
 }
 
@@ -39,11 +39,10 @@ bool writeArray(const uint8* data) {
 
 class Array_Comparator : public MockNamedValueComparator {
     virtual bool isEqual(const void* array1, const void* array2) {
-    	bool isEqual = true;
     	for(int i=0; i<BUFFER_SIZE; i++) {
-    		if(((uint8*)array1)[i]!=((uint8*)array2)[i]) isEqual = false;
+    		if(((byte*)array1)[i]!=((byte*)array2)[i]) return false;
     	}
-        return isEqual;
+        return true;
     }
     virtual SimpleString valueToString(const void* array) {
         return StringFrom((char*)array);
@@ -55,7 +54,7 @@ class Array_Comparator : public MockNamedValueComparator {
 TEST_GROUP(WeirdMock) {
     Array_Comparator comparator;
     void setup() {
-        mock().installComparator("uint8[13]", comparator);
+        mock().installComparator("byte[13]", comparator);
     }
     void teardown() {
         mock().removeAllComparators();
@@ -66,12 +65,12 @@ TEST_GROUP(WeirdMock) {
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
     const dummy someDummy(5);
-    uint8 expectedArray[BUFFER_SIZE] = "Hello World!";
+    byte expectedArray[BUFFER_SIZE] = "Hello World!";
 	mock().expectOneCall("readArray")
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
 		  .andReturnValue(true);
 	mock().expectOneCall("writeArray")
-          .withParameterOfType("uint8[13]", "data", (void*)&expectedArray)
+          .withParameterOfType("byte[13]", "data", (void*)&expectedArray)
           .andReturnValue(true);
     
     CHECK(functionToBeTested());
