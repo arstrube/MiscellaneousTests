@@ -64,7 +64,7 @@ TEST_GROUP(WeirdMock) {
     }
 };
 
-TEST(WeirdMock, Weird) {
+TEST(WeirdMock, WeirdWithCallToWriteArray) {
     const dummy someDummy(5);
     uint8 expectedArray[BUFFER_SIZE] = "Hello World!";
 	mock().expectOneCall("readArray")
@@ -73,6 +73,15 @@ TEST(WeirdMock, Weird) {
 	mock().expectOneCall("writeArray")
           .withParameterOfType("uint8[13]", "data", (void*)&expectedArray)
           .andReturnValue(true);
+    
+    CHECK(functionToBeTested());
+}
+
+TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
+    const dummy someDummy;
+    mock().expectOneCall("readArray")
+    .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
+		  .andReturnValue(true);
     
     CHECK(functionToBeTested());
 }
