@@ -53,17 +53,7 @@ class Array_Comparator : public MockNamedValueComparator {
 
 /// The actual tests
 
-TEST_GROUP(WeirdMock) {
-    Array_Comparator comparator;
-    void setup() {
-        mock().installComparator("byte[13]", comparator);
-    }
-    void teardown() {
-        mock().removeAllComparators();
-        mock().checkExpectations();
-        mock().clear();
-    }
-};
+TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
     const dummy someDummy;
@@ -91,7 +81,9 @@ TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
 
 int main(int ac, char** av)
 {
+    Array_Comparator comparator;
     MockSupportPlugin mockPlugin;
+    mock().installComparator("byte[13]", comparator);
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
     return RUN_ALL_TESTS(ac, av);
 }
