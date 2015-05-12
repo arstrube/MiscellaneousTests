@@ -4,10 +4,19 @@
 #include "CppUTestExt/MockSupport.h"
 #include "CppUTestExt/MockSupportPlugin.h"
 
+/// General type definitions
+
+typedef unsigned char byte;
+
+/// A type to make given-size array *really* type-safe
+
+typedef struct ByteArray13 {
+    byte data[13];
+} ByteArray13;
+
 /// Code to be tested
 
 #define BUFFER_SIZE 13
-typedef unsigned char byte;
 
 bool readArray(byte*);
 bool writeArray(const byte*);
@@ -19,9 +28,9 @@ struct dummy {
 
 bool functionToBeTested(void) {
     dummy localDummy;
-    const byte localArray[BUFFER_SIZE] = "Hello World!";
+    byte localArray[BUFFER_SIZE] = { "Hello World!" };
     bool result = readArray((byte*)&localDummy);
-    if(5 == localDummy.number) result = writeArray(localArray);
+    if(5 == localDummy.number) result = writeArray((byte*) &localArray);
     return result;
 }
 
@@ -33,16 +42,16 @@ bool readArray(byte* data) {
 }
 
 bool writeArray(const byte* data) {
-	mock().actualCall("writeArray").withParameterOfType("byte[13]", "data", (const void*)data);
+	mock().actualCall("writeArray").withParameterOfType("ByteArray13", "data", (const void*)data);
 	return mock().returnUnsignedIntValueOrDefault(false);
 }
 
-/// An example comparator for the byte*[13] type
+/// An example comparator for the ByteArray13 type
 
-class Array_Comparator : public MockNamedValueComparator {
+class ByteArray13_Comparator : public MockNamedValueComparator {
     virtual bool isEqual(const void* array1, const void* array2) {
-    	for(int i=0; i<BUFFER_SIZE; i++) {
-    		if(((byte*)array1)[i]!=((byte*)array2)[i]) return false;
+    	for(int i=0; i<13; i++) {
+    		if(((ByteArray13*)array1)->data[i]!=((ByteArray13*)array2)->data[i]) return false;
     	}
         return true;
     }
@@ -57,12 +66,12 @@ TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
     const dummy someDummy;
-    byte expectedArray[BUFFER_SIZE] = "Hello World!";
+    ByteArray13 expectedArray = { "Hello Worid!" };
 	mock().expectOneCall("readArray")
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
 		  .andReturnValue(true);
 	mock().expectOneCall("writeArray")
-          .withParameterOfType("byte[13]", "data", (void*)&expectedArray)
+          .withParameterOfType("ByteArray13", "data", (void*)&expectedArray)
           .andReturnValue(true);
     
     CHECK(functionToBeTested());
@@ -81,9 +90,9 @@ TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
 
 int main(int ac, char** av)
 {
-    Array_Comparator comparator;
+    ByteArray13_Comparator comparator;
     MockSupportPlugin mockPlugin;
-    mock().installComparator("byte[13]", comparator);
+    mock().installComparator("ByteArray13", comparator);
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
     return RUN_ALL_TESTS(ac, av);
 }
