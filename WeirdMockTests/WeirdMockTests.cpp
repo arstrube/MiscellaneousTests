@@ -42,23 +42,9 @@ bool readArray(byte* data) {
 }
 
 bool writeArray(const byte* data) {
-	mock().actualCall("writeArray").withParameterOfType("ByteArray13", "data", (const void*)data);
+	mock().actualCall("writeArray").withParameterOfType("X", "data", (const void*)data);
 	return mock().returnUnsignedIntValueOrDefault(false);
 }
-
-/// An example comparator for the ByteArray13 type
-
-class ByteArray13_Comparator : public MockNamedValueComparator {
-    virtual bool isEqual(const void* array1, const void* array2) {
-    	for(int i=0; i<13; i++) {
-    		if(((ByteArray13*)array1)->data[i]!=((ByteArray13*)array2)->data[i]) return false;
-    	}
-        return true;
-    }
-    virtual SimpleString valueToString(const void* array) {
-        return StringFrom((char*)array);
-    }
-};
 
 /// The actual tests
 
@@ -71,7 +57,7 @@ TEST(WeirdMock, WeirdWithCallToWriteArray) {
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
 		  .andReturnValue(true);
 	mock().expectOneCall("writeArray")
-          .withParameterOfType("ByteArray13", "data", (void*)&expectedArray)
+          .withParameterOfType("X", "data", (void*)&expectedArray)
           .andReturnValue(true);
     
     CHECK(functionToBeTested());
@@ -86,13 +72,27 @@ TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
     CHECK(functionToBeTested());
 }
 
+/// An example comparator for the ByteArray13 type
+
+class ByteArray13_Comparator : public MockNamedValueComparator {
+    virtual bool isEqual(const void* array1, const void* array2) {
+        for(int i=0; i<13; i++) {
+            if(((ByteArray13*)array1)->data[i]!=((ByteArray13*)array2)->data[i]) return false;
+        }
+        return true;
+    }
+    virtual SimpleString valueToString(const void* array) {
+        return StringFrom((char*)array);
+    }
+};
+
 /// CppUTest main function
 
 int main(int ac, char** av)
 {
     ByteArray13_Comparator comparator;
     MockSupportPlugin mockPlugin;
-    mock().installComparator("ByteArray13", comparator);
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
+    mock().installComparator("X", comparator);
     return RUN_ALL_TESTS(ac, av);
 }
