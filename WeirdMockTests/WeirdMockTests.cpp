@@ -34,44 +34,6 @@ bool functionToBeTested(void) {
     return result;
 }
 
-/// Mocks for other functions used by code to be tested
-
-bool readArray(byte* data) {
-	mock().actualCall("readArray").withOutputParameter("data",data);
-	return mock().returnUnsignedIntValueOrDefault(false);
-}
-
-bool writeArray(const byte* data) {
-	mock().actualCall("writeArray").withParameterOfType("X", "data", (const void*)data);
-	return mock().returnUnsignedIntValueOrDefault(false);
-}
-
-/// The actual tests
-
-TEST_GROUP(WeirdMock) {};
-
-TEST(WeirdMock, WeirdWithCallToWriteArray) {
-    const dummy someDummy;
-    ByteArray13 expectedArray = { "Hello Worid!" };
-	mock().expectOneCall("readArray")
-          .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
-		  .andReturnValue(true);
-	mock().expectOneCall("writeArray")
-          .withParameterOfType("X", "data", (void*)&expectedArray)
-          .andReturnValue(true);
-    
-    CHECK(functionToBeTested());
-}
-
-TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
-    const dummy someDummy;
-    mock().expectOneCall("readArray")
-    .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
-		  .andReturnValue(true);
-    
-    CHECK(functionToBeTested());
-}
-
 /// An example comparator for the ByteArray13 type
 
 class ByteArray13_Comparator : public MockNamedValueComparator {
@@ -86,13 +48,58 @@ class ByteArray13_Comparator : public MockNamedValueComparator {
     }
 };
 
+/// Mocks for other functions used by code to be tested
+
+bool readArray(byte* data) {
+	mock().actualCall("readArray").withOutputParameter("data",data);
+	return mock().returnUnsignedIntValueOrDefault(false);
+}
+
+bool writeArray(const byte* data) {
+	mock().actualCall("writeArray").withParameterOfType("X", "data", (const void*)data);
+	return mock().returnUnsignedIntValueOrDefault(false);
+}
+
+/// The actual tests
+
+TEST_GROUP(WeirdMock) {
+    ByteArray13_Comparator comparator;
+    void setup() {
+        mock().installComparator("ByteArray13", comparator);
+    }
+    void teardown() {
+        mock().removeAllComparators();
+        mock().clear();
+    }
+};
+
+TEST(WeirdMock, WeirdWithCallToWriteArray) {
+    const dummy someDummy;
+    ByteArray13 expectedArray = { "Hello Worid!" };
+	mock().expectOneCall("readArray")
+          .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
+		  .andReturnValue(true);
+	mock().expectOneCall("writeArray")
+          .withParameterOfType("ByteArray13", "data", (void*)&expectedArray)
+          .andReturnValue(true);
+    
+    CHECK(functionToBeTested());
+}
+
+TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
+    const dummy someDummy;
+    mock().expectOneCall("readArray")
+    .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
+		  .andReturnValue(true);
+    
+    CHECK(functionToBeTested());
+}
+
 /// CppUTest main function
 
 int main(int ac, char** av)
 {
-    ByteArray13_Comparator comparator;
     MockSupportPlugin mockPlugin;
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
-    mock().installComparator("X", comparator);
     return RUN_ALL_TESTS(ac, av);
 }
