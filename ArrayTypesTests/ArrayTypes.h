@@ -1,24 +1,21 @@
 #ifndef _ARRAYTYPES_H_
 #define _ARRAYTYPES_H_
 
-#ifndef __cplusplus
-    typedef enum bool { false, true } bool;
-#endif
+#define ROW_SIZE 1
+#define COL_SIZE 1
+#define INVALID_SIZE 5
 
 typedef unsigned char byte;
 
-typedef struct ByteArray13 {
-    byte data[13];
-} ByteArray13;
+typedef struct TypesafeMatrix {
+    byte data[ROW_SIZE][COL_SIZE];
+} TypesafeMatrix;
 
-typedef struct dummy {
-    int number;
-} dummy;
+typedef byte UnsafeMatrix[ROW_SIZE][COL_SIZE];
 
-#define BUFFER_SIZE 13
-
-bool readArray(byte*);
-bool writeArray(const byte*);
-bool functionToBeTested(void);
+void typeSafeMatrixFunction(TypesafeMatrix typesafeMatrix);
+void pointerToUnsafeMatrixFunctionA(UnsafeMatrix* const unsafeMatrix);
+void unsafeMatrixConstFunction(UnsafeMatrix unsafeMatrix);
+void useAllFunctions(void);
 
 #endif // _ARRAYTYPES_H_
