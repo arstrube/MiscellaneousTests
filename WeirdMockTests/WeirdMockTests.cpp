@@ -56,7 +56,7 @@ bool readArray(byte* data) {
 }
 
 bool writeArray(const byte* data) {
-	mock().actualCall("writeArray").withParameterOfType("X", "data", (const void*)data);
+	mock().actualCall("writeArray").withParameterOfType("ByteArray13", "data", (const void*)data);
 	return mock().returnUnsignedIntValueOrDefault(false);
 }
 
@@ -68,14 +68,15 @@ TEST_GROUP(WeirdMock) {
         mock().installComparator("ByteArray13", comparator);
     }
     void teardown() {
+        mock().checkExpectations();
         mock().removeAllComparators();
         mock().clear();
     }
 };
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
-    const dummy someDummy;
-    ByteArray13 expectedArray = { "Hello Worid!" };
+    const dummy someDummy(5);
+    ByteArray13 expectedArray = { "Hello World!" };
 	mock().expectOneCall("readArray")
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
 		  .andReturnValue(true);
