@@ -1,21 +1,28 @@
 #ifndef _ARRAYTYPES_H_
 #define _ARRAYTYPES_H_
 
-#define ROW_SIZE 1
-#define COL_SIZE 1
+#define ROW_SIZE_A 1
+#define COL_SIZE_A 1
+#define ROW_SIZE_B 2
+#define COL_SIZE_B 2
 #define INVALID_SIZE 5
 
 typedef unsigned char byte;
 
-typedef struct TypesafeMatrix {
-    byte data[ROW_SIZE][COL_SIZE];
-} TypesafeMatrix;
+typedef struct TypesafeMatrixA {
+    byte data[ROW_SIZE_A][COL_SIZE_A];
+} TypesafeMatrixA;
 
-typedef byte UnsafeMatrix[ROW_SIZE][COL_SIZE];
+typedef struct TypesafeMatrixB {
+    byte data[ROW_SIZE_B][COL_SIZE_B];
+} TypesafeMatrixB;
 
-void typeSafeMatrixFunction(TypesafeMatrix typesafeMatrix);
-void pointerToUnsafeMatrixFunctionA(UnsafeMatrix* const unsafeMatrix);
-void unsafeMatrixConstFunction(UnsafeMatrix unsafeMatrix);
+typedef byte UnsafeMatrixA[ROW_SIZE_A][COL_SIZE_A];
+typedef byte UnsafeMatrixB[ROW_SIZE_B][COL_SIZE_B];
+
+void typeSafeMatrixConstFunctionA(const TypesafeMatrixA typesafeMatrixA);
+void pointerToUnsafeMatrixConstFunctionA(const UnsafeMatrixA* const unsafeMatrixA);
+void unsafeMatrixConstFunctionA(const UnsafeMatrixA unsafeMatrixA);
 void useAllFunctions(void);
 
 #endif // _ARRAYTYPES_H_

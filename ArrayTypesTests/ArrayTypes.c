@@ -1,32 +1,37 @@
 #include "ArrayTypes.h"
 
-static UnsafeMatrix unsafe;
-static TypesafeMatrix typesafe;
+static UnsafeMatrixA   unsafeA;
+static TypesafeMatrixA typesafeA;
+// static UnsafeMatrixB   unsafeB;
+// static TypesafeMatrixB typesafeB;
 
-void typeSafeMatrixFunction(TypesafeMatrix typesafeMatrix) {
+void typeSafeMatrixConstFunctionA(const TypesafeMatrixA typesafeMatrixA) {
     byte value;
     for(int i=0; i<INVALID_SIZE; i++) {
         for (int j=0; j<INVALID_SIZE; j++) {
-            value = typesafeMatrix.data[i][j];
+            value = typesafeMatrixA.data[i][j];
         }
     }
 }
 
-void pointerToUnsafeMatrixFunction(UnsafeMatrix* const unsafeMatrix) {
-    (void)unsafeMatrix;
+void pointerToUnsafeMatrixConstFunctionA(const UnsafeMatrixA* const unsafeMatrixA) {
+    (void)unsafeMatrixA;
 }
 
-void unsafeMatrixFunction(const UnsafeMatrix unsafeMatrix) {
+void unsafeMatrixConstFunctionA(const UnsafeMatrixA unsafeMatrixA) {
     byte value;
     for(int i=0; i<INVALID_SIZE; i++) {
         for (int j=0; j<INVALID_SIZE; j++) {
-            value = unsafeMatrix[i][j];
+            value = unsafeMatrixA[i][j];
         }
     }
 }
 
 void useAllFunctions(void) {
-    typeSafeMatrixFunction(typesafe);
-    pointerToUnsafeMatrixFunction(&unsafe);
-    unsafeMatrixFunction(unsafe);
+    // typeSafeMatrixConstFunctionA(typesafeB); /* compiler won't allow this */
+   // pointerToUnsafeMatrixConstFunctionA(&unsafeB);
+    //unsafeMatrixConstFunctionA(unsafeB);
+    typeSafeMatrixConstFunctionA(typesafeA);
+    pointerToUnsafeMatrixConstFunctionA(&unsafeA);
+    unsafeMatrixConstFunctionA(unsafeA);
 }

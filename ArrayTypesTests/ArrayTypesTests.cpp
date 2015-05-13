@@ -8,7 +8,6 @@ extern "C" {
     #include "ArrayTypes.h"
 }
 
-
 /// Tests
 
 TEST_GROUP(Matrices) {};
