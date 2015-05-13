@@ -62,20 +62,10 @@ bool writeArray(const byte* data) {
 
 /// The actual tests
 
-TEST_GROUP(WeirdMock) {
-    ByteArray13_Comparator comparator;
-    void setup() {
-        mock().installComparator("ByteArray13", comparator);
-    }
-    void teardown() {
-        mock().checkExpectations();
-        mock().removeAllComparators();
-        mock().clear();
-    }
-};
+TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
-    const dummy someDummy(5);
+    const dummy someDummy(4);
     ByteArray13 expectedArray = { "Hello World!" };
 	mock().expectOneCall("readArray")
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
@@ -101,6 +91,8 @@ TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
 int main(int ac, char** av)
 {
     MockSupportPlugin mockPlugin;
+    ByteArray13_Comparator comparator;
+    mockPlugin.installComparator("ByteArray13", comparator);
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
     return RUN_ALL_TESTS(ac, av);
 }

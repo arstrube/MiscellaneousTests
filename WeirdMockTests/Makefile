@@ -21,7 +21,7 @@ WeirdMockTests.exe: WeirdMockTests.o
 	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
 	echo; ./$@ -v -c
 
-InlineTests.o: Makefile
+WeirdMockTests.o: Makefile
 
 clean:
 	rm -rf *.a *.dSYM *.exe *.i *.o
