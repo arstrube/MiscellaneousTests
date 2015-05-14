@@ -1,3 +1,9 @@
+/**********************************************************************
+ SOLUTION 1 (PREFERRED):
+ USE MOCKSUPPORTPLUGIN FOR COMPARATORS
+ NOTE: FAILING MOCK EXPECTATION IS ESSENTIAL
+ **********************************************************************/
+
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/TestRegistry.h"
@@ -18,8 +24,6 @@ class DummyComparator : public MockNamedValueComparator {
 TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
-    DummyComparator comparator;
-    mock().installComparator("dummy", comparator);
 	mock().expectOneCall("function")
           .withParameterOfType("dummy", "parameter", (void*)1);
 }
@@ -29,6 +33,8 @@ TEST(WeirdMock, WeirdWithCallToWriteArray) {
 int main(int ac, char** av)
 {
     MockSupportPlugin mockPlugin;
+    DummyComparator comparator;
+    mockPlugin.installComparator("dummy", comparator);
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
     return RUN_ALL_TESTS(ac, av);
 }
