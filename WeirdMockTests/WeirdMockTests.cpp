@@ -1,6 +1,6 @@
 /**********************************************************************
- SOLUTION 2:
- USE GLOBAL NAMESPACE
+ SOLUTION 3:
+ CHECK MOCK EXPECTATIONS WITHIN SCOPE
  NOTE: FAILING MOCK EXPECTATION IS ESSENTIAL
  **********************************************************************/
 
@@ -17,16 +17,18 @@ class DummyComparator : public MockNamedValueComparator {
     virtual SimpleString valueToString(const void*) {
         return "dummy";
     }
-} comparator;
+};
 
 /// The actual tests
 
 TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
+    DummyComparator comparator;
     mock().installComparator("dummy", comparator);
 	mock().expectOneCall("function")
           .withParameterOfType("dummy", "parameter", (void*)1);
+    mock().checkExpectations();
 }
 
 /// CppUTest main function
