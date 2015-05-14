@@ -1,6 +1,6 @@
 /**********************************************************************
- SOLUTION 1 (PREFERRED):
- USE MOCKSUPPORTPLUGIN FOR COMPARATORS
+ SOLUTION 2:
+ USE GLOBAL NAMESPACE
  NOTE: FAILING MOCK EXPECTATION IS ESSENTIAL
  **********************************************************************/
 
@@ -17,13 +17,14 @@ class DummyComparator : public MockNamedValueComparator {
     virtual SimpleString valueToString(const void*) {
         return "dummy";
     }
-};
+} comparator;
 
 /// The actual tests
 
 TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
+    mock().installComparator("dummy", comparator);
 	mock().expectOneCall("function")
           .withParameterOfType("dummy", "parameter", (void*)1);
 }
@@ -33,8 +34,6 @@ TEST(WeirdMock, WeirdWithCallToWriteArray) {
 int main(int ac, char** av)
 {
     MockSupportPlugin mockPlugin;
-    DummyComparator comparator;
-    mockPlugin.installComparator("dummy", comparator);
     TestRegistry::getCurrentRegistry()->installPlugin(&mockPlugin);
     return RUN_ALL_TESTS(ac, av);
 }
