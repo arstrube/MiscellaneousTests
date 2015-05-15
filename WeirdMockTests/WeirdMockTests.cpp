@@ -34,19 +34,6 @@ bool functionToBeTested(void) {
     return result;
 }
 
-/// An example comparator for the ByteArray13 type
-
-class ByteArray13_Comparator : public MockNamedValueComparator {
-    virtual bool isEqual(const void* array1, const void* array2) {
-        for(int i=0; i<13; i++) {
-            if(((ByteArray13*)array1)->data[i]!=((ByteArray13*)array2)->data[i]) return false;
-        }
-        return true;
-    }
-    virtual SimpleString valueToString(const void* array) {
-        return StringFrom((char*)array);
-    }
-};
 
 /// Mocks for other functions used by code to be tested
 
@@ -65,7 +52,7 @@ bool writeArray(const byte* data) {
 TEST_GROUP(WeirdMock) {};
 
 TEST(WeirdMock, WeirdWithCallToWriteArray) {
-    const dummy someDummy(4);
+    const dummy someDummy(5);
     ByteArray13 expectedArray = { "Hello World!" };
 	mock().expectOneCall("readArray")
           .withOutputParameterReturning("data",(void*)&someDummy,sizeof(someDummy))
@@ -86,6 +73,19 @@ TEST(WeirdMock, WeirdWithoutCallToWriteArray) {
     CHECK(functionToBeTested());
 }
 
+/// An example comparator for the ByteArray13 type
+
+class ByteArray13_Comparator : public MockNamedValueComparator {
+    virtual bool isEqual(const void* array1, const void* array2) {
+        for(int i=0; i<13; i++) {
+            if(((ByteArray13*)array1)->data[i]!=((ByteArray13*)array2)->data[i]) return false;
+        }
+        return true;
+    }
+    virtual SimpleString valueToString(const void* array) {
+        return StringFrom((char*)array);
+    }
+};
 /// CppUTest main function
 
 int main(int ac, char** av)
