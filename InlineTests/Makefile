@@ -19,16 +19,16 @@ all: i libInlineLib.a InlineTests.exe
 %.i: %.c
 	$(CC) -E $(CFLAGS) $< -o $@
     
-i: InlineLib1.i InlineLib2.i InlineLib_macro.i
+i: InlineLib-1.i InlineLib-2.i inline.i
     
-libInlineLib.a: InlineLib1.o InlineLib2.o InlineLib_macro.o
+libInlineLib.a: InlineLib-1.o InlineLib-2.o inline.o
 	$(AR) -r -s $@ $?
 
 InlineTests.exe: InlineTests.o
 	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
 	echo; ./$@ -v
 
-InlineLib1.o InlineLib2.o InlineTests.o InlineLib_macro.o: Makefile
+ inline.o InlineLib-1.o InlineLib-2.o InlineTests.o: Makefile inline.h InlineLib.h
 
 clean:
 	rm -rf *.a *.dSYM *.exe *.i *.o

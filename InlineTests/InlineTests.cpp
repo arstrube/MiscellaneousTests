@@ -2,7 +2,7 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 extern "C" {
-#include "inlineLib.h"
+#include "InlineLib.h"
 }
 
 TEST_GROUP(inline) {};
