@@ -6,8 +6,6 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 
-#define VARIANT_2
-
 extern "C"
 {
     #include "MockPartOut.h"
@@ -21,24 +19,17 @@ void Mpo_copy(Mpo_t* const to, const Mpo_t* const from)
 	to->l = from->l;
 }
 
-#ifndef VARIANT_2 
-void Otr_func(Mpo_t* p)
-{
-	mock().actualCall("Otr_func").withOutputParameter("p", (void*) &p->my_ar);
-}
-#else
 void Otr_func(Mpo_t* p)
 {
     Mpo_t save;
-    
+
     Mpo_copy(&save, p); /// Save the fields not to be written
-    
+
 	mock().actualCall("Otr_func")
 	      .withOutputParameter("p", (void*) p); /// Writes all fields
-	      
+
 	Mpo_copy(p, &save); /// Restore the fields not to be written
 }
-#endif
 
 TEST_GROUP(Rsp_Sample_Test) {};
 
@@ -48,17 +39,13 @@ TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
     Mpo_init();
     Mpo_t* result = Mpo_get();
     Mpo_t expected;
-    
+
     expected.f = -1.0;                                  /// should be ignored
     for (int i=0; i<3; i++) expected.other_stuff[i]=-1; /// should be ignored
     for (int i=0; i<4; i++) expected.to_modify[i]=i;
     expected.l = -1L;                                   /// should be ignored
-    
-#ifndef VARIANT_2
-	mock().expectNCalls(1, "Otr_func").withOutputParameterReturning("p", expected.my_ar, sizeof(expected.my_ar));
-#else
+
     mock().expectNCalls(1, "Otr_func").withOutputParameterReturning("p", (void*) &expected, sizeof(expected));
-#endif 
 
 	/// execute
 	Mpo_doit();
