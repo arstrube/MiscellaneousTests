@@ -1,6 +1,6 @@
 CXX = g++
 AR = ar
-CFLAGS = -Wextra -Wall -Werror -O0 -include forced.h
+CFLAGS = -Wextra -Wall -Werror -g3 -O0 -include forced.h
 LIBS=-lInlineLib -lCppUTest
 LIB_PATH=-L. -L/usr/local/lib
 
@@ -17,16 +17,16 @@ all: i libInlineLib.a InlineTests.exe
 %.i: %.c
 	$(CC) -E $(CFLAGS) $< -o $@
     
-i: InlineLib1.i InlineLib2.i
+i: InlineLib1.i InlineLib2.i InlineLib_macro.i
     
-libInlineLib.a: InlineLib1.o InlineLib2.o
+libInlineLib.a: InlineLib1.o InlineLib2.o InlineLib_macro.o
 	$(AR) -r -s $@ $?
 
 InlineTests.exe: InlineTests.o
 	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
 	echo; ./$@ -v
 
-InlineLib1.o InlineLib2.o InlineTests.o: Makefile
+InlineLib1.o InlineLib2.o InlineTests.o InlineLib_macro.o: Makefile forced.h
 
 clean:
 	rm -rf *.a *.dSYM *.exe *.i *.o
