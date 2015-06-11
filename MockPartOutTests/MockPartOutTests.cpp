@@ -6,11 +6,19 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 
+#define VARIANT_2
+
 extern "C"
 {
     #include "MockPartOut.h"
 }
 
+#ifndef VARIANT_2
+void Otr_func(Mpo_t* p)
+{
+	mock().actualCall("Otr_func").withOutputParameter("p", (void*) p->to_modify);
+}
+#else
 void Mpo_copy(Mpo_t* const to, const Mpo_t* const from)
 {
     to->f = from->f;
@@ -18,7 +26,6 @@ void Mpo_copy(Mpo_t* const to, const Mpo_t* const from)
     /// Don't copy the field(s) to be modified (tp->to_modify[])
 	to->l = from->l;
 }
-
 void Otr_func(Mpo_t* p)
 {
     Mpo_t save;
@@ -30,6 +37,7 @@ void Otr_func(Mpo_t* p)
 
 	Mpo_copy(p, &save); /// Restore the fields not to be written
 }
+#endif
 
 TEST_GROUP(Rsp_Sample_Test) {};
 
@@ -45,7 +53,11 @@ TEST(Rsp_Sample_Test, Rsp_MockOutputSample)
     for (int i=0; i<4; i++) expected.to_modify[i]=i;
     expected.l = -1L;                                   /// should be ignored
 
+#ifndef VARIANT_2
+	mock().expectNCalls(1, "Otr_func").withOutputParameterReturning("p", expected.to_modify, sizeof(expected.to_modify));
+#else
     mock().expectNCalls(1, "Otr_func").withOutputParameterReturning("p", (void*) &expected, sizeof(expected));
+#endif
 
 	/// execute
 	Mpo_doit();
