@@ -3,13 +3,15 @@ CPPUTEST_HOME = /usr/local
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
 CFLAGS = -Wextra -Wall -Werror -g
+TARGETS := MockReturningStructTests AutoPtrTests BugTests CountedTestTests FabsTests OutParamTests
 
-.PHONY: all clean MockReturningStructTests AutoPtrTests CountedTestTests FabsTests OutParamTests
+.PHONY: all clean $(TARGETS)
 
-all: MockReturningStructTests AutoPtrTests CountedTestTests FabsTests OutParamTests
+all: $(TARGETS)
 
 MockReturningStructTests: MockReturningStructTests.exe
 AutoPtrTests: AutoPtrTests.exe
+BugTests: BugTests.exe
 CountedTestTests: CountedTestTests.exe
 FabsTests: FabsTests.exe
 OutParamTests: OutParamTests.exe
