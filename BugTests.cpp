@@ -31,7 +31,7 @@ public:
         ref = m_ref;
         return true;
     }
-private:
+protected:
     MyReference m_ref;
 };
 
@@ -43,10 +43,9 @@ public:
     ReturnReferenceMock(){}
     ~ReturnReferenceMock(){}
 
-    bool returnReference(MyReference& ref)
+    void setReference(MyReference& ref)
     {
-        return mock().actualCall("returnReference").onObject(this).
-        withOutputParameter("ref", &ref).returnIntValue();
+        m_ref = ref;
     }
 };
 
@@ -97,9 +96,7 @@ TEST(TestReferenceMock, willItFail)
     UseReturnReference useRef(retRefMock);
     MyReference* ref = new MyReference();
 
-    mock().expectOneCall("returnReference").onObject(retRefMock).
-    withOutputParameterReturning("ref", ref, sizeof(*ref)).
-    andReturnValue(true);
+    retRefMock->setReference(*ref);
 
     useRef.useReturnReference();
 
@@ -115,9 +112,7 @@ TEST(TestReferenceMock, willItFail2)
     UseReturnReference useRef(retRefMock);
     MyReference ref;
 
-    mock().expectOneCall("returnReference").onObject(retRefMock).
-    withOutputParameterReturning("ref", &ref, sizeof(ref)).
-    andReturnValue(true);
+    retRefMock->setReference(ref);
 
     useRef.useReturnReference();
 
