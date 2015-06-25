@@ -7,10 +7,6 @@ struct Simple {
     Simple() {
         m_data = new int;
     }
-    Simple(const Simple& rhs) {
-        m_data = new int;
-        *m_data = *rhs.m_data;
-    }
     Simple& operator=(const Simple& rhs) {
         *m_data = *rhs.m_data;
         return *this;
@@ -21,34 +17,39 @@ struct Simple {
     int * m_data;
 };
 
+struct Floaty {
+    Floaty() {
+        m_data = new float;
+    }
+    Floaty& operator=(const Floaty& rhs) {
+        *m_data = *rhs.m_data;
+        return *this;
+    }
+    ~Floaty() {
+        delete m_data;
+    }
+    float * m_data;
+};
+
 struct Simple2 {
     int m_data;
 };
 
-class SimpleComparator : public MockNamedValueComparator {
+template <class T>
+class Copier : public MockNamedValueCopier {
 public:
-    virtual bool isEqual(const void* object1, const void* object2)
+    virtual void copy(void* to, const void* from)
     {
-        return object1 == object2;
-    }
-    virtual SimpleString valueToString(const void* object)
-    {
-        return StringFrom(((Simple*)object)->m_data);
-    }
-    virtual void* copy(const void* to, const void* from)
-    {
-        Simple* ret = (Simple*)to;
-        *ret = *((Simple*)from);
-        return (void*)ret;
+         *(T*)to = *((T*)from);
     }
 };
 //--------------------------------------------------------------------------------------------
-TEST_GROUP(Simple) {};
+TEST_GROUP(Copier) {};
 
-TEST(Simple, WillItFail)
+TEST(Copier, Simple_WillItFail)
 {
-    SimpleComparator comparator;
-    mock().installComparator("Simple", comparator);
+    Copier<Simple> copier;
+    mock().installCopier("Simple", copier);
     Simple source, destination;
     *source.m_data = 5;
     *destination.m_data = 7;
@@ -59,9 +60,25 @@ TEST(Simple, WillItFail)
     LONGS_EQUAL(5, *destination.m_data);
 
     mock().clear();
-    mock().removeAllComparators();
+    mock().removeAllHandlers();
 }
-TEST(Simple, WillItFail2)
+TEST(Copier, Floaty_WillItFail)
+{
+    Copier<Floaty> copier;
+    mock().installCopier("Floaty", copier);
+    Simple source, destination;
+    *source.m_data = 5.777;
+    *destination.m_data = 7;
+    mock().expectOneCall("foo").withOutputParameterOfTypeReturning("Floaty", "floaty", &source);
+    mock().actualCall("foo").withOutputParameterOfType("Floaty", "floaty", &destination);
+
+    mock().checkExpectations();
+    LONGS_EQUAL(5.777, *destination.m_data);
+
+    mock().clear();
+    mock().removeAllHandlers();
+}
+TEST(Copier, Simple2_WillItFail)
 {
     Simple2 source, destination;
     source.m_data = 5;
