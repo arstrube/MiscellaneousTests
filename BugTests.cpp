@@ -47,6 +47,8 @@ TEST_GROUP(Simple) {};
 
 TEST(Simple, WillItFail)
 {
+    SimpleComparator comparator;
+    mock().installComparator("Simple", comparator);
     Simple source, destination;
     *source.m_data = 5;
     *destination.m_data = 7;
@@ -57,6 +59,7 @@ TEST(Simple, WillItFail)
     LONGS_EQUAL(5, *destination.m_data);
 
     mock().clear();
+    mock().removeAllComparators();
 }
 TEST(Simple, WillItFail2)
 {
@@ -74,8 +77,5 @@ TEST(Simple, WillItFail2)
 //--------------------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
-    SimpleComparator comparator;
-    mock().installComparator("Simple", comparator);
     return CommandLineTestRunner::RunAllTests(argc, argv);
-    mock().removeAllComparators();
 }
