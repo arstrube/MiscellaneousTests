@@ -25,7 +25,7 @@ struct Simple2 {
     int m_data;
 };
 
-class SimpleComparator : public MockNamedValueComparatorWithCopy {
+class SimpleComparator : public MockNamedValueCopier {
 public:
     virtual bool isEqual(const void* object1, const void* object2)
     {
