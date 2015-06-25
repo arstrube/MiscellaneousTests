@@ -44,7 +44,33 @@ public:
     }
 };
 //--------------------------------------------------------------------------------------------
+struct DummyForTesting {
+};
+class DummyForTestingDummyCopier : public MockNamedValueCopier {
+    virtual void copy(void*, const void*) {}
+};
+//--------------------------------------------------------------------------------------------
 TEST_GROUP(Copier) {};
+
+TEST(Copier, NextTest)
+{
+    mock().checkExpectations();
+    mock().clear();
+}
+
+TEST(Copier, DummyForTesting_weirdFailureWhenMissingCopier)
+{
+    DummyForTestingDummyCopier copier;
+    mock().installCopier("Other", copier);
+    DummyForTesting source, destination;
+    mock().expectOneCall("foo").withOutputParameterOfTypeReturning("Dummy", "dummy", &source);
+    mock().actualCall("foo").withOutputParameterOfType("Dummy", "dummy", &destination);
+
+    mock().checkExpectations();
+
+    mock().clear();
+    mock().removeAllHandlers();
+}
 
 TEST(Copier, Simple_WillItFail)
 {
