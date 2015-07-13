@@ -52,3 +52,5 @@ void IEEE754ExceptionFlagsPlugin::postTestAction(UtestShell& test, TestResult& r
     IEE754_CHECK_FALSE(std::fetestexcept(FE_INVALID));
     IEE754_CHECK_FALSE(std::fetestexcept(FE_INEXACT));
 }
+
+/* TODO: hasFailed() flag */
