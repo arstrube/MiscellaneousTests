@@ -12,7 +12,7 @@ FETests.exe: FETests.o FETests_c.o
 	$(CXX) $(CFLAGS) $? $(LIBS) -o $@
 	./$@ -v
     
-%.o: Makefile
+FETests.o FETests_c.o: Makefile
 
 clean:
 	rm -f *.o *.exe;
