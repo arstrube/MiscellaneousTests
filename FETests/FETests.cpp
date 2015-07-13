@@ -63,13 +63,20 @@ TEST(FE, FE_INVALID_c____is_working) {
     do_invalid_c();
     CHECK(std::fetestexcept(FE_INVALID));
 }
-TEST(FE, FE_INEXACT__is_working) { /* -frounding-math */
+TEST(FE, FE_INEXACT______is_working) { /* -frounding-math */
     do_inexact();
     CHECK(fetestexcept(FE_INEXACT));
 }
-TEST(FE, FE_INEXACT_c__is_working) { /* -frounding-math */
+TEST(FE, FE_INEXACT_c____is_working) { /* -frounding-math */
     do_inexact_c();
     CHECK(std::fetestexcept(FE_INEXACT));
+}
+TEST(FE, check_no_FE) {
+    CHECK_FALSE(std::fetestexcept(FE_DIVBYZERO));
+    CHECK_FALSE(std::fetestexcept(FE_OVERFLOW));
+    CHECK_FALSE(std::fetestexcept(FE_UNDERFLOW));
+    CHECK_FALSE(std::fetestexcept(FE_INVALID));
+    CHECK_FALSE(std::fetestexcept(FE_INEXACT));
 }
 
 int main(int ac, char** av) {
