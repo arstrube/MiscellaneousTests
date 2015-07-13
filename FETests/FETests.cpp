@@ -2,98 +2,63 @@
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/TestRegistry.h"
 #include "CppUTest/IEEE754ExceptionFlagsPlugin.h"
+#include "CppUTest/TestTestingFixture.h"
 #include <cfenv>
 #include <cmath>
 #include <limits>
 
 extern "C" { 
     #include "FETests_c.h"
-} 
-
-static float32 do_divisionbyzero(void) {
-    return 1.0f / 0.0f;
-}
-static float32 do_overflow(float32 f) {
-    while (f < std::numeric_limits<float>::infinity()) f *= f;
-    return f;
-}
-static float32 do_underflow(float32 f) {
-    while (f > 0.0f) f *= f;
-    return f;
-}
-static float32 do_invalid(void) {
-    return sqrt(-1.0f);
-}
-static float32 do_inexact(void) {
-    return 2.0f / 3.0f;
 }
 
-TEST_GROUP(FE) {
-    void teardown(void) override {
-       CHECK(0 == std::feclearexcept(FE_ALL_EXCEPT));
-    }
-};
-TEST(FE, FE_DIVBYZERO____is_working) {
-    do_divisionbyzero();
-    CHECK(std::fetestexcept(FE_DIVBYZERO));
+static void _setup(void) {
+    CHECK(0 == std::feclearexcept(FE_ALL_EXCEPT));
 }
-TEST(FE, FE_DIVBYZERO_c__is_working) {
-    do_divisionbyzero_c();
-    CHECK(std::fetestexcept(FE_DIVBYZERO));
-}
-TEST(FE, FE_OVERFLOW_____is_working) {
-    do_overflow(1000.0f);
-    CHECK(std::fetestexcept(FE_OVERFLOW));
-}
-TEST(FE, FE_OVERFLOW_c___is_working) {
-    do_overflow_c(1000.0f);
-    CHECK(std::fetestexcept(FE_OVERFLOW));
-}
-TEST(FE, FE_UNDERFLOW____is_working) {
-    do_underflow(0.01f);
-    CHECK(std::fetestexcept(FE_UNDERFLOW));
-}
-TEST(FE, FE_UNDERFLOW_c__is_working) {
-    do_underflow_c(0.01f);
-    CHECK(std::fetestexcept(FE_UNDERFLOW));
-}
-TEST(FE, FE_INVALID______is_working) {
-    do_invalid();
-    CHECK(std::fetestexcept(FE_INVALID));
-}
-TEST(FE, FE_INVALID_c____is_working) {
-    do_invalid_c();
-    CHECK(std::fetestexcept(FE_INVALID));
-}
-TEST(FE, FE_INEXACT______is_working) { /* -frounding-math */
-    do_inexact();
-    CHECK(fetestexcept(FE_INEXACT));
-}
-TEST(FE, FE_INEXACT_c____is_working) { /* -frounding-math */
-    do_inexact_c();
-    CHECK(std::fetestexcept(FE_INEXACT));
-}
-TEST(FE, check_no_FE) {
-    CHECK_FALSE(std::fetestexcept(FE_DIVBYZERO));
-    CHECK_FALSE(std::fetestexcept(FE_OVERFLOW));
-    CHECK_FALSE(std::fetestexcept(FE_UNDERFLOW));
-    CHECK_FALSE(std::fetestexcept(FE_INVALID));
-    CHECK_FALSE(std::fetestexcept(FE_INEXACT));
-}
+static void _empty(void) {}
 
-TEST_GROUP(FE_PLUGIN) {
+TEST_GROUP(FE__with_Plugin) {
+    TestTestingFixture fixture;
+    IEEE754ExceptionFlagsPlugin* ieee754Plugin;
     void setup(void) override {
-       CHECK(0 == std::feclearexcept(FE_ALL_EXCEPT));
+        ieee754Plugin = new IEEE754ExceptionFlagsPlugin("IEE754");
+        fixture.setSetup(_setup);
+        fixture.registry_->installPlugin(ieee754Plugin);
+    }
+    void teardown(void) override {
+        delete ieee754Plugin;
     }
 };
-TEST(FE_PLUGIN, provoke_failure_to_test_plugin) {
-    do_divisionbyzero();
+TEST(FE__with_Plugin, FE_DIVBYZERO__is_working) {
+    fixture.setTestFunction(_divisionbyzero_c);
+    fixture.runAllTests();
+    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_DIVBYZERO)) failed");
 }
-
+TEST(FE__with_Plugin, FE_OVERFLOW___is_working) {
+    fixture.setTestFunction(_overflow_c);
+    fixture.runAllTests();
+    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_OVERFLOW)) failed");
+}
+TEST(FE__with_Plugin, FE_UNDERFLOW__is_working) {
+    fixture.setTestFunction(_underflow_c);
+    fixture.runAllTests();
+    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_UNDERFLOW)) failed");
+}
+TEST(FE__with_Plugin, FE_INVALID____is_working) {
+    fixture.setTestFunction(_invalid_c);
+    fixture.runAllTests();
+    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_INVALID)) failed");
+}
+TEST(FE__with_Plugin, FE_INEXACT____is_working) {
+    fixture.setTestFunction(_inexact_c);
+    fixture.runAllTests();
+    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_INEXACT)) failed");
+}
+TEST(FE__with_Plugin, check_no_FE) {
+    fixture.setTestFunction(_empty);
+    fixture.runAllTests();
+    fixture.assertPrintContains("OK (1 tests, 1 ran, 1 checks, 0 ignored, 0 filtered out, 0 ms)");
+}
 
 int main(int ac, char** av) {
-    IEEE754ExceptionFlagsPlugin ieee754Plugin("IEE754");
-    TestRegistry::getCurrentRegistry()->installPlugin(&ieee754Plugin);
-
 	return RUN_ALL_TESTS(ac, av);
 }
