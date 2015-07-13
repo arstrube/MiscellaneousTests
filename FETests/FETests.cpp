@@ -1,5 +1,7 @@
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
+#include "CppUTest/TestRegistry.h"
+#include "CppUTest/IEEE754ExceptionFlagsPlugin.h"
 #include <cfenv>
 #include <cmath>
 #include <limits>
@@ -27,7 +29,7 @@ static float32 do_inexact(void) {
 }
 
 TEST_GROUP(FE) {
-    void setup(void) override {
+    void teardown(void) override {
        CHECK(0 == std::feclearexcept(FE_ALL_EXCEPT));
     }
 };
@@ -79,6 +81,19 @@ TEST(FE, check_no_FE) {
     CHECK_FALSE(std::fetestexcept(FE_INEXACT));
 }
 
+TEST_GROUP(FE_PLUGIN) {
+    void setup(void) override {
+       CHECK(0 == std::feclearexcept(FE_ALL_EXCEPT));
+    }
+};
+TEST(FE_PLUGIN, provoke_failure_to_test_plugin) {
+    do_divisionbyzero();
+}
+
+
 int main(int ac, char** av) {
+    IEEE754ExceptionFlagsPlugin ieee754Plugin("IEE754");
+    TestRegistry::getCurrentRegistry()->installPlugin(&ieee754Plugin);
+
 	return RUN_ALL_TESTS(ac, av);
 }

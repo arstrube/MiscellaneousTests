@@ -1,8 +1,10 @@
-LIBS = -lCppUTest -lCppUTestExt 
+LIBS = -lCppUTest -lCppUTestExt -lIEEE754ExceptionFlagsPlugin
 CXX = g++
 CC = gcc
-CFLAGS = -L/usr/local/lib -Wextra -Wall -Werror -g \
-         -frounding-math
+CFLAGS = -L/usr/local/lib -LIEEE754ExceptionFlagsPlugin \
+         -Wextra -Wall -Werror -g \
+         -frounding-math \
+         -IIEEE754ExceptionFlagsPlugin \
 
 CXXFLAGS = $(CFLAGS) -std=c++11
 
