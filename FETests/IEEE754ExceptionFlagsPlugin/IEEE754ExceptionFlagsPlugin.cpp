@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, Michael Feathers, James Grenning, Bas Vodde
+ * Copyright (c) 2015, Michael Feathers, James Grenning, Bas Vodde
  * and Arnd Strube. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
