@@ -17,14 +17,10 @@ static void IEEE754_setup(void) {
 
 TEST_GROUP(FE__with_Plugin) {
     TestTestingFixture fixture;
-    IEEE754ExceptionFlagsPlugin* ieee754Plugin;
+    IEEE754ExceptionFlagsPlugin ieee754Plugin{"IEEE754"};
     void setup(void) override {
-        ieee754Plugin = new IEEE754ExceptionFlagsPlugin("IEE754");
         fixture.setSetup(IEEE754_setup);
-        fixture.registry_->installPlugin(ieee754Plugin);
-    }
-    void teardown(void) override {
-        delete ieee754Plugin;
+        fixture.registry_->installPlugin(&ieee754Plugin);
     }
 };
 TEST(FE__with_Plugin, should_fail_when__FE_DIVBYZERO__is_set) {
