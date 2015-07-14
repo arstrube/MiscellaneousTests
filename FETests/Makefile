@@ -1,7 +1,7 @@
 LIBS = -lCppUTest -lCppUTestExt -lIEEE754ExceptionFlagsPlugin
 CXX = g++
 CC = gcc
-CFLAGS = -L/usr/local/lib -LIEEE754ExceptionFlagsPlugin \
+CFLAGS = -g3 -L/usr/local/lib -LIEEE754ExceptionFlagsPlugin \
          -Wextra -Wall -Werror -g \
          -frounding-math \
          -IIEEE754ExceptionFlagsPlugin \
