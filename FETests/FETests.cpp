@@ -26,27 +26,27 @@ TEST_GROUP(FE__with_Plugin) {
 TEST(FE__with_Plugin, should_fail_when__FE_DIVBYZERO__is_set) {
     fixture.setTestFunction(set_divisionbyzero_c);
     fixture.runAllTests();
-    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_DIVBYZERO)) failed");
+    fixture.assertPrintContains("IEEE754_CHECK_CLEAR(std::fetestexcept(FE_DIVBYZERO)) failed");
 }
 TEST(FE__with_Plugin, should_fail_when__FE_OVERFLOW___is_set) {
     fixture.setTestFunction(set_overflow_c);
     fixture.runAllTests();
-    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_OVERFLOW)) failed");
+    fixture.assertPrintContains("IEEE754_CHECK_CLEAR(std::fetestexcept(FE_OVERFLOW)) failed");
 }
 TEST(FE__with_Plugin, should_fail_when__FE_UNDERFLOW__is_set) {
     fixture.setTestFunction(set_underflow_c);
     fixture.runAllTests();
-    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_UNDERFLOW)) failed");
+    fixture.assertPrintContains("IEEE754_CHECK_CLEAR(std::fetestexcept(FE_UNDERFLOW)) failed");
 }
 TEST(FE__with_Plugin, should_fail_when__FE_INVALID____is_set) {
     fixture.setTestFunction(set_invalid_c);
     fixture.runAllTests();
-    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_INVALID)) failed");
+    fixture.assertPrintContains("IEEE754_CHECK_CLEAR(std::fetestexcept(FE_INVALID)) failed");
 }
 TEST(FE__with_Plugin, should_fail_when__FE_INEXACT____is_set) {
     fixture.setTestFunction(set_inexact_c);
     fixture.runAllTests();
-    fixture.assertPrintContains("CHECK_FALSE(std::fetestexcept(FE_INEXACT)) failed");
+    fixture.assertPrintContains("IEEE754_CHECK_CLEAR(std::fetestexcept(FE_INEXACT)) failed");
 }
 TEST(FE__with_Plugin, should_succeed_with_5_checks_when_no_flags_are_set) {
     fixture.setTestFunction(set_nothing_c);
