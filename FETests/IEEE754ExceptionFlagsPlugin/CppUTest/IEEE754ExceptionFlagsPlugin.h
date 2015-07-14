@@ -30,10 +30,10 @@
 
 #include "CppUTest/TestPlugin.h"
 
-class IEEE754ExceptionFlagsPlugin: public TestPlugin
+struct IEEE754ExceptionFlagsPlugin: public TestPlugin
 {
-public:
-    IEEE754ExceptionFlagsPlugin(const SimpleString& name) : TestPlugin(name) {}
+    bool hasFailed_;
+    IEEE754ExceptionFlagsPlugin(const SimpleString& name) : TestPlugin(name), hasFailed_(false) {}
     
     virtual void preTestAction(UtestShell& test, TestResult& result) override;
     virtual void postTestAction(UtestShell& test, TestResult& result) override;

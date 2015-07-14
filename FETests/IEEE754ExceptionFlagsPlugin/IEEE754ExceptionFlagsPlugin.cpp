@@ -30,27 +30,26 @@
 
 #include <cfenv>
 #include <cmath>
-#include <limits>
 
-#define IEE754_CHECK_FALSE(condition) { \
-    if(condition) { \
+#define IEE754_CHECK_FALSE(condition, test, result) { \
+    if(!hasFailed_ && (condition)) { \
         CheckFailure failure(&test, __FILE__, __LINE__, "CHECK_FALSE", #condition); \
         result.addFailure(failure); \
+        hasFailed_ = true; \
     } \
 }
 
 void IEEE754ExceptionFlagsPlugin::preTestAction(UtestShell&, TestResult&)
 {
+     hasFailed_ = false;
      std::feclearexcept(FE_ALL_EXCEPT);
 }
 
 void IEEE754ExceptionFlagsPlugin::postTestAction(UtestShell& test, TestResult& result)
 {
-    IEE754_CHECK_FALSE(std::fetestexcept(FE_DIVBYZERO));
-    IEE754_CHECK_FALSE(std::fetestexcept(FE_OVERFLOW));
-    IEE754_CHECK_FALSE(std::fetestexcept(FE_UNDERFLOW));
-    IEE754_CHECK_FALSE(std::fetestexcept(FE_INVALID));
-    IEE754_CHECK_FALSE(std::fetestexcept(FE_INEXACT));
+    IEE754_CHECK_FALSE(std::fetestexcept(FE_DIVBYZERO), test, result);
+    IEE754_CHECK_FALSE(std::fetestexcept(FE_OVERFLOW), test, result);
+    IEE754_CHECK_FALSE(std::fetestexcept(FE_UNDERFLOW), test, result);
+    IEE754_CHECK_FALSE(std::fetestexcept(FE_INVALID), test, result);
+    IEE754_CHECK_FALSE(std::fetestexcept(FE_INEXACT), test, result);
 }
-
-/* TODO: hasFailed() flag */
