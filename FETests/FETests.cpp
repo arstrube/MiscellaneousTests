@@ -31,7 +31,6 @@
 #include "CppUTest/IEEE754ExceptionFlagsPlugin.h"
 #include "CppUTest/TestTestingFixture.h"
 #include <cfenv>
-#include <cmath>
 
 extern "C" { 
     #include "FETests_c.h"

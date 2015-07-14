@@ -29,7 +29,6 @@
 #include "CppUTest/IEEE754ExceptionFlagsPlugin.h"
 
 #include <cfenv>
-#include <cmath>
 
 #define IEEE754_CHECK_CLEAR(flag) { \
     if(!hasFailed_) { \
