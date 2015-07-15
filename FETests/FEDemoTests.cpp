@@ -25,8 +25,9 @@ TEST(FE_Demo, should_succeed_when_no_flags_are_set) {
     CHECK(5.0f == 15.0f / 3.0f);
 }
 
+static IEEE754ExceptionFlagsPlugin ieee754Plugin{"IEEE754"};
+
 int main(int ac, char** av) {
-    IEEE754ExceptionFlagsPlugin ieee754Plugin{"IEEE754"};
     TestRegistry::getCurrentRegistry()->installPlugin(&ieee754Plugin);
 	return RUN_ALL_TESTS(ac, av);
 }
