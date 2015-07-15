@@ -83,6 +83,16 @@ TEST(FE__with_Plugin, should_fail_only_once_when_all_flags_are_set) {
     fixture.runAllTests();
     LONGS_EQUAL(1, fixture.getFailureCount());
 }
+static void set_everything_but_already_failed(void) {
+    set_everything_c();
+    CHECK(1 == 2);
+}
+TEST(FE__with_Plugin, should_not_fail_again_when_test_has_already_failed) {
+    fixture.setTestFunction(set_everything_but_already_failed);
+    fixture.runAllTests();
+    LONGS_EQUAL(1, fixture.getCheckCount());
+    LONGS_EQUAL(1, fixture.getFailureCount());
+}
 
 int main(int ac, char** av) {
 	return RUN_ALL_TESTS(ac, av);

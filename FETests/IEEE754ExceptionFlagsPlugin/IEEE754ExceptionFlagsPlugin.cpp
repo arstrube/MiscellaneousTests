@@ -41,16 +41,16 @@
     } \
 }
 
-void IEEE754ExceptionFlagsPlugin::preTestAction(UtestShell& test, TestResult& result)
+void IEEE754ExceptionFlagsPlugin::preTestAction(UtestShell&, TestResult&)
 {
-    test_ = &test;
-    result_ = &result;
-    hasFailed_ = false;
     std::feclearexcept(FE_ALL_EXCEPT);
 }
 
-void IEEE754ExceptionFlagsPlugin::postTestAction(UtestShell&, TestResult&)
+void IEEE754ExceptionFlagsPlugin::postTestAction(UtestShell& test, TestResult& result)
 {
+    hasFailed_ = test.hasFailed();
+    test_ = &test;
+    result_ = &result;
     IEEE754_CHECK_CLEAR(std::fetestexcept(FE_DIVBYZERO));
     IEEE754_CHECK_CLEAR(std::fetestexcept(FE_OVERFLOW));
     IEEE754_CHECK_CLEAR(std::fetestexcept(FE_UNDERFLOW));
