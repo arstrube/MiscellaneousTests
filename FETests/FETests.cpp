@@ -36,15 +36,10 @@ extern "C" {
     #include "FETests_c.h"
 }
 
-static void IEEE754_setup(void) {
-    std::feclearexcept(FE_ALL_EXCEPT);
-}
-
 TEST_GROUP(FE__with_Plugin) {
     TestTestingFixture fixture;
     IEEE754ExceptionFlagsPlugin ieee754Plugin{"IEEE754"};
     void setup(void) override {
-        fixture.setSetup(IEEE754_setup);
         fixture.registry_->installPlugin(&ieee754Plugin);
     }
 };

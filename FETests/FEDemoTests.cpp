@@ -8,9 +8,6 @@
 typedef float float32;
 
 TEST_GROUP(FE_Demo) {
-    void setup(void) override {
-        std::feclearexcept(FE_ALL_EXCEPT);
-    }
 };
 TEST(FE_Demo, should_fail_when__FE_DIVBYZERO__is_set) {
     CHECK(std::numeric_limits<float>::infinity() == 1.0f / 0.0f);
