@@ -1,10 +1,15 @@
 CFLAGS =  -g3 -O0 -Wextra -Wall -Werror \
-          -include"CppuTest/MemoryLeakDetectorMallocMacros.h" 
+          -include"CppuTest/MemoryLeakDetectorMallocMacros.h" \
+          -I/cygdrive/y/ModuleTest/90_Tools/CppUTestFramework/CppUTest/include \
+
 CXXFLAGS = $(CFLAGS) \
-          -include"CppuTest/MemoryLeakDetectorNewMacros.h"
-.PHONY: all clean
+          -include"CppuTest/MemoryLeakDetectorNewMacros.h" \
+
 LIBS=-lCppUTest
-LIB_PATH=-L. -L/usr/local/lib
+#LIB_PATH=-L. -L/usr/local/lib
+LIB_PATH=-L. -L/cygdrive/y/ModuleTest/90_Tools/CppUTestFramework/CppUTest/lib
+
+.PHONY: all clean
 
 all: MemLeakDetectTests.exe
 
