@@ -6,6 +6,7 @@ extern "C" {
 }
 
 TEST_GROUP(tests) {
+    long * dummy;
 };
 
 TEST(tests, malloc_dontfree) {
@@ -14,8 +15,7 @@ TEST(tests, malloc_dontfree) {
 }
 
 TEST(tests, new_dontdelete) {
-    int * dummy = new int(3);
-    (void) dummy;
+    dummy = new long(0xefbeadde);
 //    delete dummy;
 }
 

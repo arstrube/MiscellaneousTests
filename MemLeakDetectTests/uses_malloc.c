@@ -1,10 +1,12 @@
 #include "uses_malloc.h"
 #include <stdlib.h>
 
-int * data;
+static long * data;
 
 void allocate(void) {
-    data = malloc(10);
+    data = malloc(10*sizeof(long));
+    int i;
+    for (i=0; i<10; i++) data[i] = 0x474e4f4c;
 }
 
 void deallocate(void) {
