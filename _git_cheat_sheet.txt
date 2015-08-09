@@ -22,7 +22,7 @@ git commit -m "My commit msg"    # commit all staged changes with msg
 git commit -am "My commit msg"   # commit all previously commited changes with msg
 git commit --amend -m"new msg"   # amend previous commit
 git commit                      # <esc>:q! or <exc>:w to end vim; <esc>:h for help
-git update-index --chmod+x    # set executable bit
+git update-index --chmod +x     # set executable bit
 
 DISCARD ALL CHANGES
 git reset HEAD --hard            # discard everything
