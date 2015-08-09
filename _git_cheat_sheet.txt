@@ -1,0 +1,104 @@
+GIT - MY CHEAT SHEET
+
+GENERAL
+git status                        # show changed and staged files
+
+PUSH
+git push -uf my_remote my_branch  # track remote, force (rebase)
+
+PULL AND FETCH
+git fetch my_remote -t -p    # fetch with tags; prune deleted remote branches
+
+STAGE / UNSTAGE
+git add -u                           # update tracked files only
+git add -A :/                        # stage all changed and new (entire tree)
+git add --force -- path/file1 file2  # stage specific files --force maybe unneeded
+git add --all -- path/removed_file   # state removals also (synon. -A)
+git reset HEAD                       # unstage all changes
+git reset HEAD -- path/file1 file2   # u nstage specific files
+
+COMMIT
+git commit -m "My commit msg"    # commit all staged changes with msg
+git commit -am "My commit msg"   # commit all previously commited changes with msg
+git commit --amend -m"new msg"   # amend previous commit
+git commit                      # <esc>:q! or <exc>:w to end vim; <esc>:h for help
+
+DISCARD ALL CHANGES
+git reset HEAD --hard            # discard everything
+git checkout HEAD -- path/file   # discard specific file(s)
+
+BRANCHES AND TAGS
+git branch                             # list existing local branches
+git checkout -btemp my_sha             # check out on new branch temp
+git checkout -Bbranch remote/branch    # checkout, create/reset branch
+git checkout -bbranch -t remote/branch # checkout, create & track branch
+git checkout branch                    # check out existing branch
+git reset --hard 9046f6a        # like dragging checked-out branch
+git branch -f my_branch new_tip # like dragging any other branch
+git cherry-pick -n ref          # cherry-pick to working tree (No commit)
+git cherry-pick ref             # cherry-pick AND commit
+git cherry-pick -e              # cherry-pick and edit commit message
+git branch -d mybranch               # delete merged branch
+git branch -D mybranch               # delete any branch
+git branch -Dr myrepo/mybranch       # delete local remote reference
+git push myrepo :refs/heads/mybranch # delete arstrube/mybranch also
+git remote prune my_repo                     # remove stale references
+git branch -r | awk '/myrepo/{print $1$2}'   # list remote refs for myrepo
+git branch -r | awk '/myrepo/{print $1$2}' \ # delete'em all
+    | xargs -I {} git branch -Dr {}
+git tag [-l]                         # list all tags
+
+REMOTES
+git remote                           # list remote repositories
+git remote -v                        # list remotes with url and info
+git remote rename repo-old repo-new  # rename remote repository
+git remote -d repo                   # delete remote repository
+
+DIFF, MERGE, AND RESOLVING CONFLICTS
+git diff                # diff changes for all working files
+git diff -- path/file   # diff working file changes for file
+                        # (resolve conflict in your favorite IDE),
+git reset               # then unstage toremove conflicted state
+git add -A :/           # and stage again
+git reset --hard HEAD                # kill merge in progress (=Merging)
+git checkout --theirs -- dir/file    # resolve conflict using theirs
+git merge --no-ff my_branch          # merge branch creating merge commit
+git checkout othr_branch -- dir/file # pick one file from another branch
+
+STATUS AND LOG
+git show                            # latest commit with diff
+git show -q                         # latest commit without diff
+git log --branches=* --oneline -5
+git log --branches=* --oneline --graph -5
+git log --branches=* --oneline --graph --decorate -20 # most useful
+glog -5                                  # using alias below
+git fsck --dangling          # get sha of lost heads
+git reflog                   # use to get more info about lost heads
+
+PULL REQUESTS
+git fetch origin pull/716/head:pr-716     # fetch pr #716 from origin
+git checkout pr-716                       # and checkout local branch
+OR
+git remote add -f z_lbjcom git@github.com:lbjcom/cpputest.git
+git checkout -Blbjcom-master lbjcom/master
+
+USEFUL ALIASES
+alias glog="git log --graph --branches=* --pretty='%C(auto)%h%d %s \
+%Cgreen(%<(6,trunc)%cr)%Creset %C(yellow)%<(6,trunc)%aN%Creset'"
+alias glog="git log --graph --branches=* --pretty='%C(auto)%h %ad %Cgr\
+een%<(11,trunc)%aN%Creset%C(auto)%d %<(35,trunc)%s ' --date=short"
+
+USEFUL LINKS
+
+CONFIGURATIONS
+git config --global core.editor "'C:/Prog\
+ram Files (x86)/Notepad++/notepad++.exe' \
+-multiInst -notabbar -nosession -noPlugin"  # set np++ as editor
+
+VIM
+<esc>:x   # save and exit
+<esc>:q!  # quit without saving
+vimtutor  # opens vim tutor
+
+LESS
+Quit less by pressing 'q'
