@@ -39,6 +39,8 @@ git branch -f my_branch new_tip # like dragging any other branch
 git cherry-pick -n ref          # cherry-pick to working tree (No commit)
 git cherry-pick ref             # cherry-pick AND commit
 git cherry-pick -e              # cherry-pick and edit commit message
+git cherry-pick --abort         # abort upon conflicts
+git cherry-pick --continue      # continue after resolving conflicts
 git branch -d mybranch               # delete merged branch
 git branch -D mybranch               # delete any branch
 git branch -Dr myrepo/mybranch       # delete local remote reference
@@ -48,6 +50,10 @@ git branch -r | awk '/myrepo/{print $1$2}'   # list remote refs for myrepo
 git branch -r | awk '/myrepo/{print $1$2}' \ # delete'em all
     | xargs -I {} git branch -Dr {}
 git tag [-l]                         # list all tags
+git tag mytag                        # apply tag mytag to current HEAD
+git push myrepo --tags               # push all tags to myrepo (use with care!)
+git push myrepo mytag                # push only mytag to myrepo
+git push myrepo branch --follow-tags # preferred; tags must be annotated
 
 REMOTES
 git remote                           # list remote repositories
