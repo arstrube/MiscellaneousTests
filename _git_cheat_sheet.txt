@@ -65,6 +65,8 @@ git reset --hard HEAD                # kill merge in progress (=Merging)
 git checkout --theirs -- dir/file    # resolve conflict using theirs
 git merge --no-ff my_branch          # merge branch creating merge commit
 git checkout othr_branch -- dir/file # pick one file from another branch
+git merge --ff-only origin/master    # better than checkout -Bmaster
+git merge --squash                   # a whole load of commits into one
 
 STATUS AND LOG
 git show                            # latest commit with diff
