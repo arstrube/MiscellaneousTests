@@ -26,15 +26,17 @@
  */
 
 #include "FETests_c.h"
-#include "math.h"
+#include <math.h>
+#include <fenv.h>
 
 void set_divisionbyzero_c(void) {
-    float32 f = 1.0f / 0.0f;
+    float32 f = 1.0f;
+    f /= 0.0f;
     (void) f;
 }
 void set_overflow_c(void) {
     float32 f = 1000.0f;
-    while (f < infinity()) f *= f;
+    while (f < INFINITY) f *= f;
 }
 void set_underflow_c(void) {
     float32 f = 0.01f;
@@ -45,8 +47,7 @@ void set_invalid_c(void) {
     (void) f;
 }
 void set_inexact_c(void) {
-    float32 f = 2.0f / 3.0f;
-    (void) f;
+    feraiseexcept(FE_INEXACT); /* Clang ignores -frounding-math */
 }
 void set_nothing_c(void) {
 }

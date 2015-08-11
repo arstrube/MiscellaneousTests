@@ -1,11 +1,9 @@
 LIBS := -lCppUTest -lCppUTestExt -lIEEE754ExceptionFlagsPlugin
 CXX := g++
 CC := gcc
-CFLAGS := -g3 -L/usr/local/lib -LIEEE754ExceptionFlagsPlugin \
-         -Wextra -Wall -Werror -g \
-         -frounding-math \
-         -IIEEE754ExceptionFlagsPlugin \
-
+CFLAGS := -g3 -I/usr/local/include -IIEEE754ExceptionFlagsPlugin \
+          -Wextra -Wall -Werror -g
+LPATH := -L/usr/local/lib -LIEEE754ExceptionFlagsPlugin
 CXXFLAGS := $(CFLAGS) -std=c++11
 TESTS := FETests.exe
 DEMO := FEDemoTests.exe
@@ -21,10 +19,10 @@ demo: $(DEMO)
 all: $(TESTS) $(DEMO)
 
 $(TESTS): FETests.o FETests_c.o
-	$(CXX) $(CFLAGS) $? $(LIBS) -o $@
+	$(CXX) $(LPATH) $? $(LIBS) -o $@
 
 $(DEMO): FEDemoTests.o FETests_c.o
-	$(CXX) $(CFLAGS) $? $(LIBS) -o $@
+	$(CXX) $(LPATH) $? $(LIBS) -o $@
 
 FEDemoTests.o FETests.o FETests_c.o: Makefile
 
