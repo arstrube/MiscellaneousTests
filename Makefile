@@ -1,4 +1,5 @@
-CPPUTEST_HOME = /usr/local
+#CPPUTEST_HOME = /usr/local
+CPPUTEST_HOME = /e/cpputest
 
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
