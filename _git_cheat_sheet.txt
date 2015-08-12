@@ -60,7 +60,7 @@ git remote                           # list remote repositories
 git remote -v                        # list remotes with url and info
 git remote rename repo-old repo-new  # rename remote repository
 git remote -d repo                                             # delete remote
-git remote add --fetch z_user git@ssh.github.com:user/repo.git # add new repo
+git remote add z_jkohvakk git@ssh.github.com:jkohvakk/cpputest.git # add new repo
 
 DIFF, MERGE, REBASE, AND RESOLVING CONFLICTS
 git diff                # diff changes for all working files
