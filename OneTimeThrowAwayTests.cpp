@@ -1,13 +1,11 @@
 #include "CppUTest/CommandLineTestRunner.h"
-#include "CppUTest/TestHarness_c.h"
 
-TEST_GROUP(CHECK_EXCEPTION) {};
+TEST_GROUP(Leaks) {};
 
-TEST(CHECK_EXCEPTION, aTest) {
+TEST(Leaks, thisLeaks) {
     MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
 };
 
-int main(int argc, char** argv)
-{
-    return CommandLineTestRunner::RunAllTests(argc, argv);
+int main(int argc, char** argv) {
+    return RUN_ALL_TESTS(argc, argv);
 }
