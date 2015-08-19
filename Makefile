@@ -3,7 +3,7 @@ CPPUTEST_HOME = /usr/local
 
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
-CFLAGS = -Wextra -Wall -Werror -g \
+CFLAGS = -Wextra -Wall -Werror -g3 -O0 \
          -include"CppUTest/MemoryLeakDetectorNewMacros.h" \
          
 TARGETS := MockReturningStructTests AutoPtrTests BugTests CountedTestTests \
@@ -23,7 +23,9 @@ OneTimeThrowAwayTests: OneTimeThrowAwayTests.exe
 
 %.exe: %.cpp
 	$(CC) $(CFLAGS) -I$(CPPUTEST_HOME)/include -L$(CPPUTEST_HOME)/lib $< $(LIBS) -o $@
-	./$@
 
 clean:
 	rm -f *.exe *.layout *.depend *.stackdump *.7z;
+    
+$(TARGETS): 
+	./$<
