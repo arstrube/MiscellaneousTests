@@ -59,7 +59,7 @@ REMOTES
 git remote                           # list remote repositories
 git remote -v                        # list remotes with url and info
 git remote rename repo-old repo-new  # rename remote repository
-git remote -d repo                                             # delete remote
+git remote -d repo                                                 # delete remote
 git remote add z_jkohvakk git@ssh.github.com:jkohvakk/cpputest.git # add new repo
 
 DIFF, MERGE, REBASE, AND RESOLVING CONFLICTS
