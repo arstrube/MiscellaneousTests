@@ -1,18 +1,20 @@
-CPPUTEST_HOME = /usr/local
+#CPPUTEST_HOME = /usr/local
 #CPPUTEST_HOME = /e/cpputest
+CPPUTEST_HOME = /cygdrive/c/data/00_Dev/05_CppUTest/cpputest
 
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
 CFLAGS = -Wextra -Wall -Werror -g3 -O0 \
          -include"CppUTest/MemoryLeakDetectorNewMacros.h" \
          
-TARGETS := MockReturningStructTests AutoPtrTests BugTests CountedTestTests \
-           FabsTests OutParamTests OneTimeThrowAwayTests
+TARGETS := MockMultiFailTests MockReturningStructTests AutoPtrTests CountedTestTests \
+           FabsTests OutParamTests OneTimeThrowAwayTests BugTests
 
 .PHONY: all clean $(TARGETS)
 
 all: $(TARGETS)
 
+MockMultiFailTests: MockMultiFailTests.exe
 MockReturningStructTests: MockReturningStructTests.exe
 AutoPtrTests: AutoPtrTests.exe
 BugTests: BugTests.exe

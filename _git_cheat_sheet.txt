@@ -1,7 +1,9 @@
 GIT - MY CHEAT SHEET
 
-PATH COLLECTION
+PATH COLLECTION - WORK
 /cygdrive/c/data/00_Dev/05_CppUTest/cpputest/cpputest_build
+/cygdrive/c/data/00_Dev/06_Faking/MiscellanousTests
+/cygdrive/y/ModuleTest/10_CppUTest/StarterProject/50_IDE/Strtp_Main
 
 GENERAL
 git status                        # show changed and staged files
@@ -10,7 +12,8 @@ PUSH
 git push -uf my_remote my_branch  # track remote, force (rebase)
 
 PULL AND FETCH
-git fetch my_remote -t -p   # fetch with tags; prune deleted remote branches
+git fetch my_remote -t # fetch all tags
+git fetch my_remote -p # fetch all branches; prune branches deleted on remote
 
 STAGE / UNSTAGE
 git add -u                          # update tracked files only
