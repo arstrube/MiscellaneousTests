@@ -1,5 +1,8 @@
 GIT - MY CHEAT SHEET
 
+PATH COLLECTION
+/cygdrive/c/data/00_Dev/05_CppUTest/cpputest/cpputest_build
+
 GENERAL
 git status                        # show changed and staged files
 
@@ -7,26 +10,26 @@ PUSH
 git push -uf my_remote my_branch  # track remote, force (rebase)
 
 PULL AND FETCH
-git fetch my_remote -t -p    # fetch with tags; prune deleted remote branches
+git fetch my_remote -t -p   # fetch with tags; prune deleted remote branches
 
 STAGE / UNSTAGE
-git add -u                           # update tracked files only
-git add -A :/                        # stage all changed and new (entire tree)
-git add --force -- path/file1 file2  # stage specific files --force maybe unneeded
-git add --all -- path/removed_file   # state removals also (synon. -A)
-git reset HEAD                       # unstage all changes
-git reset HEAD -- path/file1 file2   # u nstage specific files
+git add -u                          # update tracked files only
+git add -A :/                       # stage all changed and new (entire tree)
+git add --force -- path/file1 file2 # stage specific files --force maybe unneeded
+git add --all -- path/removed_file  # state removals also (synon. -A)
+git reset HEAD                      # unstage all changes
+git reset HEAD -- path/file1 file2  # u nstage specific files
 
 COMMIT
-git commit -m "My commit msg"    # commit all staged changes with msg
-git commit -am "My commit msg"   # commit all previously commited changes with msg
-git commit --amend -m"new msg"   # amend previous commit
-git commit                      # <esc>:q! or <exc>:w to end vim; <esc>:h for help
-git update-index --chmod +x     # set executable bit
+git commit -m "My commit msg"  # commit all staged changes with msg
+git commit -am "My commit msg" # commit all previously commited changes with msg
+git commit --amend -m"new msg" # amend previous commit
+git commit                     # <esc>:q! or <exc>:w to end vim; <esc>:h for help
+git update-index --chmod +x    # set executable bit
 
 DISCARD ALL CHANGES
-git reset HEAD --hard            # discard everything
-git checkout HEAD -- path/file   # discard specific file(s)
+git reset HEAD --hard          # discard everything
+git checkout HEAD -- path/file # discard specific file(s)
 
 BRANCHES AND TAGS
 git branch                             # list existing local branches
@@ -56,18 +59,18 @@ git push myrepo mytag                # push only mytag to myrepo
 git push myrepo branch --follow-tags # preferred; tags must be annotated
 
 REMOTES
-git remote                           # list remote repositories
-git remote -v                        # list remotes with url and info
-git remote rename repo-old repo-new  # rename remote repository
+git remote                          # list remote repositories
+git remote -v                       # list remotes with url and info
+git remote rename repo-old repo-new # rename remote repository
 git remote -d repo                                                 # delete remote
 git remote add z_jkohvakk git@ssh.github.com:jkohvakk/cpputest.git # add new repo
 
 DIFF, MERGE, REBASE, AND RESOLVING CONFLICTS
-git diff                # diff changes for all working files
-git diff -- path/file   # diff working file changes for file
-                        # (resolve conflict in your favorite IDE),
-git reset               # then unstage toremove conflicted state
-git add -A :/           # and stage again
+git diff              # diff changes for all working files
+git diff -- path/file # diff working file changes for file
+                      # (resolve conflict in your favorite IDE),
+git reset             # then unstage toremove conflicted state
+git add -A :/         # and stage again
 git reset --hard HEAD                # kill merge in progress (=Merging)
 git checkout --theirs -- dir/file    # resolve conflict using theirs
 git merge --no-ff my_branch          # merge branch creating merge commit
@@ -84,13 +87,13 @@ git show -q                         # latest commit without diff
 git log --branches=* --oneline -5
 git log --branches=* --oneline --graph -5
 git log --branches=* --oneline --graph --decorate -20 # most useful
-glog -5                                  # using alias below
-git fsck --dangling          # get sha of lost heads
-git reflog                   # use to get more info about lost heads
+glog -5                                               # using alias below
+git fsck --dangling # get sha of lost heads
+git reflog          # use to get more info about lost heads
 
 PULL REQUESTS
-git fetch origin pull/716/head:pr-716     # fetch pr #716 from origin
-git checkout pr-716                       # and checkout local branch
+git fetch origin pull/716/head:pr-716 # fetch pr #716 from origin
+git checkout pr-716                   # and checkout local branch
 OR
 git remote add -f z_lbjcom git@github.com:lbjcom/cpputest.git
 git checkout -Blbjcom-master lbjcom/master
@@ -109,9 +112,9 @@ ram Files (x86)/Notepad++/notepad++.exe' \
 -multiInst -notabbar -nosession -noPlugin"  # set np++ as editor
 
 VIM
-<esc>:x   # save and exit
-<esc>:q!  # quit without saving
-vimtutor  # opens vim tutor
+<esc>:x  # save and exit
+<esc>:q! # quit without saving
+vimtutor # opens vim tutor
 
 LESS
 Quit less by pressing 'q'
