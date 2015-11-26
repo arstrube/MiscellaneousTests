@@ -21,7 +21,7 @@ git add -A :/                       # stage all changed and new (entire tree)
 git add --force -- path/file1 file2 # stage specific files --force maybe unneeded
 git add --all -- path/removed_file  # state removals also (synon. -A)
 git reset HEAD                      # unstage all changes
-git reset HEAD -- path/file1 file2  # u nstage specific files
+git reset HEAD -- path/file1 file2  # unstage specific files
 
 COMMIT
 git commit -m "My commit msg"  # commit all staged changes with msg
