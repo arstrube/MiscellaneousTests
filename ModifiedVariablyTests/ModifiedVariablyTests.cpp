@@ -1,10 +1,8 @@
-#if 0
-
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
 extern "C" {
-#include "ModifiedVariably.h"
+#include "ModifiedVariably.c"
 }
 
 TEST_GROUP(ModifiedVariably) {};
@@ -15,9 +13,11 @@ int main(int ac, char** av)
     return CommandLineTestRunner::RunAllTests(ac, av);
 }
 
-#endif
+#if 0
 
 int main(int, char**)
 {
     return 0;
 }
+
+#endif

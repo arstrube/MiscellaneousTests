@@ -14,17 +14,17 @@ all: i ModifiedVariablyTests.exe
 
 %.o: %.i
 	$(CC) -c $(CFLAGS) $< -o $@
-    
+
 %.i: %.c
 	$(CC) -E $(CFLAGS) $< -o $@
     
 i: ModifiedVariably.i
-    
-ModifiedVariablyTests.exe: ModifiedVariablyTests.o ModifiedVariably.o
-	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
-	echo; ./$@ -v
 
- ModifiedVariablyTests.o ModifiedVariably.o: Makefile ModifiedVariably.h
+ModifiedVariablyTests.exe: ModifiedVariablyTests.o
+	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
+	./$@ -v
+
+ModifiedVariablyTests.o ModifiedVariably.o: Makefile
 
 clean:
 	rm -rf *.a *.dSYM *.exe *.i *.o
