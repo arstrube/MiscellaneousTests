@@ -6,7 +6,8 @@ PATH COLLECTION - WORK
 /cygdrive/y/ModuleTest/10_CppUTest/StarterProject/50_IDE/Strtp_Main
 
 GENERAL
-git status                        # show changed and staged files
+git status           # show changed and staged files
+git gc --pr=now --ag # garbage collect aggressively, with pruning             
 
 PUSH
 git push -uf my_remote my_branch  # track remote, force (rebase)
