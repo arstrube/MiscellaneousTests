@@ -4,7 +4,8 @@ PATH COLLECTION
 /cygdrive/c/data/00_Dev/05_CppUTest/cpputest/cpputest_build
 
 GENERAL
-git status                        # show changed and staged files
+git status           # show changed and staged files
+git gc --pr=now --ag # garbage collect aggressively, with pruning             
 
 PUSH
 git push -uf my_remote my_branch  # track remote, force (rebase)
