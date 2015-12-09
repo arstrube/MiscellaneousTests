@@ -1,5 +1,9 @@
 
-unsigned char array[ (unsigned short)((80.0f)/(5.0f)) ];
+#include "ModifiedVariably.h"
+Test_st test;
+
+// unsigned char array[ (unsigned short)((80.0f)/(5.0f)) ];
+
 
 /*
 

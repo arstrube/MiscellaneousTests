@@ -20,7 +20,7 @@ all: i ModifiedVariablyTests.exe
     
 i: ModifiedVariably.i
 
-ModifiedVariablyTests.exe: ModifiedVariablyTests.o
+ModifiedVariablyTests.exe: ModifiedVariablyTests.o ModifiedVariably.o
 	$(CXX) $(CFLAGS) $(LIB_PATH) $? $(LIBS) -o $@
 	./$@ -v
 
