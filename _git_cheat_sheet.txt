@@ -1,7 +1,9 @@
 GIT - MY CHEAT SHEET
 
-PATH COLLECTION
+PATH COLLECTION - WORK
 /cygdrive/c/data/00_Dev/05_CppUTest/cpputest/cpputest_build
+/cygdrive/c/data/00_Dev/06_Faking/MiscellanousTests
+/cygdrive/y/ModuleTest/10_CppUTest/StarterProject/50_IDE/Strtp_Main
 
 GENERAL
 git status           # show changed and staged files
@@ -11,7 +13,8 @@ PUSH
 git push -uf my_remote my_branch  # track remote, force (rebase)
 
 PULL AND FETCH
-git fetch my_remote -t -p   # fetch with tags; prune deleted remote branches
+git fetch my_remote -t # fetch all tags
+git fetch my_remote -p # fetch all branches; prune branches deleted on remote
 
 STAGE / UNSTAGE
 git add -u                          # update tracked files only
@@ -19,7 +22,7 @@ git add -A :/                       # stage all changed and new (entire tree)
 git add --force -- path/file1 file2 # stage specific files --force maybe unneeded
 git add --all -- path/removed_file  # state removals also (synon. -A)
 git reset HEAD                      # unstage all changes
-git reset HEAD -- path/file1 file2  # u nstage specific files
+git reset HEAD -- path/file1 file2  # unstage specific files
 
 COMMIT
 git commit -m "My commit msg"  # commit all staged changes with msg
@@ -76,6 +79,11 @@ git reset --hard HEAD                # kill merge in progress (=Merging)
 git checkout --theirs -- dir/file    # resolve conflict using theirs
 git merge --no-ff my_branch          # merge branch creating merge commit
 git checkout othr_branch -- dir/file # pick one file from another branch
+git merge --ff-only origin/master    # better than checkout -Bmaster
+git merge --squash                   # a whole load of commits into one
+git rebase newbase                   # rebase current branch onto newbase
+git rebase newbase otherbranch       # checks out otherbranch first
+git rebase --continue                # after resolving merge conflicts
 
 STATUS AND LOG
 git show                            # latest commit with diff
