@@ -94,6 +94,7 @@ TEST(FE__with_Plugin, should_not_fail_again_when_test_has_already_failed) {
     LONGS_EQUAL(1, fixture.getFailureCount());
 }
 
+#include <signal.h>
 int main(int ac, char** av) {
 	return RUN_ALL_TESTS(ac, av);
 }

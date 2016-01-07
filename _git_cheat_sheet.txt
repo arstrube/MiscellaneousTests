@@ -6,7 +6,6 @@ PATH COLLECTION - WORK
 /cygdrive/y/ModuleTest/10_CppUTest/StarterProject/50_IDE/Strtp_Main
 
 GENERAL
-git status           # show changed and staged files
 git gc --pr=now --ag # garbage collect aggressively, with pruning             
 
 PUSH
@@ -86,6 +85,8 @@ git rebase newbase otherbranch       # checks out otherbranch first
 git rebase --continue                # after resolving merge conflicts
 
 STATUS AND LOG
+git status                          # show changed and staged files
+git status -uno                     # status without untracked files
 git show                            # latest commit with diff
 git show -q                         # latest commit without diff
 git log --branches=* --oneline -5

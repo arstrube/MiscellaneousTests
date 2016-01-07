@@ -1,19 +1,20 @@
 GDB - MY CHEAT SHEET
 
-ctl-x o in TUI mode, switch focus between cmd and src windows
-b          (set) breakpoint [1] [filename:13] [function]
-c 1        clear (breakpoint 1)
-d          delete (all break points)
-d 1        delete (breakpoint 1)
-r          run (=restart)
-c          continue
-q          quit
-i b        info breakpoints - lists all breakpoints
-i s        info stack - list stack trace
-s          step (into)
-n          next (step over)
-si         stepi (step assembler instruction)
-ni         nexti (step over assembler instruction)
-f          finish (current function) - f n == step out
-p var      print var
-p          print (last var)
+ctl-x o           in TUI mode, switch focus between cmd and src windows
+b                 (set) breakpoint [1] [filename:13] [function]
+c 1               clear (breakpoint 1)
+d                 delete (all break points)
+d 1               delete (breakpoint 1)
+r                 run (=restart)
+c                 continue
+q                 quit
+i b               info breakpoints - lists all breakpoints
+i s               info stack - list stack trace
+s                 step (into)
+n                 next (step over)
+si                stepi (step assembler instruction)
+ni                nexti (step over assembler instruction)
+f                 finish (current function) - f n == step out
+p var             print var
+p                 print (last var)
+ha SIGFPE nos pas handle SIGFPE nostop pass (let program see signal, print & continue)

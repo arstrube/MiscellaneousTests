@@ -29,6 +29,7 @@
 #include "CppUTest/IEEE754ExceptionFlagsPlugin.h"
 
 #include <cfenv>
+#include <signal.h>
 
 #define IEEE754_CHECK_CLEAR(flag) { \
     if(!hasFailed_) { \
@@ -43,7 +44,11 @@
 
 void IEEE754ExceptionFlagsPlugin::preTestAction(UtestShell&, TestResult&)
 {
+    struct sigaction sa;
+    sa.sa_handler = SIG_IGN;
     std::feclearexcept(FE_ALL_EXCEPT);
+    sigaction(SIGFPE, &sa, 0);
+    feenableexcept (FE_ALL_EXCEPT); // FE_DIVBYZERO|FE_OVERFLOW|FE_UNDERFLOW|FE_INVALID);
 }
 
 void IEEE754ExceptionFlagsPlugin::postTestAction(UtestShell& test, TestResult& result)

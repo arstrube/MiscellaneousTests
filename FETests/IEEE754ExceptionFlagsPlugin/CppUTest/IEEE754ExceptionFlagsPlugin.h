@@ -29,6 +29,7 @@
 #define D_IEEE754ExceptionFlagsPlugin_h
 
 #include "CppUTest/TestPlugin.h"
+#include <signal.h>
 
 struct IEEE754ExceptionFlagsPlugin: public TestPlugin
 {
