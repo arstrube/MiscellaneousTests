@@ -48,8 +48,9 @@ git cherry-pick ref             # cherry-pick AND commit
 git cherry-pick -e              # cherry-pick and edit commit message
 git cherry-pick --abort         # abort upon conflicts
 git cherry-pick --continue      # continue after resolving conflicts
-git branch -d mybranch               # delete merged branch
-git branch -D mybranch               # delete any branch
+git branch -r                   # list remote branches
+git branch -d mybranch          # delete merged branch
+git branch -D mybranch          # delete any branch
 git branch -Dr myrepo/mybranch       # delete local remote reference
 git push myrepo :refs/heads/mybranch # delete arstrube/mybranch also
 git remote prune my_repo                     # remove stale references
