@@ -5,6 +5,7 @@ CPPUTEST_HOME = /cygdrive/c/data/00_Dev/05_CppUTest/cpputest
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
 CFLAGS = -Wextra -Wall -Werror -g3 -O0 \
+         -std=c++11 \
          -include"CppUTest/MemoryLeakDetectorNewMacros.h" \
          
 TARGETS := MockMultiFailTests MockReturningStructTests AutoPtrTests CountedTestTests \
