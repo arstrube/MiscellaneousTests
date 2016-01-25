@@ -23,7 +23,7 @@
 		<Compiler>
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add option="-Werror" />
+			<Add option="-Werror -Wno-overflow" />
 			<Add directory="E:\CppUTest\include" />
 		</Compiler>
 		<Linker>
