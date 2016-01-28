@@ -21,6 +21,7 @@ git add -u                          # update tracked files only
 git add -A :/                       # stage all changed and new (entire tree)
 git add --force -- path/file1 file2 # stage specific files --force maybe unneeded
 git add --all -- path/removed_file  # state removals also (synon. -A)
+git reset                           # unsage all changes
 git reset HEAD                      # unstage all changes
 git reset HEAD -- path/file1 file2  # unstage specific files
 
@@ -81,8 +82,9 @@ git checkout --theirs -- dir/file    # resolve conflict using theirs
 git merge --no-ff my_branch          # merge branch creating merge commit
 git checkout othr_branch -- dir/file # pick one file from another branch
 git merge --ff-only origin/master    # better than checkout -Bmaster
-git merge --squash                   # a whole load of commits into one
-git rebase newbase                   # rebase current branch onto newbase
+git merge --squash                      # a whole load of commits into one
+git merge --no-commit --squash mybranch # same but do not commit
+git rebase newbase                      # rebase current branch onto newbase
 git rebase newbase otherbranch       # checks out otherbranch first
 git rebase --continue                # after resolving merge conflicts
 
