@@ -82,9 +82,8 @@ git checkout --theirs -- dir/file    # resolve conflict using theirs
 git merge --no-ff my_branch          # merge branch creating merge commit
 git checkout othr_branch -- dir/file # pick one file from another branch
 git merge --ff-only origin/master    # better than checkout -Bmaster
-git merge --squash                      # a whole load of commits into one
-git merge --no-commit --squash mybranch # same but do not commit
-git rebase newbase                      # rebase current branch onto newbase
+git merge --squash mybranch          # a whole load of commits into one
+git rebase newbase                   # rebase current branch onto newbase
 git rebase newbase otherbranch       # checks out otherbranch first
 git rebase --continue                # after resolving merge conflicts
 
