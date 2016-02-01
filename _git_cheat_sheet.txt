@@ -6,7 +6,6 @@ PATH COLLECTION - WORK
 /cygdrive/y/ModuleTest/10_CppUTest/StarterProject/50_IDE/Strtp_Main
 
 GENERAL
-git status           # show changed and staged files
 git gc --pr=now --ag # garbage collect aggressively, with pruning             
 
 PUSH
@@ -50,10 +49,11 @@ git cherry-pick -e              # cherry-pick and edit commit message
 git cherry-pick --abort         # abort upon conflicts
 git cherry-pick --continue      # continue after resolving conflicts
 git branch -r                   # list remote branches
-git branch -d mybranch          # delete merged branch
-git branch -D mybranch          # delete any branch
-git branch -Dr myrepo/mybranch       # delete local remote reference
-git push myrepo :refs/heads/mybranch # delete arstrube/mybranch also
+git branch -d mybranch            # delete merged branch
+git branch -D mybranch            # delete any branch
+git branch -Dr myrepo/mybranch    # delete local remote reference
+git push myrepo :mybranch         # delete both remote and tracking branch
+git push arstrube --dele mybranch # delete both remote & tracking branch
 git remote prune my_repo                     # remove stale references
 git branch -r | awk '/myrepo/{print $1$2}'   # list remote refs for myrepo
 git branch -r | awk '/myrepo/{print $1$2}' \ # delete'em all
@@ -82,12 +82,14 @@ git checkout --theirs -- dir/file    # resolve conflict using theirs
 git merge --no-ff my_branch          # merge branch creating merge commit
 git checkout othr_branch -- dir/file # pick one file from another branch
 git merge --ff-only origin/master    # better than checkout -Bmaster
-git merge --squash mybranch          # a whole load of commits into one
+git merge --squash origin/master     # a whole load of commits into one
 git rebase newbase                   # rebase current branch onto newbase
 git rebase newbase otherbranch       # checks out otherbranch first
 git rebase --continue                # after resolving merge conflicts
 
 STATUS AND LOG
+git status                          # show changed and staged files
+git status -uno                     # status without untracked files
 git show                            # latest commit with diff
 git show -q                         # latest commit without diff
 git log --branches=* --oneline -5
