@@ -20,7 +20,7 @@ bool problematic_function(void)
     reg = false;
     bool retVal = true;
     unsigned int timeout = 0;
-    
+
     while (false == reg) {
         timeout++;
         if (MAX_TIMEOUT <= timeout){
