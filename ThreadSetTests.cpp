@@ -10,8 +10,8 @@ pthread_t tid;
 
 void* setReg (void*)
 {
-    do {
-    } while(true==reg);
+    while(true==reg)
+        ;
     reg = true;
     return 0;
 }
@@ -36,6 +36,9 @@ TEST_GROUP(ThreadSetTest)
 {
     void setup()
     {
+        reg=true;
+        CHECK(0==pthread_create(&tid, NULL, setReg, NULL));
+        usleep(100000);
     }
 
     void teardown()
@@ -45,9 +48,6 @@ TEST_GROUP(ThreadSetTest)
 
 TEST(ThreadSetTest, myTest)
 {
-    reg=true;
-    CHECK(0==pthread_create(&tid, NULL, setReg, NULL));
-    usleep(100000);
     CHECK(problematic_function());
 }
 
