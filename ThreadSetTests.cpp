@@ -3,14 +3,15 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define MAX_TIMEOUT 1000000
+#define MAX_TIMEOUT 100
 
 static volatile bool reg;
 pthread_t tid;
 
 void* setReg (void*)
 {
-    usleep(100);
+    do {
+    } while(true==reg);
     reg = true;
     return 0;
 }
@@ -19,7 +20,7 @@ bool problematic_function(void)
 {
     reg = false;
     bool retVal = true;
-    unsigned int timeout = 0;
+    int timeout = 0;
 
     while (false == reg) {
         timeout++;
@@ -44,7 +45,9 @@ TEST_GROUP(ThreadSetTest)
 
 TEST(ThreadSetTest, myTest)
 {
+    reg=true;
     CHECK(0==pthread_create(&tid, NULL, setReg, NULL));
+    usleep(100000);
     CHECK(problematic_function());
 }
 
