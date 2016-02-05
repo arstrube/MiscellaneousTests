@@ -3,13 +3,26 @@
 #include "CppUTestExt/MockSupport.h"
 #include <memory>
 
+#if 0
 class Example {
 public:
     void func(int value) {
         mock("Example").actualCall("func").withParameter("value", value);
     }
 };
-
+#else
+class Example
+{
+private:
+   // int m_value;
+public:
+    void func(int )
+    {
+        // m_value = value;
+    }
+    // ...
+};
+#endif
 TEST_GROUP(MockTest)
 {
     void teardown() _override
@@ -22,8 +35,9 @@ TEST_GROUP(MockTest)
 TEST(MockTest, withNullPtr)
 {
     mock("Example").expectOneCall("func").withParameter("value", 17);
-    std::unique_ptr<Example> ptr(new Example);
-    //CHECK_TRUE(ptr == nullptr);
+    std::unique_ptr<Example> ptr = nullptr;
+    //std::unique_ptr<Example> ptr(new Example);
+    CHECK_TRUE(ptr == 0);
     ptr->func(17); /* <--- Doesn't fail */
 }
 
