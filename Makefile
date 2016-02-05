@@ -1,6 +1,6 @@
-#CPPUTEST_HOME = /usr/local
+CPPUTEST_HOME = /usr/local
 #CPPUTEST_HOME = /e/cpputest
-CPPUTEST_HOME = /cygdrive/c/data/00_Dev/05_CppUTest/cpputest
+#CPPUTEST_HOME = /cygdrive/c/data/00_Dev/05_CppUTest/cpputest
 
 LIBS = -lCppUTest -lCppUTestExt
 CC = g++
