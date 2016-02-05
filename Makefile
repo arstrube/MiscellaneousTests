@@ -8,13 +8,15 @@ CFLAGS = -Wextra -Wall -Werror -g3 -O0 \
          -std=c++11 \
          -include"CppUTest/MemoryLeakDetectorNewMacros.h" \
          
-TARGETS := MockMultiFailTests MockReturningStructTests AutoPtrTests CountedTestTests \
-           FabsTests OutParamTests OneTimeThrowAwayTests BugTests
+TARGETS := BugTests MockDoesntFailTests MockMultiFailTests MockReturningStructTests \
+           AutoPtrTests CountedTestTests FabsTests OutParamTests \
+           OneTimeThrowAwayTests
 
 .PHONY: all clean $(TARGETS)
 
 all: $(TARGETS)
 
+MockDoesntFailTests: MockDoesntFailTests.exe
 MockMultiFailTests: MockMultiFailTests.exe
 MockReturningStructTests: MockReturningStructTests.exe
 AutoPtrTests: AutoPtrTests.exe
