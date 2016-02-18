@@ -126,3 +126,6 @@ vimtutor # opens vim tutor
 
 LESS
 Quit less by pressing 'q'
+
+GCC
+gcc -dM -E - <<<''      # display predefined macros
