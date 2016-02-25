@@ -9,7 +9,11 @@ GENERAL
 git gc --pr=now --ag # garbage collect aggressively, with pruning             
 
 PUSH
-git push -uf my_remote my_branch  # track remote, force (rebase)
+git push -uf my_remote my_branch              # track remote, force (rebase)
+git push my_remote local_branch:remote_branch # push to branch of different name
+git push my_remote --tags                     # push all tags to myrepo (use with care!)
+git push my_remote mytag                      # push only mytag to myrepo
+git push my_remote branch --follow-tags       # preferred; tags must be annotated
 
 PULL AND FETCH
 git fetch my_remote -t # fetch all tags
@@ -60,9 +64,6 @@ git branch -r | awk '/myrepo/{print $1$2}' \ # delete'em all
     | xargs -I {} git branch -Dr {}
 git tag [-l]                         # list all tags
 git tag mytag                        # apply tag mytag to current HEAD
-git push myrepo --tags               # push all tags to myrepo (use with care!)
-git push myrepo mytag                # push only mytag to myrepo
-git push myrepo branch --follow-tags # preferred; tags must be annotated
 
 REMOTES
 git remote                          # list remote repositories
@@ -91,7 +92,8 @@ STATUS AND LOG
 git status                          # show changed and staged files
 git status -uno                     # status without untracked files
 git show                            # latest commit with diff
-git show -q                         # latest commit without diff
+git show -q                                 # latest commit without diff
+git log --oneline --graph --decorate v3.7.. # show commits since tag "3.7"
 git log --branches=* --oneline -5
 git log --branches=* --oneline --graph -5
 git log --branches=* --oneline --graph --decorate -20 # most useful
@@ -111,6 +113,7 @@ alias glog="git log --graph --branches=* --pretty='%C(auto)%h%d %s \
 %Cgreen(%<(6,trunc)%cr)%Creset %C(yellow)%<(6,trunc)%aN%Creset'"
 alias glog="git log --graph --branches=* --pretty='%C(auto)%h %ad %Cgr\
 een%<(11,trunc)%aN%Creset%C(auto)%d %<(35,trunc)%s ' --date=short"
+alias cls='echo -e "\033c"' # really clears the display buffer
 
 USEFUL LINKS
 
