@@ -11,6 +11,7 @@ git gc --pr=now --ag # garbage collect aggressively, with pruning
 PUSH
 git push -uf my_remote my_branch              # track remote, force (rebase)
 git push my_remote local_branch:remote_branch # push to branch of different name
+git config push.default upstream              # useful with above!
 git push my_remote --tags                     # push all tags to myrepo (use with care!)
 git push my_remote mytag                      # push only mytag to myrepo
 git push my_remote branch --follow-tags       # preferred; tags must be annotated
