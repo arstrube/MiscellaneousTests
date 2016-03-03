@@ -1,32 +1,22 @@
-// File OneTimeThrowAwayTests.cpp
-
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 
-// Assertions (simplified)
-#define ASSERT(test_) \
-    ((test_) ? (void)0 : onAssert(__FILE__, (int)__LINE__))
-
-// Test double for onAssert()
-void onAssert(char const * const file, int line) {
-    mock().actualCall("onAssert")
-         .withParameter("file", file)
-         .withParameter("line", (int) line);
+// Test double for assert()
+void assert(bool condition) {
+    if(!condition) mock().actualCall("assert");
 }
 
 // Production code
 void my_thing(void * other_thing) {
-    ASSERT(other_thing);
+    assert(other_thing);
     // Do useful stuff with non null other_thing
 }
 
 TEST_GROUP(useful) {};
 
 TEST(useful, null_pointer_should_trigger_assert) {
-    mock().expectOneCall("onAssert")
-          .withParameter("file", "OneTimeThrowAwayTests.cpp")
-          .withParameter("line", 21);
+    mock().expectOneCall("assert");
     my_thing(0);
     mock().checkExpectations();
     mock().clear();
