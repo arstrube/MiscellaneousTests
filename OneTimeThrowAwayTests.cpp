@@ -1,44 +1,35 @@
+// File OneTimeThrowAwayTests.cpp
+
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
-#include <memory>
 
-#if 0
-class Example {
-public:
-    void func(int value) {
-        mock("Example").actualCall("func").withParameter("value", value);
-    }
-};
-#else
-class Example
-{
-private:
-   // int m_value;
-public:
-    void func(int )
-    {
-        // m_value = value;
-    }
-    // ...
-};
-#endif
-TEST_GROUP(MockTest)
-{
-    void teardown() _override
-    {
-        mock().checkExpectations();
-        mock().clear();
-    }
-};
+// Assertions (simplified)
+#define ASSERT(test_) \
+    ((test_) ? (void)0 : onAssert(__FILE__, (int)__LINE__))
 
-TEST(MockTest, withNullPtr)
-{
-    mock("Example").expectOneCall("func").withParameter("value", 17);
-    std::unique_ptr<Example> ptr = nullptr;
-    //std::unique_ptr<Example> ptr(new Example);
-    CHECK_TRUE(ptr == 0);
-    ptr->func(17); /* <--- Doesn't fail */
+// Test double for onAssert()
+void onAssert(char const * const file, int line) {
+    mock().actualCall("onAssert")
+         .withParameter("file", file)
+         .withParameter("line", (int) line);
+}
+
+// Production code
+void my_thing(void * other_thing) {
+    ASSERT(other_thing);
+    // Do useful stuff with non null other_thing
+}
+
+TEST_GROUP(useful) {};
+
+TEST(useful, null_pointer_should_trigger_assert) {
+    mock().expectOneCall("onAssert")
+          .withParameter("file", "OneTimeThrowAwayTests.cpp")
+          .withParameter("line", 21);
+    my_thing(0);
+    mock().checkExpectations();
+    mock().clear();
 }
 
 int main(int argc, char** argv) {
