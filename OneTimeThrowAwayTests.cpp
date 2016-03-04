@@ -8,9 +8,9 @@ void assert(bool condition) {
 }
 
 // Production code
-void my_thing(void * other_thing) {
+void my_thing(int * other_thing) {
     assert(other_thing);
-    // Do useful stuff with non null other_thing
+    *other_thing = 5; /* crash */
 }
 
 TEST_GROUP(useful) {};
