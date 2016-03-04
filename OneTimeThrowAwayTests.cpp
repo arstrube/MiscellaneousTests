@@ -1,27 +1,25 @@
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
-#include "CppUTest/TestTestingFixture.h"
-#include "CppUTest/TestRegistry.h"
-#include <assert.h>
+#include "CppUTestExt/MockSupport.h"
+
+// Test double for assert()
+void assert(bool condition) {
+    if(!condition) mock().actualCall("assert");
+}
 
 // Production code
-void my_thing(int * other_thing) {
+void my_thing(void * other_thing) {
     assert(other_thing);
-    *other_thing = 5; /* crash */
+    // Do useful stuff with non null other_thing
 }
 
 TEST_GROUP(useful) {};
 
-static void assert_test_function_(void) {
-    my_thing(0);
-}
-
 TEST(useful, null_pointer_should_trigger_assert) {
-    TestTestingFixture fixture;
-    fixture.registry_->setRunTestsInSeperateProcess();
-    fixture.setTestFunction((void(*)())assert_test_function_);
-    fixture.runAllTests();
-    fixture.assertPrintContains("Failed in separate process - killed by signal 6");
+    mock().expectOneCall("assert");
+    my_thing(0);
+    mock().checkExpectations();
+    mock().clear();
 }
 
 int main(int argc, char** argv) {
