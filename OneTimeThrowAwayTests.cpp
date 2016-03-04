@@ -4,7 +4,10 @@
 
 // Test double for assert()
 void assert(bool condition) {
-    if(!condition) mock().actualCall("assert");
+    if(!condition) {
+        mock().actualCall("assert");
+        throw "aborting";
+    }
 }
 
 // Production code
@@ -17,7 +20,10 @@ TEST_GROUP(useful) {};
 
 TEST(useful, null_pointer_should_trigger_assert) {
     mock().expectOneCall("assert");
-    my_thing(0);
+    try {
+        my_thing(0);
+    }
+    catch (char const* e) {};
     mock().checkExpectations();
     mock().clear();
 }
