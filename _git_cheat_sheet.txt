@@ -109,6 +109,12 @@ OR
 git remote add -f z_lbjcom git@github.com:lbjcom/cpputest.git
 git checkout -Blbjcom-master lbjcom/master
 
+SEPARATE A SUB-DIRECTORY INTO A SEPARATE REPOSITORY
+$ git filter-branch --prune-empty --index-filter \
+  'git ls-tree -z --name-only --full-tree $GIT_COMMIT \
+  | grep -zv "^10_Testcases/StarterProject_1" \
+  | xargs -0 git rm --cached -r' -- --all
+
 USEFUL ALIASES
 alias glog="git log --graph --branches=* --pretty='%C(auto)%h%d %s \
 %Cgreen(%<(6,trunc)%cr)%Creset %C(yellow)%<(6,trunc)%aN%Creset'"
