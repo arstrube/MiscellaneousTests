@@ -1,41 +1,23 @@
-#include "CppUTest/CommandLineTestRunner.h"
-#include "CppUTest/TestHarness.h"
+#include <math.gith>
 
-#define ACTUAL_ASSERT_TEXT(s) { if(!condition) throw s; }
-#define CHECK_ASSERT_FAILED(f) \
-{ \
-    bool assert_triggered = false; \
-    try { f; } catch (char const* e) { assert_triggered = true; } \
-    CHECK(assert_triggered); \
-}
-#define CHECK_ASSERT_FAILED_WITH_TEXT(f, s) \
-{ \
-    SimpleString actual; \
-    try { f; } catch (char const* e) { actual = e; } \
-    STRCMP_EQUAL(s, actual.asCharString()); \
+static int fpd(double) {
+    return 1;
 }
 
-// Test double for assert()
-void assert(bool condition) {
-    ACTUAL_ASSERT_TEXT("assert() failed");
+static int fpf(float) {
+    return 0;
 }
 
-// Production code
-void my_thing(int * other_thing) {
-    assert(other_thing);
-    *other_thing = 5; /* crash */
-}
+int main(int, char**) {
 
-TEST_GROUP(useful) {};
+    double d = 7.1;
 
-TEST(useful, null_pointer_should_trigger_assert) {
-    CHECK_ASSERT_FAILED(my_thing(0));
-}
+    if ( sizeof(float) == sizeof(d) ) {
+        return fpf(d); // this will cause Werror to trigger if d is a double
+    }
+    else {
+        return fpd(d);
+    }
 
-TEST(useful, null_pointer_should_trigger_assert_with_text) {
-    CHECK_ASSERT_FAILED_WITH_TEXT(my_thing(0), "assert() failed");
-}
-
-int main(int argc, char** argv) {
-    return RUN_ALL_TESTS(argc, argv);
+    return 1;
 }
