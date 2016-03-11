@@ -139,3 +139,29 @@ Quit less by pressing 'q'
 
 GCC
 gcc -dM -E - <<<''      # display predefined macros
+
+MOVE SUBDIRECTORY INTO SEPARATE REPOSITORY
+cd ..                                 # one level above top level of repository
+git clone complete/ part/             # make a clone
+for i in branch1 br2 br3; \           # preserve relevant branches
+  do git branch -t $i origin/$i; done
+git remote rm origin                                    # remove link to origin
+git tag -l | xargs git tag -d                           # remove tags
+git filter-branch --prune-empty --subdirectory-filter \ # remove all other from history
+  path_to_part/part last
+git reset --hard
+git for-each-ref --format="%(refname)" refs/original/ | xargs -n 1 git update-ref -d
+git reflog expire --expire=now --all
+git gc --aggressive --prune=now
+
+COMBINE TWO SUBDIRECTORIES INTO ONE REPOSITORY
+mkdir Combined
+cd Combined
+git init
+git remote add -f part1 ../Part_1
+git remote add -f part2 ../Part_2
+
+
+MISCELLANEOUS
+find -name \* | grep -v "StarterProject_1"
+ 
