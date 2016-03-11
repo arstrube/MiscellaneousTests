@@ -6,6 +6,7 @@ LIBS = -lCppUTest -lCppUTestExt
 CC = g++
 CFLAGS = -Wextra -Wall -Werror -g3 -O0 \
          -std=c++11 \
+         --coverage \
          -include"CppUTest/MemoryLeakDetectorNewMacros.h" \
          
 TARGETS := BugTests MockDoesntFailTests MockMultiFailTests MockReturningStructTests \
