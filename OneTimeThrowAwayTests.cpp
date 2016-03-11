@@ -1,41 +1,19 @@
-#include "CppUTest/CommandLineTestRunner.h"
-#include "CppUTest/TestHarness.h"
+#include <math.h>
 
-#define ACTUAL_ASSERT_TEXT(s) { if(!condition) throw s; }
-#define CHECK_ASSERT_FAILED(f) \
-{ \
-    bool assert_triggered = false; \
-    try { f; } catch (char const* e) { assert_triggered = true; } \
-    CHECK(assert_triggered); \
-}
-#define CHECK_ASSERT_FAILED_WITH_TEXT(f, s) \
-{ \
-    SimpleString actual; \
-    try { f; } catch (char const* e) { actual = e; } \
-    STRCMP_EQUAL(s, actual.asCharString()); \
-}
+int main(int, char**) {
+    int result;
+    double d = 1.1;
+    float f = 1.1f;
+    
+#define myclassify(__x) \
+	((sizeof(__x) == sizeof(float))  ? \
+    __fpclassifyf(__x) : \
+	__fpclassifyd(__x))
 
-// Test double for assert()
-void assert(bool condition) {
-    ACTUAL_ASSERT_TEXT("assert() failed");
-}
+    #undef isnan
+#define isnan(y) (myclassify(y) == 1)
 
-// Production code
-void my_thing(int * other_thing) {
-    assert(other_thing);
-    *other_thing = 5; /* crash */
-}
-
-TEST_GROUP(useful) {};
-
-TEST(useful, null_pointer_should_trigger_assert) {
-    CHECK_ASSERT_FAILED(my_thing(0));
-}
-
-TEST(useful, null_pointer_should_trigger_assert_with_text) {
-    CHECK_ASSERT_FAILED_WITH_TEXT(my_thing(0), "assert() failed");
-}
-
-int main(int argc, char** argv) {
-    return RUN_ALL_TESTS(argc, argv);
+    result = isnan(d);
+    result = isnan(f);
+    return result;
 }
