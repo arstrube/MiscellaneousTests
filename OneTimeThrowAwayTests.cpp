@@ -1,19 +1,23 @@
-#include <math.h>
+#include <math.gith>
+
+static int fpd(double) {
+    return 1;
+}
+
+static int fpf(float) {
+    return 0;
+}
 
 int main(int, char**) {
-    int result;
-    double d = 1.1;
-    float f = 1.1f;
-    
-#define myclassify(__x) \
-	((sizeof(__x) == sizeof(float))  ? \
-    __fpclassifyf((double)__x) : \
-	__fpclassifyd(__x))
 
-    #undef isnan
-#define isnan(y) (myclassify(y) == 1)
+    double d = 7.1;
 
-    result = isnan(d);
-    result = isnan(f);
-    return result;
+    if ( sizeof(float) == sizeof(d) ) {
+        return fpf(d); // this will cause Werror to trigger if d is a double
+    }
+    else {
+        return fpd(d);
+    }
+
+    return 1;
 }
