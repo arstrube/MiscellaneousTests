@@ -7,7 +7,7 @@ int main(int, char**) {
     
 #define myclassify(__x) \
 	((sizeof(__x) == sizeof(float))  ? \
-    __fpclassifyf(__x) : \
+    __fpclassifyf((double)__x) : \
 	__fpclassifyd(__x))
 
     #undef isnan
