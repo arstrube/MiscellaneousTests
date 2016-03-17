@@ -1,23 +1,48 @@
-#include <math.gith>
+#include "CppUTest/CommandLineTestRunner.h"
+#include "CppUTest/TestHarness.h"
+#include "CppUTestExt/MockSupport.h"
 
-static int fpd(double) {
-    return 1;
+// In a header file:
+typedef struct
+{
+    uint8_t *data;
+    uint16_t data_length;
+} network_dto;
+
+typedef void (*net_rx_callback)(network_dto dto);
+
+void network_setup(net_rx_callback cb);
+
+// In my mock file:
+void network_setup(net_rx_callback cb)
+{
+    mock("network").setData("cb", (void*)cb);
+    mock("network").actualCall("network_setup");
 }
 
-static int fpf(float) {
-    return 0;
+// In my test:
+net_rx_callback callback_pointer;
+
+void test_callback(network_dto)
+{
+     // whatever
 }
 
-int main(int, char**) {
+TEST_GROUP(network) {};
 
-    double d = 7.1;
+TEST(network, callback_test)
+{
+    mock("network")
+         .expectOneCall("network_setup")
+         .ignoreOtherParameters();
 
-    if ( sizeof(float) == sizeof(d) ) {
-        return fpf(d); // this will cause Werror to trigger if d is a double
-    }
-    else {
-        return fpd(d);
-    }
+    network_setup(test_callback);
 
-    return 1;
+    callback_pointer = (net_rx_callback)(mock("network").getData("cbx").getPointerValue());
+
+    mock().clear();
+}
+
+int main(int argc, char** argv) {
+    return RUN_ALL_TESTS(argc, argv);
 }
