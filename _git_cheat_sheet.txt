@@ -74,7 +74,8 @@ git remote remove repo                                             # delete remo
 git remote add z_jkohvakk git@ssh.github.com:jkohvakk/cpputest.git # add new repo
 
 DIFF, MERGE, REBASE, AND RESOLVING CONFLICTS
-git diff              # diff changes for all working files
+git diff --name-only master 69a9057 # diff only which files changed
+git diff                            # diff changes for all working files
 git diff -- path/file # diff working file changes for file
                       # (resolve conflict in your favorite IDE),
 git reset             # then unstage toremove conflicted state
