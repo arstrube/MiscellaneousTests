@@ -6,7 +6,7 @@ PATH COLLECTION - WORK
 /cygdrive/y/ModuleTest/10_CppUTest/StarterProject/50_IDE/Strtp_Main
 
 GENERAL
-git gc --pr=now --ag # garbage collect aggressively, with pruning             
+git gc --pr=now --ag # garbage collect aggressively, with pruning
 
 PUSH
 git push -uf my_remote my_branch              # track remote, force (rebase)
@@ -139,3 +139,8 @@ Quit less by pressing 'q'
 
 GCC
 gcc -dM -E - <<<''      # display predefined macros
+
+OTHER
+title='My first title'         # Give bash window a title
+echo -n -e "\033]0;$title\007" # Perhaps make into a bash script at some point
+
