@@ -1,10 +1,15 @@
 #include "CppUTest/TestHarness.h"
-#include "CppUTestExt/IEEE754ExceptionsPlugin.h"
+#include "CppUTest/CommandLineTestRunner.h"
 
-static volatile float f = 1.0;
-static volatile IEEE754ExceptionsPlugin plugin; // link it
+#define USE_LONGLONG
 
-int main(int, char**) {
-    f /= 0.0f;
-    return 0;
+TEST_GROUP(longlong) {
+    long long value;
+};
+
+TEST(longlong, myTest) {
+    value = 0xFFFFFFFFFFFFFFFF;
+    LONGLONGS_EQUAL(0xFFFFFFFFFFFFFFFE, value); // expecting failure
 }
+
+CPPUTEST_DEFAULT_MAIN
